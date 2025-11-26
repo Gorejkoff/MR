@@ -279,7 +279,7 @@ function hideActiveSections_L() {
    const section = DOC.querySelector('.section.active');
    if (!section) return;
    section.classList.add('offset-left');
-   section.classList.remove('act ive');
+   section.classList.remove('active');
 }
 // прячет активную секцию навправо
 function hideActiveSections_R() {

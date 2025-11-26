@@ -2217,6 +2217,10 @@ body {
   letter-spacing: -0.02em;
 }
 
+.cookie-modal__text p:not(:last-child) {
+  margin-bottom: 1em;
+}
+
 @media (min-width: 768px) {
   body {
     --padding-container: 10px;

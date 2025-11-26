@@ -45,4 +45,12 @@
       line-height: 140%;
       letter-spacing: -0.02em;
    }
+
+   &__text {
+      p {
+         &:not(:last-child) {
+            margin-bottom: 1em;
+         }
+      }
+   }
 }

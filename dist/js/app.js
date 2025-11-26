@@ -104,8 +104,6 @@ let endProgressServicesM = false;
 
 
 
-
-
 window.addEventListener('wheel', function (event) {
    if (active_section == 'about_m' && startProgressAboutM && event.deltaY < 0) {
       prevMebel()
@@ -281,7 +279,7 @@ function hideActiveSections_L() {
    const section = DOC.querySelector('.section.active');
    if (!section) return;
    section.classList.add('offset-left');
-   section.classList.remove('act ive');
+   section.classList.remove('active');
 }
 // прячет активную секцию навправо
 function hideActiveSections_R() {
