@@ -2160,6 +2160,7 @@ body {
       -ms-flex-direction: column;
           flex-direction: column;
   background-color: #ffffff;
+  display: none;
 }
 
 .cookie-modal__header {
