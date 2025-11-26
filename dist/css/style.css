@@ -664,16 +664,16 @@ body {
   background: #a9abb5;
   -webkit-mask-position: left;
           mask-position: left;
-  -webkit-mask-image: url("../../img/png/mask-r.png");
-          mask-image: url("../../img/png/mask-r.png");
+  -webkit-mask-image: url("../img/png/mask-r.png");
+          mask-image: url("../img/png/mask-r.png");
 }
 
 .mebel--mod .first__mask {
   background: linear-gradient(45deg, #a9abb5 10%, #151519 50%);
   -webkit-mask-position: right;
           mask-position: right;
-  -webkit-mask-image: url("../../img/png/mask-m.png");
-          mask-image: url("../../img/png/mask-m.png");
+  -webkit-mask-image: url("../img/png/mask-m.png");
+          mask-image: url("../img/png/mask-m.png");
 }
 
 .first__content {
@@ -2160,7 +2160,6 @@ body {
       -ms-flex-direction: column;
           flex-direction: column;
   background-color: #ffffff;
-  display: none;
 }
 
 .cookie-modal__header {
@@ -2217,8 +2216,24 @@ body {
   letter-spacing: -0.02em;
 }
 
+.cookie-modal__scroll-inner {
+  padding-bottom: 40px;
+}
+
+.cookie-modal__text {
+  margin-bottom: 40px;
+}
+
 .cookie-modal__text p:not(:last-child) {
   margin-bottom: 1em;
+}
+
+.cookie-modal__inner-title {
+  margin-bottom: 20px;
+  font-weight: 600;
+  font-size: 30px;
+  line-height: 140%;
+  letter-spacing: -0.02em;
 }
 
 @media (min-width: 768px) {
