@@ -1,0 +1,13 @@
+:root {
+   --font-family: "SF-Pro-Display";
+   --font-family-benzin: "Benzin";
+   --color-black: #151519;
+   --color-gray: #A9ABB5;
+   --vh: 100vh;
+   --tr-time: 1.5s;
+
+   @supports (height: 100dvh) {
+      --vh: 100dvh;
+   }
+
+}

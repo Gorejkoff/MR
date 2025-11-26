@@ -1,0 +1,98 @@
+@use '../assets/variablesSCSS.scss' as *;
+
+.header {
+   position: fixed;
+   top: 0;
+   left: 0;
+   width: 100%;
+   z-index: 15;
+   pointer-events: none;
+
+   &__body {
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+   }
+
+   &__nav {
+      position: relative;
+      pointer-events: all;
+   }
+
+   &__button {
+      position: relative;
+      width: 192px;
+      height: 122px;
+      border-radius: 10px;
+      fill: var(--dark);
+      border: 3px solid rgba(169, 171, 181, 0.2);
+      backdrop-filter: blur(16px);
+      background-color: #151519;
+   }
+
+   &__line-1,
+   &__line-2 {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 43%;
+      height: 4px;
+      border-radius: 10px;
+      background-color: #ffffff;
+   }
+
+   &__line-1 {
+      transform: translate(-50%, calc(-50% + 10px));
+   }
+
+   &__line-2 {
+      transform: translate(-50%, calc(-50% - 10px));
+   }
+
+   &__nav-list {
+      padding: 50px;
+      position: absolute;
+      top: calc(100% + 10px);
+      backdrop-filter: blur(12px);
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 10px;
+      font-weight: 400;
+      font-size: 36px;
+      letter-spacing: -0.02em;
+      counter-reset: item;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+
+      .menu-open & {
+         opacity: 1;
+         pointer-events: all;
+      }
+
+      li {
+         list-style: none;
+      }
+
+      a,
+      button {
+         position: relative;
+         padding: 10px;
+         padding-left: 0.5em;
+
+         &::before {
+            content: '0' counter(item) '.';
+            counter-increment: item;
+            position: absolute;
+            top: 0;
+            left: -1em;
+            font-size: 0.36em;
+            letter-spacing: -0.02em;
+            color: #99a4ab;
+         }
+      }
+   }
+
+   &__logo {
+      pointer-events: all;
+   }
+}

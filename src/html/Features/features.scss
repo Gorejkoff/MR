@@ -1,0 +1,225 @@
+.features {
+   --padding: 20px;
+   position: fixed;
+   top: 0;
+   left: 0;
+   height: var(--vh);
+   width: 100%;
+   transition: transform var(--tr-time);
+   transform: translateX(0);
+   background-color: #a9abb5;
+
+
+   &__container {}
+
+   &__swiper {
+      position: relative;
+      z-index: 8;
+      padding-top: var(--padding);
+      padding-bottom: var(--padding);
+      height: var(--vh);
+   }
+
+   &__swiper-wrapper {}
+
+   &__swiper-slide {}
+
+   &__card {
+      position: relative;
+      display: flex;
+      height: 100%;
+   }
+
+   &__content {
+      flex: 0 0 50%;
+      display: flex;
+
+   }
+
+   &__content-limit {
+      position: absolute;
+      top: var(--padding);
+      left: 0;
+      // height: calc(var(--vh) / var(--slides-view) - var(--padding) * 2);
+      height: var(--vh);
+      max-width: 40%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 6.9vh;
+      opacity: 0;
+      color: #ffffff;
+      transition: opacity 0.3s;
+
+      &:last-child {
+         top: auto;
+         bottom: var(--padding);
+      }
+
+      &.active {
+         opacity: 1;
+      }
+   }
+
+   &__title {
+      font-size: 4.2vh;
+      line-height: 100%;
+      letter-spacing: -0.02em;
+      text-decoration-skip-ink: none;
+
+      span {
+         color: #151519;
+         text-decoration: underline;
+         text-decoration-color: #ffffff;
+      }
+   }
+
+   &__text {
+      font-size: 2.9vh;
+      line-height: 110%;
+      letter-spacing: -0.02em;
+   }
+
+   &__subtext {
+      font-size: 1.9vh;
+      line-height: 130%;
+      letter-spacing: -0.02em;
+      color: #5D606E;
+   }
+
+   &__image {
+      flex: 0 0 50%;
+   }
+
+   &__image-body {
+      margin-right: calc(10vw * -1 + var(--padding));
+      position: relative;
+      overflow: hidden;
+      height: 100%;
+      border-radius: 10px;
+
+      img {
+         position: absolute;
+         top: 50%;
+         left: 50%;
+         transform: translate(-50%, -50%);
+         width: 100%;
+         height: 100%;
+         object-fit: cover;
+      }
+   }
+
+   &__image-small {
+      position: absolute;
+      z-index: 2;
+      height: 29vh;
+      transition: transform 1s 0.3s;
+
+      &.animate-1 {
+         bottom: 50%;
+         left: 50%;
+         transform: translate(30%, 100%);
+
+         .swiper-slide-active & {
+            transform: translate(-50%, 10%);
+         }
+      }
+
+      &.animate-2 {
+         bottom: 10%;
+         left: 50%;
+         transform: translate(40%, 0%);
+
+         .swiper-slide-active & {
+            transform: translate(140%, -50%);
+         }
+      }
+
+      &.animate-3 {
+         bottom: 10%;
+         right: 0;
+         transform: translate(100%, 0);
+
+         .swiper-slide-active & {
+            transform: translate(0, -100%);
+         }
+      }
+
+      &.animate-4 {
+         bottom: 10%;
+         left: 50%;
+         transform: translate(-50%, 0%);
+
+         .swiper-slide-active & {
+            transform: translate(70%, -50%);
+         }
+      }
+   }
+
+   &__pagination {
+      position: absolute;
+      z-index: 2;
+      top: 50%;
+      left: var(--padding);
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+
+      .swiper-pagination-bullet {
+         cursor: pointer;
+         width: 8px;
+         height: 15px;
+         background-color: #151519;
+         border-radius: 10px;
+         transition: height 0.3s, background-color 0.3s;
+
+         &.swiper-pagination-bullet-active {
+            background-color: #ffffff;
+            height: 63px;
+         }
+      }
+   }
+
+   &__button {
+      position: absolute;
+      left: 25%;
+      z-index: 2;
+      font-family: var(--font-family-benzin);
+      font-size: 55px;
+      line-height: 100%;
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+      filter: blur(5px);
+      color: #151519;
+      transition: filter 0.3s, color 0.3s;
+
+      &.swiper-button-disabled {
+         display: none;
+      }
+
+      span {
+         display: none;
+      }
+
+      span.active {
+         display: block;
+      }
+
+      &.prev {
+         top: 0;
+         transform: translate(-50%, -30%);
+      }
+
+      &.next {
+         bottom: 0;
+         transform: translate(-50%, 30%);
+      }
+
+      ._pc &:hover {
+         filter: blur(0px);
+         color: #ffffff;
+      }
+   }
+
+}

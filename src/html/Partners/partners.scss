@@ -1,0 +1,64 @@
+.partners {
+   position: fixed;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: var(--vh);
+   background-color: #a9abb5;
+   transition: transform var(--tr-time);
+
+   &__container {}
+
+   &__body {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: var(--vh);
+   }
+
+   &__text {
+      font-size: 8.3vh;
+      line-height: 100%;
+      letter-spacing: -0.02em;
+      text-align: center;
+      transform: translateZ(0);
+      color: #ffffff;
+
+      .color .letter {
+         --color: #151519;
+         text-decoration: underline;
+         text-underline-offset: 0.1em;
+      }
+
+      .letter {
+         --color: #ffffff;
+         will-change: color;
+         transform: translateZ(0);
+         color: #5D606E;
+         filter: blur(3px);
+      }
+   }
+
+   &__list {
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 40px;
+      max-width: 90%;
+   }
+
+   &__logo {
+      opacity: 0;
+      transition: opacity 0.5s calc(var(--tr-time) + var(--i) * 0.4s);
+
+      .active & {
+         opacity: 1;
+      }
+
+      img,
+      svg {
+         height: 3.95vh;
+      }
+   }
+}

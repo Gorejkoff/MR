@@ -1,0 +1,117 @@
+.services {
+   position: fixed;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: var(--vh);
+   transform: translateX(0);
+   transition: transform var(--tr-time);
+   background-color: #a9abb5;
+
+
+   &__name {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      max-height: 25vh;
+      max-width: 80vw;
+      transform: translate(-50%, -30%);
+   }
+
+   &__title {
+      height: 50vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 8.3vh;
+      line-height: 100%;
+      letter-spacing: -0.02em;
+      text-align: center;
+      color: #ffffff;
+      z-index: 2;
+      // backdrop-filter: blur(5px);
+      background: linear-gradient(#a9abb5 60%, transparent 90%);
+
+      &::after {
+         content: '';
+         position: absolute;
+         top: 0;
+         left: 0;
+         width: 100%;
+         height: 90%;
+         z-index: -1;
+         backdrop-filter: blur(5px);
+      }
+
+      span {
+         color: #151519;
+         text-decoration: underline;
+         text-decoration-color: #ffffff;
+      }
+   }
+
+   &__body {}
+
+
+   &__string {
+      padding-bottom: 10vh;
+      display: flex;
+      justify-content: space-between;
+   }
+
+   &__card {
+      --size: 38vh;
+      position: relative;
+      width: calc(var(--size) * 1.122);
+   }
+
+   &__card-number {
+      position: absolute;
+      top: 0;
+      right: 0;
+      z-index: 1;
+      transform: translate(50%, 50%);
+      font-family: var(--font-family-benzin);
+      font-weight: 500;
+      font-size: 4vh;
+      line-height: 100%;
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+      text-align: center;
+      background: linear-gradient(180deg, #fff 0%, #a9abb5 100%);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+   }
+
+   &__card-image {
+      position: relative;
+      padding-bottom: var(--size);
+      overflow: hidden;
+      border-radius: 10px;
+
+      img {
+         position: absolute;
+         top: 50%;
+         left: 50%;
+         transform: translate(-50%, -50%);
+         width: 100%;
+         height: 100%;
+         object-fit: cover;
+      }
+   }
+
+   &__card-text {
+      padding: 20px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-end;
+      color: #ffffff;
+   }
+}

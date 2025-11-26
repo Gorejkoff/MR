@@ -1,0 +1,174 @@
+.contacts {
+   position: fixed;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: var(--vh);
+   background-color: #a9abb5;
+   transition: transform var(--tr-time);
+   color: #ffffff;
+
+   &__container {
+      flex: 1 1 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+   }
+
+   &__body {
+      height: var(--vh);
+      display: flex;
+      flex-direction: column;
+   }
+
+   &__grid {
+      display: flex;
+      justify-content: space-between;
+      gap: 40px;
+      min-height: 42vh;
+      width: 100%;
+   }
+
+   &__contant {
+      display: flex;
+      gap: 20px;
+      flex-direction: column;
+      justify-content: space-between;
+   }
+
+   &__title {
+      font-family: var(--font-family-benzin);
+      font-weight: 500;
+      font-size: 5.5vh;
+      line-height: 100%;
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+   }
+
+   &__info {
+      font-size: 55px;
+      line-height: 100%;
+      letter-spacing: -0.02em;
+      text-transform: lowercase;
+   }
+
+   &__time {
+      font-weight: 300;
+      font-size: 22px;
+      line-height: 130%;
+      letter-spacing: -0.02em;
+      color: #151519;
+   }
+
+   &__links {
+      display: flex;
+      gap: 10px;
+
+      a {
+         padding: 15px 30px;
+         display: flex;
+         align-items: center;
+         gap: 20px;
+         font-weight: 500;
+         font-size: 26px;
+         line-height: 130%;
+         letter-spacing: -0.02em;
+         border-radius: 100px;
+         border: 2px solid rgba(21, 21, 25, 0.5);
+      }
+
+   }
+
+   &__address {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      font-size: 3.1vh;
+      line-height: 130%;
+      letter-spacing: -0.02em;
+   }
+
+   &__mail {
+      font-size: 30px;
+      line-height: 130%;
+      letter-spacing: -0.02em;
+      text-decoration: underline;
+      text-decoration-color: #151519;
+      font-style: normal;
+
+      span {
+         color: #151519;
+      }
+   }
+
+   &__footer {
+      padding: 20px;
+   }
+
+   &__footer-body {
+      position: relative;
+      min-height: 30vh;
+      display: flex;
+      flex-direction: column;
+      border-radius: 10px;
+      overflow: hidden;
+      background-image: url('../img/png/ripples.png'), linear-gradient(170deg, #3D3E42 0%, #000000 120%);
+   }
+
+   &__footer-text {
+      position: relative;
+      z-index: 2;
+      flex: 1 1 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 50px;
+      font-size: 5.5vh;
+      letter-spacing: -0.02em;
+   }
+
+   &__bottom {
+      position: relative;
+      z-index: 2;
+      padding: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 28px;
+      line-height: 130%;
+      letter-spacing: -0.02em;
+   }
+
+
+   &__footer-logo {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      z-index: 1;
+      transform: translateX(-50%);
+      height: 100%;
+      width: auto;
+   }
+
+
+
+
+
+
+   &__button-back {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+   }
+
+
+
+
+
+
+   &__map {
+      flex: 0 1 60%;
+      filter: grayscale(80%);
+   }
+}

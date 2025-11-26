@@ -1,0 +1,48 @@
+.cookie-modal {
+   padding: 3.4vh 3.2vw;
+   position: fixed;
+   top: 0;
+   left: 0;
+   width: 100vw;
+   height: var(--vh);
+   z-index: 100;
+   display: flex;
+   flex-direction: column;
+   background-color: #ffffff;
+   display: none;
+
+   &__header {
+      display: flex;
+      justify-content: space-between;
+   }
+
+   &__container {
+      flex: 1 1 auto;
+   }
+
+   &__body {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+   }
+
+   &__title {
+      padding-bottom: 4vh;
+      flex: 0 1 30vh;
+      display: flex;
+      align-items: flex-end;
+      font-weight: 600;
+      font-size: 70px;
+      line-height: 100%;
+      letter-spacing: -0.02em;
+   }
+
+   &__scroll {
+      flex: 1 1 auto;
+      overflow-y: auto;
+      border-top: 1px solid #5D606E;
+      font-size: 24px;
+      line-height: 140%;
+      letter-spacing: -0.02em;
+   }
+}

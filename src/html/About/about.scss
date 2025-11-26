@@ -1,0 +1,48 @@
+.about {
+   position: fixed;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: var(--vh);
+   transform: translateX(0);
+   transition: transform var(--tr-time);
+   background-color: #a9abb5;
+
+   &__body {
+      position: relative;
+      height: var(--vh);
+      width: 100vw;
+      min-width: 100vw;
+   }
+
+   &__image {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 50%;
+   }
+
+   &__text {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      height: 100%;
+      font-weight: 300;
+      font-size: 7vh;
+      line-height: 100%;
+      letter-spacing: -0.02em;
+      transform: translateZ(0);
+
+      p:not(:last-child) {
+         margin-bottom: 80px;
+      }
+
+      .letter {
+         will-change: color;
+         transform: translateZ(0);
+         color: #5D606E;
+         filter: blur(3px);
+      }
+   }
+}
