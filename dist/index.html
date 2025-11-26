@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width initial-scale=1.0">
 <meta name="description" content="MR">
 <!-- <link rel="preload" as="font" type="font/woff2" href="./fonts/Raleway-Regular.woff2" crossorigin=""> -->
-<link rel="stylesheet" href="css/style.css?_v=20251126194355">
+<link rel="stylesheet" href="css/style.css?_v=20251126211710">
 </head>
 
 
@@ -531,7 +531,7 @@
                <a class="contacts__mail" href="mailto:info@rm.ru">info<span>@</span>rm.ru</a>
             </address>
             <div class="contacts__map">
-               <script type="text/javascript" charset="utf-8" async src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3Ace0ff8fbe4f82953e97306eb1537ce98859b82a2ecc60fb91aa34c1bd2172254&amp;lang=ru_RU&amp;scroll=true&_v=20251126194355"></script>
+               <script type="text/javascript" charset="utf-8" async src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3Ace0ff8fbe4f82953e97306eb1537ce98859b82a2ecc60fb91aa34c1bd2172254&amp;lang=ru_RU&amp;scroll=true&_v=20251126211710"></script>
             </div>
          </div>
       </div>
@@ -638,7 +638,7 @@
 
    </div>
 </div>
-      <div class="cookie-modal">
+      <div id="cookie" class="cookie-modal js-modal-hidden js-modal-close">
    <div class="cookie-modal__header">
       <div>
          <svg width="72" height="58" viewBox="0 0 72 58" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -677,7 +677,8 @@
    <div class="cookie-modal__container">
       <div class="cookie-modal__body">
          <div class="cookie-modal__title">Политика использования<br> файлов cookies</div>
-         <div class="cookie-modal__scroll">
+
+         <div class="cookie-modal__scroll scroll">
             <div class="cookie-modal__scroll-inner">
                <div class="cookie-modal__text">
                   <p>Компания АО “RM” использует cookie-файлы, веб-маяки и иные схожие технологии на сайте rm.pro и его поддоменах (далее — сайт). Информация, которую мы собираем с помощью cookie-файлов, помогает нам анализировать то, как используется наш сайт, чтобы мы могли сделать его максимально удобным и функциональным.</p>
@@ -688,13 +689,21 @@
                   <p>Представляют собой небольшие фрагменты данных, которые сохраняются в браузере компьютера, мобильного телефона или другого устройства после посещения сайтов. Широко применяются для поддержания работы сайтов и сбора статистики.</p>
                </div>
                <div class="cookie-modal__inner-title">Какие типы cookie-файлов мы используем?</div>
-               <ul>
-                  <li></li>
+               <ul class="cookie-modal__inner-list">
+                  <li>Технические (обязательные) cookie-файлы
+                     <p>Использование этих cookie-файлов нельзя запретить при посещении нашего сайта, так как они обеспечивают корректную работу сайта. Сюда относятся элементы, которые собирают информацию о том, разрешено или запрещено использование других cookie-файлов с нашего сайта.</p>
+                  </li>
+                  <li>Функциональные Cookies
+                     <p>Позволяют отслеживать использование определённых функций, запомнить введённые пользователем на Сайте данные, для удобства работы пользователя.</p>
+                  </li>
+                  <li>Сервисные Cookies
+                     <p>Позволяют войти в защищенные разделы нашего сайта, добавлять товары в корзину или воспользоваться системой электронных платежей. Срок действия таких cookie-файлов истекает по окончании сеанса посещения. Мы также можем использовать cookie-файлы, которые действуют дольше и создаются для того, чтобы запомнить ваши предпочтения и варианты выбора во время посещения нашего сайта. Жизненный цикл таких элементов не превышает одного года.</p>
+                  </li>
                </ul>
-
-
-
             </div>
+         </div>
+         <div class="cookie-modal__button">
+            <button type="button" class="button-simple js-modal-close">закрыть</button>
          </div>
       </div>
    </div>
@@ -703,9 +712,9 @@
    <div class="cookie__body">
       <div class="cookie__text">
          Наш сайт использует технологию Cookie.
-         При работе с данным веб-сайтом Вы принимаете решение об использовании файлов-cookie. Ознакомиться с <button type="button">Политикой использования</button> файлов cookie
+         При работе с данным веб-сайтом Вы принимаете решение об использовании файлов-cookie. Ознакомиться с <button type="button" class="js-modal-open" data-modal_open="cookie">Политикой использования</button> файлов cookie
       </div>
-      <button class="cookie__agree" type="button">
+      <button class="cookie__agree button-simple " type="button">
          принять
       </button>
    </div>
@@ -715,12 +724,12 @@
    </div>
 
 
-   <script defer src='./js/ScrollSmoother.js?_v=20251126194355'></script>
-<script defer src='./js/ScrollToPlugin.min.js?_v=20251126194355'></script>
-<script defer src='./js/ScrollTrigger.min.js?_v=20251126194355'></script>
-<script defer src='./js/gsap.min.js?_v=20251126194355'></script>
-<script defer src='./js/swiper.js?_v=20251126194355'></script>
-<script defer src='./js/app.js?_v=20251126194355'></script>
+   <script defer src='./js/ScrollSmoother.js?_v=20251126211710'></script>
+<script defer src='./js/ScrollToPlugin.min.js?_v=20251126211710'></script>
+<script defer src='./js/ScrollTrigger.min.js?_v=20251126211710'></script>
+<script defer src='./js/gsap.min.js?_v=20251126211710'></script>
+<script defer src='./js/swiper.js?_v=20251126211710'></script>
+<script defer src='./js/app.js?_v=20251126211710'></script>
 
 
 </body>

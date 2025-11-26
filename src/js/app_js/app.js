@@ -150,7 +150,8 @@ function hiddenStartScreen() {
 }
 function showStartScreen() {
    hideActiveSections_R();
-   showSection_LR(START)
+   showSection_LR(START);
+   setTimeout(() => { prepareScreen(FIRST_M) }, TRANSITION_TIME)
 }
 function nextMebel() {
    FIRST_M.classList.add('active');
