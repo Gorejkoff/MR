@@ -39,89 +39,97 @@ function initScroll(wrapper, content) {
 
 // about_m, анимация текста блюр
 const ABOUT_TEXT = document.querySelector('.about__text');
-wrapLetters(ABOUT_TEXT);
-let tl_mat = gsap.timeline({
-   scrollTrigger: {
-      trigger: '.trigger-about',
-      start: "top top",
-      end: `bottom top`,
-      pin: true,
-      scrub: true,
-      onUpdate: (self) => {
-         if (Number(self.progress.toFixed(5)) == 0 && active_section === 'about_m') {
-            startProgressAboutM = true;
-            return;
-         }
-         if (Number(self.progress.toFixed(5)) == 1 && active_section === 'about_m') {
-            endProgressAboutM = true;
-            return;
-         }
-         startProgressAboutM = false;
-         endProgressAboutM = false;
+if (ABOUT_TEXT) {
+   wrapLetters(ABOUT_TEXT);
+   let tl_mat = gsap.timeline({
+      scrollTrigger: {
+         trigger: '.trigger-about',
+         start: "top top",
+         end: `bottom top`,
+         pin: true,
+         scrub: true,
+         onUpdate: (self) => {
+            if (!MIN1024.matches) return;
+            if (Number(self.progress.toFixed(5)) == 0 && active_section === 'about_m') {
+               startProgressAboutM = true;
+               return;
+            }
+            if (Number(self.progress.toFixed(5)) == 1 && active_section === 'about_m') {
+               endProgressAboutM = true;
+               return;
+            }
+            startProgressAboutM = false;
+            endProgressAboutM = false;
+         },
       },
-   },
-})
-
-const ABOUT_LETTERS = ABOUT_TEXT.querySelectorAll(`.letter`);
-ABOUT_LETTERS && ABOUT_LETTERS.forEach((e) => {
-   tl_mat.to(e, { color: '#ffffff', filter: 'blur(0)' })
-})
-
+   })
+   tl_mat.scrollTrigger.onUpdate = (self) => { console.log(self.progress); }
+   const ABOUT_LETTERS = ABOUT_TEXT.querySelectorAll(`.letter`);
+   ABOUT_LETTERS && ABOUT_LETTERS.forEach((e) => {
+      tl_mat.to(e, { color: '#ffffff', filter: 'blur(0)' })
+   })
+}
 
 // services_m
-let tl_services = gsap.timeline({
-   scrollTrigger: {
-      trigger: ".services__title",
-      endTrigger: '.services-end-trigger',
-      scroller: "#services_m",
-      start: "0% 0%",
-      end: `100% 100%`,
-      pin: true,
-      pinSpacing: false,
-      scrub: true,
-      onUpdate: (self) => {
-         if (Number(self.progress.toFixed(5)) < 0.01 && active_section === 'services_m') {
-            startProgressServicesM = true;
-            return;
-         }
-         if (Number(self.progress.toFixed(5)) > 0.99 && active_section === 'services_m') {
-            endProgressServicesM = true;
-            return;
-         }
-         startProgressServicesM = false;
-         endProgressServicesM = false;
+const SERVICES_TITLE = document.querySelector('.services__title');
+if (isPC && SERVICES_TITLE) {
+   let tl_services = gsap.timeline({
+      scrollTrigger: {
+         trigger: SERVICES_TITLE,
+         endTrigger: '.services-end-trigger',
+         scroller: "#services_m",
+         start: "0% 0%",
+         end: `100% 100%`,
+         pin: true,
+         pinSpacing: false,
+         scrub: true,
+         onUpdate: (self) => {
+            if (!MIN1024.matches) return;
+            if (Number(self.progress.toFixed(5)) < 0.01 && active_section === 'services_m') {
+               startProgressServicesM = true;
+               return;
+            }
+            if (Number(self.progress.toFixed(5)) > 0.99 && active_section === 'services_m') {
+               endProgressServicesM = true;
+               return;
+            }
+            startProgressServicesM = false;
+            endProgressServicesM = false;
+         },
       },
-   },
-})
-
+   })
+}
 
 // partners_m, анимация текста блюр
+
 const PARTNERS_TEXT = document.querySelector('.partners__text');
-wrapLetters(PARTNERS_TEXT);
-let tl_mpt = gsap.timeline({
-   scrollTrigger: {
-      trigger: '.trigger-partners',
-      scroller: "#partners_s",
-      start: "top top",
-      end: `bottom top`,
-      pin: true,
-      scrub: true,
-      onUpdate: (self) => {
-         if (Number(self.progress.toFixed(5)) == 0 && active_section === 'partners_m') {
-            prevMebelProjects()
-         }
-         if (Number(self.progress.toFixed(5)) == 1 && active_section === 'partners_m') {
-            nextMebelContacts()
-         }
+if (isPC && PARTNERS_TEXT) {
+   wrapLetters(PARTNERS_TEXT);
+   let tl_mpt = gsap.timeline({
+      scrollTrigger: {
+         trigger: '.trigger-partners',
+         scroller: "#partners_s",
+         start: "top top",
+         end: `bottom top`,
+         pin: true,
+         scrub: true,
+         onUpdate: (self) => {
+            if (!MIN1024.matches) return;
+            if (Number(self.progress.toFixed(5)) == 0 && active_section === 'partners_m') {
+               prevMebelProjects()
+            }
+            if (Number(self.progress.toFixed(5)) == 1 && active_section === 'partners_m') {
+               nextMebelContacts()
+            }
+         },
       },
-   },
-})
+   })
 
-const PARTNERS_LETTERS = PARTNERS_TEXT.querySelectorAll(`.letter`);
-PARTNERS_LETTERS && PARTNERS_LETTERS.forEach((e) => {
-   tl_mpt.to(e, { color: 'var(--color)', filter: 'blur(0)' })
-})
-
+   const PARTNERS_LETTERS = PARTNERS_TEXT.querySelectorAll(`.letter`);
+   PARTNERS_LETTERS && PARTNERS_LETTERS.forEach((e) => {
+      tl_mpt.to(e, { color: 'var(--color)', filter: 'blur(0)' })
+   })
+}
 
 
 // прокрутка по якорям

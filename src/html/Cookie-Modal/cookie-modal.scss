@@ -42,9 +42,13 @@
       display: flex;
       align-items: flex-end;
       font-weight: 600;
-      font-size: 70px;
+      font-size: 24px;
       line-height: 100%;
       letter-spacing: -0.02em;
+
+      @media (min-width:1024px) {
+         font-size: 70px;
+      }
    }
 
    &__scroll {
@@ -52,10 +56,13 @@
       flex: 1 1 auto;
       overflow-y: auto;
       border-top: 1px solid #5D606E;
-      font-size: 24px;
+      font-size: 1 4px;
       line-height: 140%;
       letter-spacing: -0.02em;
 
+      @media (min-width:1024px) {
+         font-size: 24px;
+      }
    }
 
    &__scroll-inner {
@@ -76,9 +83,13 @@
    &__inner-title {
       margin-bottom: 20px;
       font-weight: 600;
-      font-size: 30px;
+      font-size: 18px;
       line-height: 140%;
       letter-spacing: -0.02em;
+
+      @media (min-width:1024px) {
+         font-size: 30px;
+      }
    }
 
    &__inner-list {
@@ -86,18 +97,26 @@
          margin-left: 2em;
          margin-bottom: 15px;
          font-weight: 600;
-         font-size: 26px;
+         font-size: 16px;
          line-height: 140%;
          letter-spacing: -0.02em;
          list-style: disc;
+
+         @media (min-width:1024px) {
+            font-size: 26px;
+         }
 
          p {
             margin-left: -2em;
             margin-top: 20px;
             font-weight: 400;
-            font-size: 24px;
+            font-size: 14px;
             line-height: 140%;
             letter-spacing: -0.02em;
+
+            @media (min-width:1024px) {
+               font-size: 24px;
+            }
          }
       }
    }
@@ -108,6 +127,10 @@
       padding-top: 40px;
       display: flex;
       justify-content: center;
+
+      .button-simple {
+         width: 100%;
+      }
 
       &::before {
          content: '';

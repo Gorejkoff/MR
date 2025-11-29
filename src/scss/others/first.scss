@@ -1,8 +1,5 @@
 .first {
-   position: fixed;
-   top: 0;
-   left: 0;
-   z-index: 9;
+
    min-width: 100vw;
    width: 100vw;
    height: var(--vh);
@@ -10,9 +7,22 @@
    transform: translateX(0);
    transition: transform var(--tr-time);
 
+   @media (min-width:1024px) {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 9;
+   }
 
 
-   &__background {}
+   &__background {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 2;
+      width: 100%;
+      height: 100%;
+   }
 
    &__background-image {
       position: absolute;
@@ -34,42 +44,83 @@
       height: 100%;
       mask-size: auto 100%;
       mask-repeat: no-repeat;
-      opacity: 0.6;
-      opacity: 0;
       transition: opacity 0.5s calc(var(--tr-time) - 0.5s);
+
+      @media (max-width:1023.98px) {
+         background: linear-gradient(180deg, #000 0%, rgba(0, 0, 0, 0) 50%);
+         backdrop-filter: blur(16px);
+         mask-size: 100% 100%;
+         mask-image: url('../img/png/mask-3.png');
+      }
+
+      @media (min-width:1024px) {
+         opacity: 0;
+      }
 
       .active & {
          opacity: 0.7;
       }
 
       .remont--mod & {
-         background: #a9abb5;
-         mask-position: left;
-         mask-image: url('../img/png/mask-r.png');
+         @media (min-width:1024px) {
+            background: #a9abb5;
+            mask-position: left;
+            mask-image: url('../img/png/mask-r.png');
+         }
       }
 
       .mebel--mod & {
-         background: linear-gradient(45deg, #a9abb5 10%, #151519 50%);
-         mask-position: right;
-         mask-image: url('../img/png/mask-m.png');
+         @media (min-width:1024px) {
+            background: linear-gradient(45deg, #a9abb5 10%, #151519 50%);
+            mask-position: right;
+            mask-image: url('../img/png/mask-m.png');
+         }
       }
+
+
+
+   }
+
+   &__mask-border {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 3;
    }
 
    &__content {
+      padding-top: calc(100px + 8vh);
       position: relative;
       z-index: 3;
       display: flex;
+      flex-direction: column;
       height: 100%;
-      width: 80%;
+
+      @media (min-width:1024px) {
+         width: 80%;
+         flex-direction: row;
+      }
    }
 
    &__left {
-      flex: 0 0 50%;
+      flex: 1 1 auto;
       display: flex;
       flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+
+      @media (min-width:1024px) {
+         flex: 0 0 50%;
+         align-items: flex-start;
+         order: 1;
+      }
 
       .mebel--mod & {
-         justify-content: center;
+         @media (min-width:1024px) {
+            justify-content: center;
+         }
       }
 
       .remont--mod & {
@@ -79,14 +130,17 @@
 
    &__title {
       font-family: var(--font-family-benzin);
-      font-size: 9.4vh;
+      font-size: 40px;
       line-height: 90%;
       letter-spacing: -0.03em;
       text-transform: uppercase;
-      max-width: 7em;
       color: #ffffff;
       opacity: 0;
       transition: opacity 0.3s var(--tr-time);
+
+      @media (min-width:1024px) {
+         font-size: 9.4vh;
+      }
 
       span {
          color: #A9ABB5
@@ -99,18 +153,28 @@
    }
 
    &__right {
-      flex: 0 0 50%;
+      margin-bottom: 25px;
       display: flex;
       flex-direction: column;
       justify-content: center;
-      align-items: flex-end;
+      text-align: center;
+
+      @media (min-width:1024px) {
+         margin-bottom: 0;
+         order: 2;
+         flex: 0 0 50%;
+         align-items: flex-end;
+      }
 
       .mebel--mod & {
-         text-align: right;
+         @media (min-width:1024px) {
+            text-align: right;
+         }
       }
    }
 
    &__text {
+      display: none;
       margin-bottom: 5vh;
       max-width: 12.5em;
       font-size: 3.82vh;
@@ -119,6 +183,10 @@
       text-align: right;
       opacity: 0;
       transition: opacity 0.5s calc(var(--tr-time) + 0.3s);
+
+      @media (min-width:1024px) {
+         display: block;
+      }
 
       .active & {
          opacity: 1;
@@ -130,27 +198,46 @@
    }
 
    &__subtext {
-      max-width: 18em;
       margin-bottom: 15vh;
-      font-size: 2.5vh;
+      max-width: 80%;
+      font-size: 20px;
+      text-align: center;
       letter-spacing: -0.02em;
-      text-align: right;
       color: #ffffff;
       opacity: 0;
       transition: opacity 0.5s calc(var(--tr-time) + 0.6s);
+
+      @media (min-width:1024px) {
+         font-size: 2.5vh;
+         max-width: 18em;
+         text-align: right;
+      }
 
       .active & {
          opacity: 1;
       }
 
       .mebel--mod & {
-         text-align: left;
+         @media (min-width:1024px) {
+            text-align: left;
+         }
       }
    }
 
+   &__down {
+      padding-bottom: 7vh;
+      display: flex;
+      justify-content: center;
+   }
+
    &__button {
+      display: none;
       opacity: 0;
       transition: opacity 0.5s calc(var(--tr-time) + 0.9s);
+
+      @media (min-width:1024px) {
+         display: block;
+      }
 
       .active & {
          opacity: 1;

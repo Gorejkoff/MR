@@ -31,6 +31,8 @@ const COOKIE = DOC.querySelector('.cookie');
 // const LINE_M = DOC.querySelector('.line-m');
 
 const HEADER = DOC.getElementById('header');
+const MEBEL = DOC.getElementById('mebel');
+const REMONT = DOC.getElementById('remont');
 const START = DOC.getElementById('start');
 const FIRST_M = DOC.getElementById('first_m');
 const ABOUT_M = DOC.getElementById('about_m');
@@ -39,24 +41,6 @@ const SERVICES_M = DOC.getElementById('services_m');
 const PROJECTS_M = DOC.getElementById('projects_m');
 const PARTNERS_M = DOC.getElementById('partners_m');
 const CONTACTS_M = DOC.getElementById('contacts_m');
-
-
-// const HORIZOMTAL_1 = DOC.querySelector('.horizomtal-1');
-
-// function throttle(callee, timeout) {
-//    let timer = null;
-//    return function perform(...args) {
-//       if (timer) return;
-//       timer = setTimeout(() => {
-//          callee(...args);
-//          clearTimeout(timer);
-//          timer = null;
-//       }, timeout)
-//    }
-// }
-
-// ** ======================= RESIZE ======================  ** //
-// window.addEventListener('resize', () => {})
 
 
 // ** ======================= CLICK ======================  ** //
@@ -68,27 +52,36 @@ DOC.documentElement.addEventListener("click", (event) => {
    if (event.target.closest('.header__button')) { toggleMenu() }
    if (!event.target.closest('.header__button') && !event.target.closest('.header__nav-list')) { closeMenu() }
    // навигация
-   if (event.target.closest('.next-mebel')) {
+   if (isPC && event.target.closest('.next-mebel')) {
       hiddenStartScreen();
       nextMebel();
    }
+   if (event.target.closest('.next-mebel-mobile')) { hiddenStartScreen('mebel') }
    if (event.target.closest('.next-mebel-about')) { nextMebelAbout() }
    // меню
-   if (event.target.closest('.to-start')) { showStartScreen() }
-   if (event.target.closest('.to-about-m')) { nextMebelAbout() }
-   if (event.target.closest('.to-features-m')) { nextMebelFeatures() }
-   if (event.target.closest('.to-services-m')) { nextMebelServices() }
-   if (event.target.closest('.to-projects-m')) { nextMebelProjects() }
-   if (event.target.closest('.to-partners-m')) { nextMebelPartners() }
-   if (event.target.closest('.to-contacts-m')) { nextMebelContacts() }
+   if (event.target.closest('[href^="#"] ')) {
+      MIN1024.matches && event.preventDefault();
+      closeMenu();
+   }
+   if (event.target.closest('.to-start-mobile')) {
+      START.classList.remove('offset-left');
+      closeMenu();
+   }
+   if (MIN1024.matches && event.target.closest('.to-start')) { showStartScreen() }
+   if (MIN1024.matches && event.target.closest('.to-about-m')) { nextMebelAbout() }
+   if (MIN1024.matches && event.target.closest('.to-features-m')) { nextMebelFeatures() }
+   if (MIN1024.matches && event.target.closest('.to-services-m')) { nextMebelServices() }
+   if (MIN1024.matches && event.target.closest('.to-projects-m')) { nextMebelProjects() }
+   if (MIN1024.matches && event.target.closest('.to-partners-m')) { nextMebelPartners() }
+   if (MIN1024.matches && event.target.closest('.to-contacts-m')) { nextMebelContacts() }
 
    // отключить скролл слайдера
    if (event.target.closest('.projects__info')) {
-      PROJECTS_M_SWIPER_ITEM.mousewheel.disable();
+      projects_m_swiper_item.mousewheel.disable();
    }
    // включить скролл слайдера
    if (event.target.closest('.modal--projects')) {
-      PROJECTS_M_SWIPER_ITEM.mousewheel.enable();
+      projects_m_swiper_item.mousewheel.enable();
    }
 })
 
@@ -145,8 +138,20 @@ function toggleMenu() {
 }
 
 // функции навигации по блокам
-function hiddenStartScreen() {
+function hiddenStartScreen(sectionName) {
    START.classList.add('offset-left');
+   if (!MIN1024.matches) {
+      if (sectionName && sectionName === 'mebel') swowMebelMobile();
+      if (sectionName && sectionName === 'remont') swowRemontMobile();
+   }
+}
+function swowMebelMobile() {
+   REMONT.classList.remove('active');
+   MEBEL.classList.add('active');
+}
+function swowRemontMobile() {
+   REMONT.classList.add('active');
+   MEBEL.classList.remove('active');
 }
 function showStartScreen() {
    hideActiveSections_R();
@@ -239,7 +244,6 @@ function prepareScreen(item) {
 
 // показать секуию с анимацией справа налево
 function showSection_RL(item) {
-   closeMenu();
    item.style.transition = 'all 0s';
    item.classList.remove('offset-left');
    item.classList.add('offset-right');
@@ -253,7 +257,6 @@ function showSection_RL(item) {
 }
 // показать секуию с анимацией слева направо
 function showSection_LR(item) {
-   closeMenu();
    item.style.transition = 'all 0s';
    item.classList.remove('offset-right');
    item.classList.add('offset-left');

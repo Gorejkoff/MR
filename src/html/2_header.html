@@ -1,21 +1,5 @@
 <header id="header" class="header">
    <div class="header__body">
-
-      <div class="header__nav">
-         <button class="header__button" type="button" aria-label="открыть меню навигации">
-            <span class="header__line-1"></span>
-            <span class="header__line-2"></span>
-         </button>
-         <ol class="header__nav-list">
-            <li><button type="button" class="to-about-m">О нас</button></li>
-            <li><button type="button" class="to-features-m">Преимущества</button></li>
-            <li><button type="button" class="to-services-m">Делаем</button></li>
-            <li><button type="button" class="to-projects-m">Проекты</button></li>
-            <li><button type="button" class="to-partners-m">Партнёры</button></li>
-            <li><button type="button" class="to-contacts-m">Контакты</button></li>
-         </ol>
-      </div>
-
       <div class="header__logo">
          <svg width="72" height="58" viewBox="0 0 72 58" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M71.9643 0V57.0167H61.9478V16.4116L42.1461 57.0167H31.2821L10.0164 15.7181V57.0167H0V0H12.7902L36.5985 46.1527L59.097 0H71.9643Z" fill="url(#paint0_linear_140_694)" />
@@ -32,6 +16,28 @@
             </defs>
          </svg>
       </div>
-
+      <div class="header__nav">
+         <button class="header__button" type="button" aria-label="открыть меню навигации">
+            <span class="header__line-1"></span>
+            <span class="header__line-2"></span>
+         </button>
+         <div class="header__nav-list">
+            <div class="hide-min1024"></div>
+            <ol>
+               <li><a href="#about_m" class="to-about-m">О нас</a></li>
+               <li><a href="#features_m" class="to-features-m">Преимущества</a></li>
+               <li><a href="#services_m" class="to-services-m">Делаем</a></li>
+               <li><a href="#projects_m" class="to-projects-m">Проекты</a></li>
+               <li><a href="#partners_m" class="to-partners-m">Партнёры</a></li>
+               <li><a href="#contacts_m" class="to-contacts-m">Контакты</a></li>
+            </ol>
+            <button class="button button-light to-start-mobile hide-min1024" type="button">
+               <span class="text">на главную</span>
+               <svg class="arrow" width="42" height="15" viewBox="0 0 42 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M40.5 7.20709H0M40.5 7.20709L34 0.707092M40.5 7.20709L34 13.7071" stroke="white" stroke-width="2" />
+               </svg>
+            </button>
+         </div>
+      </div>
    </div>
 </header>

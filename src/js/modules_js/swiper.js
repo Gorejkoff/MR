@@ -1,67 +1,69 @@
 
-const FEATURES_M_SWIPER = FEATURES_M.querySelector('.swiper');
-const FEATURES_M_LIST_TEXT = document.querySelectorAll('.features--text');
-const FEATURES_M_TEXT_BUTTON_PREV = document.querySelectorAll('.features__button.prev span');
-const FEATURES_M_TEXT_BUTTON_NEXT = document.querySelectorAll('.features__button.next span');
 
-//  ========== features_m ============
-let proggressFeaturesM = 0;
-var featuresMSwiper = new Swiper(FEATURES_M_SWIPER, {
-   //   allowTouchMove: false,
-   direction: "vertical",
-   spaceBetween: 20,
-   speed: 700,
-   slidesPerView: 1.1,
-   mousewheel: {
-      enabled: true,
-      eventsTarget: '.features'
-   },
-   navigation: {
-      nextEl: FEATURES_M_SWIPER.querySelector(".next"),
-      prevEl: FEATURES_M_SWIPER.querySelector(".prev"),
-   },
-   pagination: {
-      el: document.querySelector('.features__pagination'),
-      type: 'bullets',
-      clickable: true,
-   },
-   on: {
-      progress: function (swiper, progress) {
-         proggressFeaturesM = progress;
-      },
-      transitionStart: function (swiper) {
-         FEATURES_M_LIST_TEXT.forEach((e, i) => e.classList.toggle('active', swiper.activeIndex == i));
-         FEATURES_M_TEXT_BUTTON_PREV.forEach((e, i) => e.classList.toggle('active', swiper.activeIndex == i));
-         FEATURES_M_TEXT_BUTTON_NEXT.forEach((e, i) => e.classList.toggle('active', swiper.activeIndex == i));
-      },
-      transitionEnd: function (swiper) {
-         if (proggressFeaturesM == 0) {
-            startProgressFeaturesM = true;
-         }
-         if (proggressFeaturesM == 1) {
-            endProgressFeaturesM = true;
-         }
-         if (proggressFeaturesM > 0 && proggressFeaturesM < 1) {
-            startProgressFeaturesM = false;
-            endProgressFeaturesM = false;
-         }
-      },
-   }
-});
+if (FEATURES_M) {
 
+   const FEATURES_M_SWIPER = FEATURES_M.querySelector('.swiper');
+   const FEATURES_M_LIST_TEXT = document.querySelectorAll('.features--text');
+   const FEATURES_M_TEXT_BUTTON_PREV = document.querySelectorAll('.features__button.prev span');
+   const FEATURES_M_TEXT_BUTTON_NEXT = document.querySelectorAll('.features__button.next span');
+   //  ========== features_m ============
+   let proggressFeaturesM = 0;
+   var featuresMSwiper = new Swiper(FEATURES_M_SWIPER, {
+      //   allowTouchMove: false,
+      direction: MIN1024.matches ? "vertical" : "horizontal",
+      spaceBetween: 20,
+      speed: 700,
+      slidesPerView: MIN1024.matches ? 1.1 : 1,
+      mousewheel: {
+         enabled: true,
+         eventsTarget: '.features'
+      },
+      navigation: {
+         nextEl: FEATURES_M_SWIPER.querySelector(".next"),
+         prevEl: FEATURES_M_SWIPER.querySelector(".prev"),
+      },
+      pagination: {
+         el: document.querySelector('.features__pagination'),
+         type: 'bullets',
+         clickable: true,
+      },
+      on: {
+         progress: function (swiper, progress) {
+            proggressFeaturesM = progress;
+         },
+         transitionStart: function (swiper) {
+            FEATURES_M_LIST_TEXT.forEach((e, i) => e.classList.toggle('active', swiper.activeIndex == i));
+            FEATURES_M_TEXT_BUTTON_PREV.forEach((e, i) => e.classList.toggle('active', swiper.activeIndex == i));
+            FEATURES_M_TEXT_BUTTON_NEXT.forEach((e, i) => e.classList.toggle('active', swiper.activeIndex == i));
+         },
+         transitionEnd: function (swiper) {
+            if (proggressFeaturesM == 0) {
+               startProgressFeaturesM = true;
+            }
+            if (proggressFeaturesM == 1) {
+               endProgressFeaturesM = true;
+            }
+            if (proggressFeaturesM > 0 && proggressFeaturesM < 1) {
+               startProgressFeaturesM = false;
+               endProgressFeaturesM = false;
+            }
+         },
+      }
+   });
+}
 // ========== projects_m ==========
 const PROJECTS_M_SWIPER = PROJECTS_M.querySelector('.swiper');
 let proggressProjectsM = 0;
-let PROJECTS_M_SWIPER_ITEM;
+let projects_m_swiper_item;
 function initSwiperProjectM() {
-   PROJECTS_M_SWIPER_ITEM = new Swiper(PROJECTS_M_SWIPER, {
-      spaceBetween: 50,
+   projects_m_swiper_item = new Swiper(PROJECTS_M_SWIPER, {
+      spaceBetween: MIN1024.matches ? 50 : 20,
       speed: 700,
-      slidesPerView: 2.5,
+      slidesPerView: MIN1024.matches ? 2.5 : 1.1,
       grabCursor: true,
       mousewheel: {
          enabled: true,
-         eventsTarget: '.projects__body'
+         eventsTarget: '.projects__swiper'
       },
       scrollbar: {
          el: ".projects__swiper-pagination-body",
@@ -69,15 +71,18 @@ function initSwiperProjectM() {
       },
       on: {
          init: function () {
+            if (!MIN1024.matches) return;
             if (this.isBeginning == this.isEnd) {
                startProgressProjectM = true;
                endProgressProjectM = true;
             }
          },
          progress: function (swiper, progress) {
+            if (!MIN1024.matches) return;
             proggressProjectsM = progress;
          },
          transitionEnd: function (swiper) {
+            if (!MIN1024.matches) return;
             if (proggressProjectsM == 0) {
                startProgressProjectM = true;
             }
@@ -98,7 +103,7 @@ const PROJECTS_BUTTONS = DOC.querySelector('.projects__buttons');
 const PROJECTS_BUTTONS_LIST = DOC.querySelectorAll('.projects__button');
 const listSlides = DOC.querySelectorAll('.projects__slide');
 function updateProjectSwiperM() {
-   PROJECTS_M_SWIPER_ITEM.destroy(true, true);
+   projects_m_swiper_item.destroy(true, true);
    initSwiperProjectM();
 }
 function changeButtonsActive(button) {

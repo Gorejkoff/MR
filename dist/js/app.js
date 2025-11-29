@@ -31,6 +31,8 @@ const COOKIE = DOC.querySelector('.cookie');
 // const LINE_M = DOC.querySelector('.line-m');
 
 const HEADER = DOC.getElementById('header');
+const MEBEL = DOC.getElementById('mebel');
+const REMONT = DOC.getElementById('remont');
 const START = DOC.getElementById('start');
 const FIRST_M = DOC.getElementById('first_m');
 const ABOUT_M = DOC.getElementById('about_m');
@@ -39,24 +41,6 @@ const SERVICES_M = DOC.getElementById('services_m');
 const PROJECTS_M = DOC.getElementById('projects_m');
 const PARTNERS_M = DOC.getElementById('partners_m');
 const CONTACTS_M = DOC.getElementById('contacts_m');
-
-
-// const HORIZOMTAL_1 = DOC.querySelector('.horizomtal-1');
-
-// function throttle(callee, timeout) {
-//    let timer = null;
-//    return function perform(...args) {
-//       if (timer) return;
-//       timer = setTimeout(() => {
-//          callee(...args);
-//          clearTimeout(timer);
-//          timer = null;
-//       }, timeout)
-//    }
-// }
-
-// ** ======================= RESIZE ======================  ** //
-// window.addEventListener('resize', () => {})
 
 
 // ** ======================= CLICK ======================  ** //
@@ -68,27 +52,36 @@ DOC.documentElement.addEventListener("click", (event) => {
    if (event.target.closest('.header__button')) { toggleMenu() }
    if (!event.target.closest('.header__button') && !event.target.closest('.header__nav-list')) { closeMenu() }
    // навигация
-   if (event.target.closest('.next-mebel')) {
+   if (isPC && event.target.closest('.next-mebel')) {
       hiddenStartScreen();
       nextMebel();
    }
+   if (event.target.closest('.next-mebel-mobile')) { hiddenStartScreen('mebel') }
    if (event.target.closest('.next-mebel-about')) { nextMebelAbout() }
    // меню
-   if (event.target.closest('.to-start')) { showStartScreen() }
-   if (event.target.closest('.to-about-m')) { nextMebelAbout() }
-   if (event.target.closest('.to-features-m')) { nextMebelFeatures() }
-   if (event.target.closest('.to-services-m')) { nextMebelServices() }
-   if (event.target.closest('.to-projects-m')) { nextMebelProjects() }
-   if (event.target.closest('.to-partners-m')) { nextMebelPartners() }
-   if (event.target.closest('.to-contacts-m')) { nextMebelContacts() }
+   if (event.target.closest('[href^="#"] ')) {
+      MIN1024.matches && event.preventDefault();
+      closeMenu();
+   }
+   if (event.target.closest('.to-start-mobile')) {
+      START.classList.remove('offset-left');
+      closeMenu();
+   }
+   if (MIN1024.matches && event.target.closest('.to-start')) { showStartScreen() }
+   if (MIN1024.matches && event.target.closest('.to-about-m')) { nextMebelAbout() }
+   if (MIN1024.matches && event.target.closest('.to-features-m')) { nextMebelFeatures() }
+   if (MIN1024.matches && event.target.closest('.to-services-m')) { nextMebelServices() }
+   if (MIN1024.matches && event.target.closest('.to-projects-m')) { nextMebelProjects() }
+   if (MIN1024.matches && event.target.closest('.to-partners-m')) { nextMebelPartners() }
+   if (MIN1024.matches && event.target.closest('.to-contacts-m')) { nextMebelContacts() }
 
    // отключить скролл слайдера
    if (event.target.closest('.projects__info')) {
-      PROJECTS_M_SWIPER_ITEM.mousewheel.disable();
+      projects_m_swiper_item.mousewheel.disable();
    }
    // включить скролл слайдера
    if (event.target.closest('.modal--projects')) {
-      PROJECTS_M_SWIPER_ITEM.mousewheel.enable();
+      projects_m_swiper_item.mousewheel.enable();
    }
 })
 
@@ -145,8 +138,20 @@ function toggleMenu() {
 }
 
 // функции навигации по блокам
-function hiddenStartScreen() {
+function hiddenStartScreen(sectionName) {
    START.classList.add('offset-left');
+   if (!MIN1024.matches) {
+      if (sectionName && sectionName === 'mebel') swowMebelMobile();
+      if (sectionName && sectionName === 'remont') swowRemontMobile();
+   }
+}
+function swowMebelMobile() {
+   REMONT.classList.remove('active');
+   MEBEL.classList.add('active');
+}
+function swowRemontMobile() {
+   REMONT.classList.add('active');
+   MEBEL.classList.remove('active');
 }
 function showStartScreen() {
    hideActiveSections_R();
@@ -239,7 +244,6 @@ function prepareScreen(item) {
 
 // показать секуию с анимацией справа налево
 function showSection_RL(item) {
-   closeMenu();
    item.style.transition = 'all 0s';
    item.classList.remove('offset-left');
    item.classList.add('offset-right');
@@ -253,7 +257,6 @@ function showSection_RL(item) {
 }
 // показать секуию с анимацией слева направо
 function showSection_LR(item) {
-   closeMenu();
    item.style.transition = 'all 0s';
    item.classList.remove('offset-right');
    item.classList.add('offset-left');
@@ -338,89 +341,97 @@ function initScroll(wrapper, content) {
 
 // about_m, анимация текста блюр
 const ABOUT_TEXT = document.querySelector('.about__text');
-wrapLetters(ABOUT_TEXT);
-let tl_mat = gsap.timeline({
-   scrollTrigger: {
-      trigger: '.trigger-about',
-      start: "top top",
-      end: `bottom top`,
-      pin: true,
-      scrub: true,
-      onUpdate: (self) => {
-         if (Number(self.progress.toFixed(5)) == 0 && active_section === 'about_m') {
-            startProgressAboutM = true;
-            return;
-         }
-         if (Number(self.progress.toFixed(5)) == 1 && active_section === 'about_m') {
-            endProgressAboutM = true;
-            return;
-         }
-         startProgressAboutM = false;
-         endProgressAboutM = false;
+if (ABOUT_TEXT) {
+   wrapLetters(ABOUT_TEXT);
+   let tl_mat = gsap.timeline({
+      scrollTrigger: {
+         trigger: '.trigger-about',
+         start: "top top",
+         end: `bottom top`,
+         pin: true,
+         scrub: true,
+         onUpdate: (self) => {
+            if (!MIN1024.matches) return;
+            if (Number(self.progress.toFixed(5)) == 0 && active_section === 'about_m') {
+               startProgressAboutM = true;
+               return;
+            }
+            if (Number(self.progress.toFixed(5)) == 1 && active_section === 'about_m') {
+               endProgressAboutM = true;
+               return;
+            }
+            startProgressAboutM = false;
+            endProgressAboutM = false;
+         },
       },
-   },
-})
-
-const ABOUT_LETTERS = ABOUT_TEXT.querySelectorAll(`.letter`);
-ABOUT_LETTERS && ABOUT_LETTERS.forEach((e) => {
-   tl_mat.to(e, { color: '#ffffff', filter: 'blur(0)' })
-})
-
+   })
+   tl_mat.scrollTrigger.onUpdate = (self) => { console.log(self.progress); }
+   const ABOUT_LETTERS = ABOUT_TEXT.querySelectorAll(`.letter`);
+   ABOUT_LETTERS && ABOUT_LETTERS.forEach((e) => {
+      tl_mat.to(e, { color: '#ffffff', filter: 'blur(0)' })
+   })
+}
 
 // services_m
-let tl_services = gsap.timeline({
-   scrollTrigger: {
-      trigger: ".services__title",
-      endTrigger: '.services-end-trigger',
-      scroller: "#services_m",
-      start: "0% 0%",
-      end: `100% 100%`,
-      pin: true,
-      pinSpacing: false,
-      scrub: true,
-      onUpdate: (self) => {
-         if (Number(self.progress.toFixed(5)) < 0.01 && active_section === 'services_m') {
-            startProgressServicesM = true;
-            return;
-         }
-         if (Number(self.progress.toFixed(5)) > 0.99 && active_section === 'services_m') {
-            endProgressServicesM = true;
-            return;
-         }
-         startProgressServicesM = false;
-         endProgressServicesM = false;
+const SERVICES_TITLE = document.querySelector('.services__title');
+if (isPC && SERVICES_TITLE) {
+   let tl_services = gsap.timeline({
+      scrollTrigger: {
+         trigger: SERVICES_TITLE,
+         endTrigger: '.services-end-trigger',
+         scroller: "#services_m",
+         start: "0% 0%",
+         end: `100% 100%`,
+         pin: true,
+         pinSpacing: false,
+         scrub: true,
+         onUpdate: (self) => {
+            if (!MIN1024.matches) return;
+            if (Number(self.progress.toFixed(5)) < 0.01 && active_section === 'services_m') {
+               startProgressServicesM = true;
+               return;
+            }
+            if (Number(self.progress.toFixed(5)) > 0.99 && active_section === 'services_m') {
+               endProgressServicesM = true;
+               return;
+            }
+            startProgressServicesM = false;
+            endProgressServicesM = false;
+         },
       },
-   },
-})
-
+   })
+}
 
 // partners_m, анимация текста блюр
+
 const PARTNERS_TEXT = document.querySelector('.partners__text');
-wrapLetters(PARTNERS_TEXT);
-let tl_mpt = gsap.timeline({
-   scrollTrigger: {
-      trigger: '.trigger-partners',
-      scroller: "#partners_s",
-      start: "top top",
-      end: `bottom top`,
-      pin: true,
-      scrub: true,
-      onUpdate: (self) => {
-         if (Number(self.progress.toFixed(5)) == 0 && active_section === 'partners_m') {
-            prevMebelProjects()
-         }
-         if (Number(self.progress.toFixed(5)) == 1 && active_section === 'partners_m') {
-            nextMebelContacts()
-         }
+if (isPC && PARTNERS_TEXT) {
+   wrapLetters(PARTNERS_TEXT);
+   let tl_mpt = gsap.timeline({
+      scrollTrigger: {
+         trigger: '.trigger-partners',
+         scroller: "#partners_s",
+         start: "top top",
+         end: `bottom top`,
+         pin: true,
+         scrub: true,
+         onUpdate: (self) => {
+            if (!MIN1024.matches) return;
+            if (Number(self.progress.toFixed(5)) == 0 && active_section === 'partners_m') {
+               prevMebelProjects()
+            }
+            if (Number(self.progress.toFixed(5)) == 1 && active_section === 'partners_m') {
+               nextMebelContacts()
+            }
+         },
       },
-   },
-})
+   })
 
-const PARTNERS_LETTERS = PARTNERS_TEXT.querySelectorAll(`.letter`);
-PARTNERS_LETTERS && PARTNERS_LETTERS.forEach((e) => {
-   tl_mpt.to(e, { color: 'var(--color)', filter: 'blur(0)' })
-})
-
+   const PARTNERS_LETTERS = PARTNERS_TEXT.querySelectorAll(`.letter`);
+   PARTNERS_LETTERS && PARTNERS_LETTERS.forEach((e) => {
+      tl_mpt.to(e, { color: 'var(--color)', filter: 'blur(0)' })
+   })
+}
 
 
 // прокрутка по якорям
@@ -495,69 +506,71 @@ function activeScrollCloseModal() {
 }
 
 
-const FEATURES_M_SWIPER = FEATURES_M.querySelector('.swiper');
-const FEATURES_M_LIST_TEXT = document.querySelectorAll('.features--text');
-const FEATURES_M_TEXT_BUTTON_PREV = document.querySelectorAll('.features__button.prev span');
-const FEATURES_M_TEXT_BUTTON_NEXT = document.querySelectorAll('.features__button.next span');
 
-//  ========== features_m ============
-let proggressFeaturesM = 0;
-var featuresMSwiper = new Swiper(FEATURES_M_SWIPER, {
-   //   allowTouchMove: false,
-   direction: "vertical",
-   spaceBetween: 20,
-   speed: 700,
-   slidesPerView: 1.1,
-   mousewheel: {
-      enabled: true,
-      eventsTarget: '.features'
-   },
-   navigation: {
-      nextEl: FEATURES_M_SWIPER.querySelector(".next"),
-      prevEl: FEATURES_M_SWIPER.querySelector(".prev"),
-   },
-   pagination: {
-      el: document.querySelector('.features__pagination'),
-      type: 'bullets',
-      clickable: true,
-   },
-   on: {
-      progress: function (swiper, progress) {
-         proggressFeaturesM = progress;
-      },
-      transitionStart: function (swiper) {
-         FEATURES_M_LIST_TEXT.forEach((e, i) => e.classList.toggle('active', swiper.activeIndex == i));
-         FEATURES_M_TEXT_BUTTON_PREV.forEach((e, i) => e.classList.toggle('active', swiper.activeIndex == i));
-         FEATURES_M_TEXT_BUTTON_NEXT.forEach((e, i) => e.classList.toggle('active', swiper.activeIndex == i));
-      },
-      transitionEnd: function (swiper) {
-         if (proggressFeaturesM == 0) {
-            startProgressFeaturesM = true;
-         }
-         if (proggressFeaturesM == 1) {
-            endProgressFeaturesM = true;
-         }
-         if (proggressFeaturesM > 0 && proggressFeaturesM < 1) {
-            startProgressFeaturesM = false;
-            endProgressFeaturesM = false;
-         }
-      },
-   }
-});
+if (FEATURES_M) {
 
+   const FEATURES_M_SWIPER = FEATURES_M.querySelector('.swiper');
+   const FEATURES_M_LIST_TEXT = document.querySelectorAll('.features--text');
+   const FEATURES_M_TEXT_BUTTON_PREV = document.querySelectorAll('.features__button.prev span');
+   const FEATURES_M_TEXT_BUTTON_NEXT = document.querySelectorAll('.features__button.next span');
+   //  ========== features_m ============
+   let proggressFeaturesM = 0;
+   var featuresMSwiper = new Swiper(FEATURES_M_SWIPER, {
+      //   allowTouchMove: false,
+      direction: MIN1024.matches ? "vertical" : "horizontal",
+      spaceBetween: 20,
+      speed: 700,
+      slidesPerView: MIN1024.matches ? 1.1 : 1,
+      mousewheel: {
+         enabled: true,
+         eventsTarget: '.features'
+      },
+      navigation: {
+         nextEl: FEATURES_M_SWIPER.querySelector(".next"),
+         prevEl: FEATURES_M_SWIPER.querySelector(".prev"),
+      },
+      pagination: {
+         el: document.querySelector('.features__pagination'),
+         type: 'bullets',
+         clickable: true,
+      },
+      on: {
+         progress: function (swiper, progress) {
+            proggressFeaturesM = progress;
+         },
+         transitionStart: function (swiper) {
+            FEATURES_M_LIST_TEXT.forEach((e, i) => e.classList.toggle('active', swiper.activeIndex == i));
+            FEATURES_M_TEXT_BUTTON_PREV.forEach((e, i) => e.classList.toggle('active', swiper.activeIndex == i));
+            FEATURES_M_TEXT_BUTTON_NEXT.forEach((e, i) => e.classList.toggle('active', swiper.activeIndex == i));
+         },
+         transitionEnd: function (swiper) {
+            if (proggressFeaturesM == 0) {
+               startProgressFeaturesM = true;
+            }
+            if (proggressFeaturesM == 1) {
+               endProgressFeaturesM = true;
+            }
+            if (proggressFeaturesM > 0 && proggressFeaturesM < 1) {
+               startProgressFeaturesM = false;
+               endProgressFeaturesM = false;
+            }
+         },
+      }
+   });
+}
 // ========== projects_m ==========
 const PROJECTS_M_SWIPER = PROJECTS_M.querySelector('.swiper');
 let proggressProjectsM = 0;
-let PROJECTS_M_SWIPER_ITEM;
+let projects_m_swiper_item;
 function initSwiperProjectM() {
-   PROJECTS_M_SWIPER_ITEM = new Swiper(PROJECTS_M_SWIPER, {
-      spaceBetween: 50,
+   projects_m_swiper_item = new Swiper(PROJECTS_M_SWIPER, {
+      spaceBetween: MIN1024.matches ? 50 : 20,
       speed: 700,
-      slidesPerView: 2.5,
+      slidesPerView: MIN1024.matches ? 2.5 : 1.1,
       grabCursor: true,
       mousewheel: {
          enabled: true,
-         eventsTarget: '.projects__body'
+         eventsTarget: '.projects__swiper'
       },
       scrollbar: {
          el: ".projects__swiper-pagination-body",
@@ -565,15 +578,18 @@ function initSwiperProjectM() {
       },
       on: {
          init: function () {
+            if (!MIN1024.matches) return;
             if (this.isBeginning == this.isEnd) {
                startProgressProjectM = true;
                endProgressProjectM = true;
             }
          },
          progress: function (swiper, progress) {
+            if (!MIN1024.matches) return;
             proggressProjectsM = progress;
          },
          transitionEnd: function (swiper) {
+            if (!MIN1024.matches) return;
             if (proggressProjectsM == 0) {
                startProgressProjectM = true;
             }
@@ -594,7 +610,7 @@ const PROJECTS_BUTTONS = DOC.querySelector('.projects__buttons');
 const PROJECTS_BUTTONS_LIST = DOC.querySelectorAll('.projects__button');
 const listSlides = DOC.querySelectorAll('.projects__slide');
 function updateProjectSwiperM() {
-   PROJECTS_M_SWIPER_ITEM.destroy(true, true);
+   projects_m_swiper_item.destroy(true, true);
    initSwiperProjectM();
 }
 function changeButtonsActive(button) {

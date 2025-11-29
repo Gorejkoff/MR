@@ -1,32 +1,51 @@
 .projects {
-   position: fixed;
-   top: 0;
-   left: 0;
    width: 100%;
-   height: var(--vh);
    display: flex;
    align-items: center;
    background-color: #a9abb5;
    transition: transform var(--tr-time);
    overflow: hidden;
 
+   @media (min-width:1024px) {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: var(--vh);
+   }
+
    &__container {}
 
    &__buttons {
-      margin-bottom: 6vh;
+      margin-bottom: 30px;
       display: flex;
-      gap: 40px;
+      gap: 5px;
+      overflow-x: auto;
+
+      &::-webkit-scrollbar {
+         display: none;
+      }
+
+      @media (min-width:1024px) {
+         margin-bottom: 6vh;
+         gap: 40px;
+      }
    }
 
    &__button {
-      padding: 10px 20px;
-      font-size: 24px;
+      padding: 3px 15px;
+      font-size: 20px;
       line-height: 130%;
       letter-spacing: -0.02em;
       color: #5D606E;
       border: 2px solid transparent;
       border-radius: 50px;
+      white-space: nowrap;
       transition: color 0.3s, border-color 0.3s;
+
+      @media (min-width:1024px) {
+         padding: 10px 20px;
+         font-size: 24px;
+      }
 
       &:hover,
       &.active {
@@ -35,11 +54,13 @@
       }
    }
 
-   &__body {}
+   &__swiper {
+      padding-bottom: 80px;
 
-   &__swiper {}
-
-   &__wrapper {}
+      @media (min-width:1024px) {
+         padding-bottom: 0;
+      }
+   }
 
    &__slide {
       &.hidden {
@@ -49,6 +70,13 @@
 
    &__card {
       position: relative;
+      box-shadow: 0 10px 35px 4px rgba(255, 255, 255, 0);
+      transition: box-shadow 0.5s;
+      border-radius: 10px;
+
+      .swiper-slide-active & {
+         box-shadow: 0 10px 35px 4px rgba(255, 255, 255, 0.8);
+      }
 
       &:hover {
          .projects__text {
@@ -66,10 +94,14 @@
    }
 
    &__image {
-      padding-bottom: 65%;
+      padding-bottom: 100%;
       position: relative;
       overflow: hidden;
       border-radius: 10px;
+
+      @media (min-width:1024px) {
+         padding-bottom: 65%;
+      }
 
       img {
          position: absolute;
@@ -107,12 +139,17 @@
       max-width: 60%;
       font-family: var(--font-family-benzin);
       font-weight: 400;
-      font-size: 50px;
+      font-size: 24px;
       line-height: 90%;
       text-transform: uppercase;
       // color: #ffffff;
-      color: #151519;
+      color: #ffffff;
       transition: color 0.3s;
+
+      @media (min-width:1024px) {
+         font-size: 50px;
+         color: #151519;
+      }
    }
 
    &__info {
@@ -120,7 +157,10 @@
       top: 30px;
       right: 30px;
       width: 30px;
-      opacity: 0;
+
+      @media (min-width:1024px) {
+         opacity: 0;
+      }
 
       svg {
          height: auto;
@@ -129,8 +169,13 @@
    }
 
    &__swiper-pagination {
+      display: none;
       margin-top: 19vh;
       height: 8px;
+
+      @media (min-width:1024px) {
+         display: block;
+      }
    }
 
    .swiper-scrollbar-drag {

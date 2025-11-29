@@ -1,11 +1,14 @@
 .partners {
-   position: fixed;
-   top: 0;
-   left: 0;
    width: 100%;
-   height: var(--vh);
    background-color: #a9abb5;
    transition: transform var(--tr-time);
+
+   @media (min-width:1024px) {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: var(--vh);
+   }
 
    &__container {}
 
@@ -17,17 +20,33 @@
    }
 
    &__text {
-      font-size: 8.3vh;
+      --color: #ffffff;
+      font-size: 26px;
       line-height: 100%;
       letter-spacing: -0.02em;
       text-align: center;
       transform: translateZ(0);
-      color: #ffffff;
+      color: var(--color);
+      // color: #ffffff;
+
+      @media (min-width:1024px) {
+         font-size: 8.3vh;
+      }
+
+      .color {
+         @media (max-width:1023.98px) {
+            --color: #151519;
+            text-decoration: underline;
+            text-underline-offset: 0.1em;
+            color: var(--color);
+         }
+      }
 
       .color .letter {
          --color: #151519;
          text-decoration: underline;
          text-underline-offset: 0.1em;
+         color: var(--color);
       }
 
       .letter {
@@ -42,15 +61,22 @@
    &__list {
       margin: 0 auto;
       display: flex;
+      flex-direction: column;
       justify-content: space-between;
       align-items: center;
       gap: 40px;
       max-width: 90%;
+
+      @media (min-width:1024px) {
+         flex-direction: row;
+      }
    }
 
    &__logo {
-      opacity: 0;
-      transition: opacity 0.5s calc(var(--tr-time) + var(--i) * 0.4s);
+      @media (min-width:1024px) {
+         opacity: 0;
+         transition: opacity 0.5s calc(var(--tr-time) + var(--i) * 0.4s);
+      }
 
       .active & {
          opacity: 1;

@@ -1,42 +1,68 @@
 .about {
-   position: fixed;
-   top: 0;
-   left: 0;
    width: 100%;
-   height: var(--vh);
-   transform: translateX(0);
-   transition: transform var(--tr-time);
+   min-height: var(--vh);
    background-color: #a9abb5;
+   transition: transform var(--tr-time);
+
+   @media (min-width:1024px) {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: var(--vh);
+   }
 
    &__body {
       position: relative;
+      display: flex;
+      align-items: center;
       height: var(--vh);
       width: 100vw;
       min-width: 100vw;
    }
 
+   &__shell {
+      position: relative;
+
+      @media (min-width:1024px) {
+         position: static;
+      }
+   }
+
    &__image {
       position: absolute;
-      top: 0;
+      bottom: 100%;
       left: 50%;
-      transform: translate(-50%, -50%);
-      width: 50%;
+      transform: translate(-50%, 0);
+      width: 100%;
+      height: auto;
+
+      @media (min-width:1024px) {
+         top: 0;
+
+         transform: translate(-50%, -50%);
+         width: 50%;
+
+      }
    }
 
    &__text {
+      position: relative;
       display: flex;
       flex-direction: column;
       justify-content: center;
+      gap: 10px;
       height: 100%;
       font-weight: 300;
-      font-size: 7vh;
+      font-size: 26px;
       line-height: 100%;
       letter-spacing: -0.02em;
       transform: translateZ(0);
 
-      p:not(:last-child) {
-         margin-bottom: 80px;
+      @media (min-width:1024px) {
+         gap: 5.5vh;
+         font-size: 7vh;
       }
+
 
       .letter {
          will-change: color;
