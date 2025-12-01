@@ -1,5 +1,3 @@
-var smoother;
-
 function wrapLetters(element) {
    function wrapper(element) {
       const words = element.innerHTML.trim().split(' ');
@@ -23,52 +21,55 @@ function wrapLetters(element) {
    element.innerHTML = accumulator.innerHTML
 }
 
-
 gsap.registerPlugin(ScrollTrigger, ScrollSmoother, ScrollToPlugin);
 
-function initScroll(wrapper, content) {
+function initScroll(s, c) {
    smoother = ScrollSmoother.create({
-      wrapper: wrapper,
-      content: content,
+      wrapper: s,
+      content: c,
       smooth: 1,
       normalizeScroll: true,
    })
-   smoother.paused(true);
+   if (smoother) smoother.paused(true);
 }
 
-
-// about_m, анимация текста блюр
-const ABOUT_TEXT = document.querySelector('.about__text');
-if (ABOUT_TEXT) {
-   wrapLetters(ABOUT_TEXT);
-   let tl_mat = gsap.timeline({
+// about, анимация текста блюр
+function addAboutAnimation(element, id, trigger, scroller) {
+   wrapLetters(element);
+   tl_about[id] = gsap.timeline({
       scrollTrigger: {
-         trigger: '.trigger-about',
+         trigger: trigger,
+         scroller: scroller,
          start: "top top",
          end: `bottom top`,
          pin: true,
          scrub: true,
          onUpdate: (self) => {
             if (!MIN1024.matches) return;
-            if (Number(self.progress.toFixed(5)) == 0 && active_section === 'about_m') {
-               startProgressAboutM = true;
+            if (Number(self.progress.toFixed(4)) == 0 && active_section === id) {
+               progress[id].start = true;
                return;
             }
-            if (Number(self.progress.toFixed(5)) == 1 && active_section === 'about_m') {
-               endProgressAboutM = true;
+            if (Number(self.progress.toFixed(4)) == 1 && active_section === id) {
+               progress[id].end = true;
                return;
             }
-            startProgressAboutM = false;
-            endProgressAboutM = false;
+            progress[id].start = false;
+            progress[id].end = false;
          },
       },
    })
-   tl_mat.scrollTrigger.onUpdate = (self) => { console.log(self.progress); }
-   const ABOUT_LETTERS = ABOUT_TEXT.querySelectorAll(`.letter`);
+   const ABOUT_LETTERS = element.querySelectorAll(`.letter`);
    ABOUT_LETTERS && ABOUT_LETTERS.forEach((e) => {
-      tl_mat.to(e, { color: '#ffffff', filter: 'blur(0)' })
+      tl_about[id].to(e, { color: '#ffffff', filter: 'blur(0)' })
    })
 }
+
+const ABOUT_TEXT_M = document.querySelector('.about-text-m');
+if (MIN1024.matches && ABOUT_TEXT_M) addAboutAnimation(ABOUT_TEXT_M, 'about_m', '.trigger-about-m', '#about_ms');
+const ABOUT_TEXT_R = document.querySelector('.about-text-r');
+if (MIN1024.matches && ABOUT_TEXT_R) addAboutAnimation(ABOUT_TEXT_R, 'about_r', '.trigger-about-r', '#about_rs');
+
 
 // services_m
 const SERVICES_TITLE = document.querySelector('.services__title');
@@ -77,7 +78,7 @@ if (isPC && SERVICES_TITLE) {
       scrollTrigger: {
          trigger: SERVICES_TITLE,
          endTrigger: '.services-end-trigger',
-         scroller: "#services_m",
+         scroller: "#services_ms",
          start: "0% 0%",
          end: `100% 100%`,
          pin: true,
@@ -86,15 +87,15 @@ if (isPC && SERVICES_TITLE) {
          onUpdate: (self) => {
             if (!MIN1024.matches) return;
             if (Number(self.progress.toFixed(5)) < 0.01 && active_section === 'services_m') {
-               startProgressServicesM = true;
+               progress.services_m.start = true;
                return;
             }
             if (Number(self.progress.toFixed(5)) > 0.99 && active_section === 'services_m') {
-               endProgressServicesM = true;
+               progress.services_m.end = true;
                return;
             }
-            startProgressServicesM = false;
-            endProgressServicesM = false;
+            progress.services_m.start = false;
+            progress.services_m.end = false;
          },
       },
    })
@@ -108,7 +109,7 @@ if (isPC && PARTNERS_TEXT) {
    let tl_mpt = gsap.timeline({
       scrollTrigger: {
          trigger: '.trigger-partners',
-         scroller: "#partners_s",
+         scroller: "#partners_ms",
          start: "top top",
          end: `bottom top`,
          pin: true,
@@ -116,11 +117,15 @@ if (isPC && PARTNERS_TEXT) {
          onUpdate: (self) => {
             if (!MIN1024.matches) return;
             if (Number(self.progress.toFixed(5)) == 0 && active_section === 'partners_m') {
-               prevMebelProjects()
+               progress.partners_m.start = true;
+               return;
             }
             if (Number(self.progress.toFixed(5)) == 1 && active_section === 'partners_m') {
-               nextMebelContacts()
+               progress.partners_m.end = true;
+               return;
             }
+            progress.partners_m.start = false;
+            progress.partners_m.end = false;
          },
       },
    })

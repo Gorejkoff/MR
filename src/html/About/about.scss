@@ -1,7 +1,6 @@
 .about {
    width: 100%;
    min-height: var(--vh);
-   background-color: #a9abb5;
    transition: transform var(--tr-time);
 
    @media (min-width:1024px) {
@@ -9,6 +8,14 @@
       top: 0;
       left: 0;
       height: var(--vh);
+   }
+
+   &.remont--mod {
+      background-color: #151519;
+   }
+
+   &.mebel--mod {
+      background-color: #a9abb5;
    }
 
    &__body {

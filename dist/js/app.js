@@ -35,29 +35,135 @@ const MEBEL = DOC.getElementById('mebel');
 const REMONT = DOC.getElementById('remont');
 const START = DOC.getElementById('start');
 const FIRST_M = DOC.getElementById('first_m');
+const FIRST_R = DOC.getElementById('first_r');
 const ABOUT_M = DOC.getElementById('about_m');
+const ABOUT_R = DOC.getElementById('about_r');
 const FEATURES_M = DOC.getElementById('features_m');
+const FEATURES_R = DOC.getElementById('features_r');
 const SERVICES_M = DOC.getElementById('services_m');
 const PROJECTS_M = DOC.getElementById('projects_m');
+const PROJECTS_R = DOC.getElementById('projects_r');
 const PARTNERS_M = DOC.getElementById('partners_m');
 const CONTACTS_M = DOC.getElementById('contacts_m');
+const CONTACTS_R = DOC.getElementById('contacts_r');
+const STAGES_R = DOC.getElementById('stages_r');
+const PROCESS_R = DOC.getElementById('process_r');
+
+let smoother = undefined;
+
+// слайдеры и их прогресс
+const SWIPERS = {
+   features_m: {
+      swiper: {},
+      progress: 0
+   },
+   features_r: {
+      swiper: {},
+      progress: 0
+   },
+   projects_m: {
+      swiper: {},
+      progress: 0
+   },
+   projects_r: {
+      swiper: {},
+      progress: 0
+   },
+   process_r: {
+      swiper: {},
+      progress: 0
+   },
+   stages_r: {
+      swiper: {},
+      progress: 0
+   }
+}
+
+const tl_about = {
+   about_m: {},
+   about_r: {}
+}
+
+// для глобального отслеживания состояния начальной и конечной позиции прогресса
+const progress = {
+   about_m: {
+      start: false,
+      end: false
+   },
+   about_r: {
+      start: false,
+      end: false
+   },
+   features_m: {
+      start: false,
+      end: false
+   },
+   features_r: {
+      start: false,
+      end: false
+   },
+   projects_m: {
+      start: false,
+      end: false
+   },
+   projects_r: {
+      start: false,
+      end: false
+   },
+   services_m: {
+      start: false,
+      end: false
+   },
+   partners_m: {
+      start: false,
+      end: false
+   },
+   process_r: {
+      start: false,
+      end: false
+   },
+   stages_r: {
+      start: false,
+      end: false
+   },
+}
 
 
 // ** ======================= CLICK ======================  ** //
 DOC.documentElement.addEventListener("click", (event) => {
    if (event.target.closest('.cookie__agree')) {
-      COOKIE.remove()
+      COOKIE.remove();
    }
    // управление меню
    if (event.target.closest('.header__button')) { toggleMenu() }
    if (!event.target.closest('.header__button') && !event.target.closest('.header__nav-list')) { closeMenu() }
    // навигация
-   if (isPC && event.target.closest('.next-mebel')) {
-      hiddenStartScreen();
-      nextMebel();
+   if (event.target.closest('.next-mebel')) {
+      if (MIN1024.matches) {
+         hideSections_L();
+         showSectionNotAnimated(FIRST_M);
+         hiddenStartScreen();
+         activeMebelBranch();
+         checkingActiveSection();
+         return;
+      }
+      activeMebelBranch();
+      hiddenStartScreen('mebel')
    }
-   if (event.target.closest('.next-mebel-mobile')) { hiddenStartScreen('mebel') }
-   if (event.target.closest('.next-mebel-about')) { nextMebelAbout() }
+   if (event.target.closest('.next-remont')) {
+      if (MIN1024.matches) {
+         hideSections_L();
+         showSectionNotAnimated(FIRST_R);
+         hiddenStartScreen();
+         activeRemontBranch();
+         checkingActiveSection();
+         return;
+      }
+      activeRemontBranch();
+      hiddenStartScreen('remont')
+   }
+   if (event.target.closest('.next-mebel-about')) { changeGsap_RL(ABOUT_M, '#about_ms', '#about_mc') }
+   if (event.target.closest('.next-remont-about')) { changeGsap_RL(ABOUT_R, '#about_rs', '#about_rc') }
    // меню
    if (event.target.closest('[href^="#"] ')) {
       MIN1024.matches && event.preventDefault();
@@ -68,62 +174,91 @@ DOC.documentElement.addEventListener("click", (event) => {
       closeMenu();
    }
    if (MIN1024.matches && event.target.closest('.to-start')) { showStartScreen() }
-   if (MIN1024.matches && event.target.closest('.to-about-m')) { nextMebelAbout() }
-   if (MIN1024.matches && event.target.closest('.to-features-m')) { nextMebelFeatures() }
-   if (MIN1024.matches && event.target.closest('.to-services-m')) { nextMebelServices() }
-   if (MIN1024.matches && event.target.closest('.to-projects-m')) { nextMebelProjects() }
-   if (MIN1024.matches && event.target.closest('.to-partners-m')) { nextMebelPartners() }
-   if (MIN1024.matches && event.target.closest('.to-contacts-m')) { nextMebelContacts() }
+   if (MIN1024.matches && event.target.closest('.to-about-m')) { changeGsap_RL(ABOUT_M, '#about_ms', '#about_mc') }
+   if (MIN1024.matches && event.target.closest('.to-features-m')) { change_LR(FEATURES_M) }
+   if (MIN1024.matches && event.target.closest('.to-services-m')) { changeGsap_RL(SERVICES_M, '#services_ms', '#services_mc') }
+   if (MIN1024.matches && event.target.closest('.to-projects-m')) { change_RL(PROJECTS_M) }
+   if (MIN1024.matches && event.target.closest('.to-partners-m')) { changeGsap_RL(PARTNERS_M, '#partners_ms', '#partners_mc') }
+   if (MIN1024.matches && event.target.closest('.to-contacts-m')) { change_RL(CONTACTS_M) }
 
    // отключить скролл слайдера
    if (event.target.closest('.projects__info')) {
-      projects_m_swiper_item.mousewheel.disable();
+      SWIPERS.projects_m.swiper.mousewheel.disable();
    }
    // включить скролл слайдера
    if (event.target.closest('.modal--projects')) {
-      projects_m_swiper_item.mousewheel.enable();
+      SWIPERS.projects_m.swiper.mousewheel.enable();
    }
+   // переключение табов в контактах
+   if (event.target.closest('.open-map')) { openMap(event) }
+   if (event.target.closest('.open-form')) { closeMap(event) }
 })
 
-
-let startProgressAboutM = false;
-let endProgressAboutM = false;
-let startProgressFeaturesM = false;
-let endProgressFeaturesM = false;
-let startProgressProjectM = false;
-let endProgressProjectM = false;
-let startProgressServicesM = false;
-let endProgressServicesM = false;
-
-
-
+// wheel для сменя экранов
 window.addEventListener('wheel', function (event) {
-   if (active_section == 'about_m' && startProgressAboutM && event.deltaY < 0) {
-      prevMebel()
-   }
-   if (active_section == 'about_m' && endProgressAboutM && event.deltaY > 0) {
-      nextMebelFeatures()
-   }
-   if (active_section == 'features_m' && startProgressFeaturesM && event.deltaY < 0) {
-      prevMebelAbout();
-   }
-   if (active_section == 'features_m' && endProgressFeaturesM && event.deltaY > 0) {
-      nextMebelServices();
-   }
-   if (active_section == 'projects_m' && startProgressProjectM && event.deltaY < 0) {
-      prevMebelServices()
-   }
-   if (active_section == 'projects_m' && endProgressProjectM && event.deltaY > 0) {
-      nextMebelPartners();
-   }
-   if (active_section == 'services_m' && startProgressServicesM && event.deltaY < 0) {
-      prevMebelFeatures()
-   }
-   if (active_section == 'services_m' && endProgressServicesM && event.deltaY > 0) {
-      nextMebelProjects()
-   }
-});
 
+   if (active_section == 'about_m' && progress.about_m.start && event.deltaY < 0) {
+      prevFirst(FIRST_M)
+   }
+   if (active_section == 'about_m' && progress.about_m.end && event.deltaY > 0) {
+      change_RL(FEATURES_M)
+   }
+   if (active_section == 'about_r' && progress.about_r.start && event.deltaY < 0) {
+      prevFirst(FIRST_R)
+   }
+   if (active_section == 'about_r' && progress.about_r.end && event.deltaY > 0) {
+      change_RL(FEATURES_R)
+   }
+   if (active_section == 'features_m' && progress.features_m.start && event.deltaY < 0) {
+      changeGsap_RL(ABOUT_M, '#about_ms', '#about_mc');
+   }
+   if (active_section == 'features_m' && progress.features_m.end && event.deltaY > 0) {
+      changeGsap_RL(SERVICES_M, '#services_ms', '#services_mc');
+   }
+   if (active_section == 'features_r' && progress.features_r.start && event.deltaY < 0) {
+      changeGsap_LR(ABOUT_R, '#about_rs', '#about_rc');
+   }
+   if (active_section == 'features_r' && progress.features_r.end && event.deltaY > 0) {
+      change_RL(STAGES_R)
+   }
+   if (active_section == 'projects_m' && progress.projects_m.start && event.deltaY < 0) {
+      changeGsap_LR(SERVICES_M, '#services_ms', '#services_mc')
+   }
+   if (active_section == 'projects_m' && progress.projects_m.end && event.deltaY > 0) {
+      changeGsap_RL(PARTNERS_M, '#partners_ms', '#partners_mc');
+   }
+   if (active_section == 'projects_r' && progress.projects_r.start && event.deltaY < 0) {
+      change_LR(STAGES_R)
+   }
+   if (active_section == 'projects_r' && progress.projects_r.end && event.deltaY > 0) {
+      change_RL(PROCESS_R);
+   }
+   if (active_section == 'services_m' && progress.services_m.start && event.deltaY < 0) {
+      change_LR(FEATURES_M)
+   }
+   if (active_section == 'services_m' && progress.services_m.end && event.deltaY > 0) {
+      change_RL(PROJECTS_M)
+   }
+   if (active_section == 'partners_m' && progress.partners_m.start && event.deltaY < 0) {
+      change_LR(PROJECTS_M)
+   }
+   if (active_section == 'partners_m' && progress.partners_m.end && event.deltaY > 0) {
+      change_RL(CONTACTS_M)
+   }
+   if (active_section == 'stages_r' && progress.stages_r.start && event.deltaY < 0) {
+      change_LR(FEATURES_R)
+   }
+   if (active_section == 'stages_r' && progress.stages_r.end && event.deltaY > 0) {
+      change_RL(PROJECTS_R)
+   }
+   if (active_section == 'process_r' && progress.process_r.start && event.deltaY < 0) {
+      // change_LR(FEATURES_R)
+   }
+   if (active_section == 'process_r' && progress.process_r.end && event.deltaY > 0) {
+      change_RL(CONTACTS_R)
+   }
+
+});
 
 
 // управление
@@ -137,14 +272,33 @@ function toggleMenu() {
    DOC.body.classList.toggle('menu-open');
 }
 
-// функции навигации по блокам
-function hiddenStartScreen(sectionName) {
-   START.classList.add('offset-left');
-   if (!MIN1024.matches) {
-      if (sectionName && sectionName === 'mebel') swowMebelMobile();
-      if (sectionName && sectionName === 'remont') swowRemontMobile();
-   }
+// переключение табов в контактах
+function openMap(event) {
+   const contacts = event.target.closest('.contacts');
+   if (!contacts) return;
+   const map = contacts.querySelector('.contacts__map');
+   const form = contacts.querySelector('.contacts__form');
+   if (map) map.style.display = 'block';
+   if (form) form.style.display = 'none';
 }
+function closeMap(event) {
+   const contacts = event.target.closest('.contacts');
+   if (!contacts) return;
+   const map = contacts.querySelector('.contacts__map');
+   const form = contacts.querySelector('.contacts__form');
+   if (map) map.style.display = 'none';
+   if (form) form.style.display = 'block';
+}
+// маркировка направдения
+function activeMebelBranch() {
+   DOC.body.classList.add('mebel-branch');
+   DOC.body.classList.remove('remont-branch');
+}
+function activeRemontBranch() {
+   DOC.body.classList.add('remont-branch');
+   DOC.body.classList.remove('mebel-branch');
+}
+// функции навигации по блокам
 function swowMebelMobile() {
    REMONT.classList.remove('active');
    MEBEL.classList.add('active');
@@ -153,68 +307,43 @@ function swowRemontMobile() {
    REMONT.classList.add('active');
    MEBEL.classList.remove('active');
 }
+function hiddenStartScreen(sectionName) {
+   START.classList.add('offset-left');
+   if (!MIN1024.matches) {
+      if (sectionName && sectionName === 'mebel') swowMebelMobile();
+      if (sectionName && sectionName === 'remont') swowRemontMobile();
+   }
+   window.scrollTo(0, 0);
+}
 function showStartScreen() {
-   hideActiveSections_R();
-   showSection_LR(START);
-   setTimeout(() => { prepareScreen(FIRST_M) }, TRANSITION_TIME)
+   change_RL(START)
+   setTimeout(() => {
+      prepareScreen(FIRST_M);
+      prepareScreen(FIRST_R);
+   }, TRANSITION_TIME)
 }
-function nextMebel() {
-   FIRST_M.classList.add('active');
-}
-function prevMebel() {
-   showSection_LR(FIRST_M);
-   hideActiveSections_R();
+function prevFirst(element) {
+   change_RL(element)
    if (smoother) smoother.paused(true);
 }
-function nextMebelAbout() {
-   initScroll("#about_s", "#about_c");
-   hideActiveSections_L()
-   showSection_RL(ABOUT_M);
+
+function changeGsap_LR(element, s, c) {
+   initScroll(s, c);
+   change_LR(element)
    setTimeout(() => { if (smoother) smoother.paused(false) }, TRANSITION_TIME)
 }
-function prevMebelAbout() {
-   initScroll("#about_s", "#about_c");
-   hideActiveSections_R();
-   showSection_LR(ABOUT_M);
+function changeGsap_RL(element, s, c) {
+   initScroll(s, c);
+   change_RL(element)
    setTimeout(() => { if (smoother) smoother.paused(false) }, TRANSITION_TIME)
 }
-function nextMebelFeatures() {
-   hideActiveSections_L()
-   showSection_RL(FEATURES_M);
+function change_LR(element) {
+   hideSections_R()
+   showSection_LR(element);
 }
-function prevMebelFeatures() {
-   hideActiveSections_R()
-   showSection_LR(FEATURES_M);
-}
-function nextMebelServices() {
-   initScroll("#services_m", "#services_c");
-   hideSections_L();
-   showSection_RL(SERVICES_M);
-   setTimeout(() => { if (smoother) smoother.paused(false) }, TRANSITION_TIME)
-}
-function prevMebelServices() {
-   initScroll("#services_m", "#services_c");
-   hideActiveSections_R();
-   showSection_LR(SERVICES_M);
-   setTimeout(() => { if (smoother) smoother.paused(false) }, TRANSITION_TIME)
-}
-function nextMebelProjects() {
-   hideSections_L();
-   showSection_RL(PROJECTS_M);
-}
-function prevMebelProjects() {
-   hideActiveSections_R();
-   showSection_LR(PROJECTS_M);
-}
-function nextMebelPartners() {
-   initScroll("#partners_s", "#partners_c");
-   hideSections_L();
-   showSection_RL(PARTNERS_M);
-   setTimeout(() => { if (smoother) smoother.paused(false) }, TRANSITION_TIME)
-}
-function nextMebelContacts() {
-   hideSections_L();
-   showSection_RL(CONTACTS_M);
+function change_RL(element) {
+   hideSections_L()
+   showSection_RL(element);
 }
 
 // ************* служебные функции ******************
@@ -224,8 +353,8 @@ function showSectionNotAnimated(item) {
    item.style.transition = 'all 0s';
    item.classList.remove('offset-left');
    item.classList.remove('offset-right');
+   active_section = item.id;
    requestAnimationFrame(() => {
-      active_section = item.id;
       item.style.transition = '';
       item.classList.add('active');
    })
@@ -247,12 +376,13 @@ function showSection_RL(item) {
    item.style.transition = 'all 0s';
    item.classList.remove('offset-left');
    item.classList.add('offset-right');
+   active_section = item.id;
    requestAnimationFrame(() => {
-      active_section = item.id;
       item.style.transition = '';
       item.classList.remove('offset-right');
       item.classList.add('active');
-      // console.log(item);
+      checkingActiveSection();
+      console.log(active_section);
    })
 }
 // показать секуию с анимацией слева направо
@@ -260,38 +390,33 @@ function showSection_LR(item) {
    item.style.transition = 'all 0s';
    item.classList.remove('offset-right');
    item.classList.add('offset-left');
+   active_section = item.id;
    requestAnimationFrame(() => {
-      active_section = item.id;
       item.style.transition = '';
       item.classList.remove('offset-left');
       item.classList.add('active');
-      // console.log(item);
+      checkingActiveSection();
+      console.log(active_section);
    })
 }
-
-// прячет секции влево
-function hideSections_L() {
-   if (smoother) smoother.paused(true);
-   SECTIONS.forEach(e => {
-      e.classList.remove('offset-right', 'active');
-      e.classList.add('offset-left');
-   })
+function checkingActiveSection() {
+   DOC.body.classList.toggle('first-screen-active', active_section === 'first_m' || active_section === 'first_r')
 }
 // прячет активную секцию налево
-function hideActiveSections_L() {
+function hideSections_L() {
    if (smoother) smoother.paused(true);
    const section = DOC.querySelector('.section.active');
    if (!section) return;
    section.classList.add('offset-left');
-   section.classList.remove('active');
+   setTimeout(() => { section.classList.remove('active') }, TRANSITION_TIME)
 }
 // прячет активную секцию навправо
-function hideActiveSections_R() {
+function hideSections_R() {
    if (smoother) smoother.paused(true);
    const section = DOC.querySelector('.section.active');
    if (!section) return;
    section.classList.add('offset-right');
-   section.classList.remove('active');
+   setTimeout(() => { section.classList.remove('active') }, TRANSITION_TIME)
 }
 
 
@@ -300,7 +425,65 @@ function hideActiveSections_R() {
 
 
 
-var smoother;
+// перемещение блоков при адаптиве
+// data-da=".class,3,768,min" 
+// класс родителя куда перемещать
+// порядковый номер в блоке куда перемещается начиная с 0 как индексы массива
+// viewport
+// min = min-width, max = max-width
+// два перемещения: data-da=".class,3,768,min,.class2,1,1024,max"
+const ARRAY_DATA_DA = document.querySelectorAll('[data-da]');
+ARRAY_DATA_DA.forEach(function (e) {
+   const dataArray = e.dataset.da.split(',');
+   const addressMove = searchDestination(e, dataArray[0]);
+   const addressMoveSecond = dataArray[4] && searchDestination(e, dataArray[4]);
+   const addressParent = e.parentElement;
+   const listChildren = addressParent.children;
+   const direction = dataArray[3] || 'min';
+   const directionSecond = dataArray[7] || 'min';
+   const mediaQuery = window.matchMedia(`(${direction}-width: ${dataArray[2]}px)`);
+   const mediaQuerySecond = dataArray[6] && window.matchMedia(`(${directionSecond}-width: ${dataArray[6]}px)`);
+   for (let i = 0; i < listChildren.length; i++) { !listChildren[i].dataset.n && listChildren[i].setAttribute('data-n', `${i}`) };
+   mediaQuery.matches && startChange(mediaQuery, addressMove, e, listChildren, addressParent, dataArray);
+   if (mediaQuerySecond && mediaQuerySecond.matches) moving(e, dataArray[5], addressMoveSecond);
+   mediaQuery.addEventListener('change', () => { startChange(mediaQuery, addressMove, e, listChildren, addressParent, dataArray) });
+   if (mediaQuerySecond) mediaQuerySecond.addEventListener('change', () => {
+      if (mediaQuerySecond.matches) { moving(e, dataArray[4], addressMoveSecond); return; };
+      startChange(mediaQuery, addressMove, e, listChildren, addressParent, dataArray);
+   });
+});
+
+function startChange(mediaQuery, addressMove, e, listChildren, addressParent, dataArray) {
+   if (mediaQuery.matches) { moving(e, dataArray[1], addressMove); return; }
+   if (listChildren.length > 0) {
+      for (let z = 0; z < listChildren.length; z++) {
+         if (listChildren[z].dataset.n > e.dataset.n) {
+            listChildren[z].before(e);
+            break;
+         } else if (z == listChildren.length - 1) {
+            addressParent.append(e);
+         }
+      }
+      return;
+   }
+   addressParent.prepend(e);
+};
+
+function searchDestination(e, n) {
+   if (!e) return;
+   if (e.classList.contains(n.slice(1))) { return e }
+   if (e.parentElement && e.parentElement.querySelector(n)) { return e.parentElement.querySelector(n) };
+   return searchDestination(e.parentElement, n);
+}
+
+function moving(e, order, addressMove) {
+   if (order == "first") { addressMove.prepend(e); return; };
+   if (order == "last") { addressMove.append(e); return; };
+   if (addressMove.children[order]) { addressMove.children[order].before(e); return; }
+   addressMove.append(e);
+}
+
+
 
 function wrapLetters(element) {
    function wrapper(element) {
@@ -325,52 +508,55 @@ function wrapLetters(element) {
    element.innerHTML = accumulator.innerHTML
 }
 
-
 gsap.registerPlugin(ScrollTrigger, ScrollSmoother, ScrollToPlugin);
 
-function initScroll(wrapper, content) {
+function initScroll(s, c) {
    smoother = ScrollSmoother.create({
-      wrapper: wrapper,
-      content: content,
+      wrapper: s,
+      content: c,
       smooth: 1,
       normalizeScroll: true,
    })
-   smoother.paused(true);
+   if (smoother) smoother.paused(true);
 }
 
-
-// about_m, анимация текста блюр
-const ABOUT_TEXT = document.querySelector('.about__text');
-if (ABOUT_TEXT) {
-   wrapLetters(ABOUT_TEXT);
-   let tl_mat = gsap.timeline({
+// about, анимация текста блюр
+function addAboutAnimation(element, id, trigger, scroller) {
+   wrapLetters(element);
+   tl_about[id] = gsap.timeline({
       scrollTrigger: {
-         trigger: '.trigger-about',
+         trigger: trigger,
+         scroller: scroller,
          start: "top top",
          end: `bottom top`,
          pin: true,
          scrub: true,
          onUpdate: (self) => {
             if (!MIN1024.matches) return;
-            if (Number(self.progress.toFixed(5)) == 0 && active_section === 'about_m') {
-               startProgressAboutM = true;
+            if (Number(self.progress.toFixed(4)) == 0 && active_section === id) {
+               progress[id].start = true;
                return;
             }
-            if (Number(self.progress.toFixed(5)) == 1 && active_section === 'about_m') {
-               endProgressAboutM = true;
+            if (Number(self.progress.toFixed(4)) == 1 && active_section === id) {
+               progress[id].end = true;
                return;
             }
-            startProgressAboutM = false;
-            endProgressAboutM = false;
+            progress[id].start = false;
+            progress[id].end = false;
          },
       },
    })
-   tl_mat.scrollTrigger.onUpdate = (self) => { console.log(self.progress); }
-   const ABOUT_LETTERS = ABOUT_TEXT.querySelectorAll(`.letter`);
+   const ABOUT_LETTERS = element.querySelectorAll(`.letter`);
    ABOUT_LETTERS && ABOUT_LETTERS.forEach((e) => {
-      tl_mat.to(e, { color: '#ffffff', filter: 'blur(0)' })
+      tl_about[id].to(e, { color: '#ffffff', filter: 'blur(0)' })
    })
 }
+
+const ABOUT_TEXT_M = document.querySelector('.about-text-m');
+if (MIN1024.matches && ABOUT_TEXT_M) addAboutAnimation(ABOUT_TEXT_M, 'about_m', '.trigger-about-m', '#about_ms');
+const ABOUT_TEXT_R = document.querySelector('.about-text-r');
+if (MIN1024.matches && ABOUT_TEXT_R) addAboutAnimation(ABOUT_TEXT_R, 'about_r', '.trigger-about-r', '#about_rs');
+
 
 // services_m
 const SERVICES_TITLE = document.querySelector('.services__title');
@@ -379,7 +565,7 @@ if (isPC && SERVICES_TITLE) {
       scrollTrigger: {
          trigger: SERVICES_TITLE,
          endTrigger: '.services-end-trigger',
-         scroller: "#services_m",
+         scroller: "#services_ms",
          start: "0% 0%",
          end: `100% 100%`,
          pin: true,
@@ -388,15 +574,15 @@ if (isPC && SERVICES_TITLE) {
          onUpdate: (self) => {
             if (!MIN1024.matches) return;
             if (Number(self.progress.toFixed(5)) < 0.01 && active_section === 'services_m') {
-               startProgressServicesM = true;
+               progress.services_m.start = true;
                return;
             }
             if (Number(self.progress.toFixed(5)) > 0.99 && active_section === 'services_m') {
-               endProgressServicesM = true;
+               progress.services_m.end = true;
                return;
             }
-            startProgressServicesM = false;
-            endProgressServicesM = false;
+            progress.services_m.start = false;
+            progress.services_m.end = false;
          },
       },
    })
@@ -410,7 +596,7 @@ if (isPC && PARTNERS_TEXT) {
    let tl_mpt = gsap.timeline({
       scrollTrigger: {
          trigger: '.trigger-partners',
-         scroller: "#partners_s",
+         scroller: "#partners_ms",
          start: "top top",
          end: `bottom top`,
          pin: true,
@@ -418,11 +604,15 @@ if (isPC && PARTNERS_TEXT) {
          onUpdate: (self) => {
             if (!MIN1024.matches) return;
             if (Number(self.progress.toFixed(5)) == 0 && active_section === 'partners_m') {
-               prevMebelProjects()
+               progress.partners_m.start = true;
+               return;
             }
             if (Number(self.progress.toFixed(5)) == 1 && active_section === 'partners_m') {
-               nextMebelContacts()
+               progress.partners_m.end = true;
+               return;
             }
+            progress.partners_m.start = false;
+            progress.partners_m.end = false;
          },
       },
    })
@@ -506,16 +696,13 @@ function activeScrollCloseModal() {
 }
 
 
-
-if (FEATURES_M) {
-
-   const FEATURES_M_SWIPER = FEATURES_M.querySelector('.swiper');
-   const FEATURES_M_LIST_TEXT = document.querySelectorAll('.features--text');
-   const FEATURES_M_TEXT_BUTTON_PREV = document.querySelectorAll('.features__button.prev span');
-   const FEATURES_M_TEXT_BUTTON_NEXT = document.querySelectorAll('.features__button.next span');
-   //  ========== features_m ============
-   let proggressFeaturesM = 0;
-   var featuresMSwiper = new Swiper(FEATURES_M_SWIPER, {
+//  ========== features_m ============
+function addFeaturesSwiper(element, id) {
+   const SWIPER = element.querySelector('.swiper');
+   const LIST_TEXT = element.querySelectorAll('.features--text');
+   const TEXT_BUTTON_PREV = element.querySelectorAll('.features__button.prev span');
+   const TEXT_BUTTON_NEXT = element.querySelectorAll('.features__button.next span');
+   SWIPERS[id].swiper = new Swiper(SWIPER, {
       //   allowTouchMove: false,
       direction: MIN1024.matches ? "vertical" : "horizontal",
       spaceBetween: 20,
@@ -523,205 +710,195 @@ if (FEATURES_M) {
       slidesPerView: MIN1024.matches ? 1.1 : 1,
       mousewheel: {
          enabled: true,
-         eventsTarget: '.features'
+         eventsTarget: `#${id}`
       },
       navigation: {
-         nextEl: FEATURES_M_SWIPER.querySelector(".next"),
-         prevEl: FEATURES_M_SWIPER.querySelector(".prev"),
+         nextEl: SWIPER.querySelector(".next"),
+         prevEl: SWIPER.querySelector(".prev"),
       },
       pagination: {
-         el: document.querySelector('.features__pagination'),
+         el: element.querySelector('.features__pagination'),
          type: 'bullets',
          clickable: true,
       },
       on: {
          progress: function (swiper, progress) {
-            proggressFeaturesM = progress;
+            SWIPERS[id].progress = progress;
          },
          transitionStart: function (swiper) {
-            FEATURES_M_LIST_TEXT.forEach((e, i) => e.classList.toggle('active', swiper.activeIndex == i));
-            FEATURES_M_TEXT_BUTTON_PREV.forEach((e, i) => e.classList.toggle('active', swiper.activeIndex == i));
-            FEATURES_M_TEXT_BUTTON_NEXT.forEach((e, i) => e.classList.toggle('active', swiper.activeIndex == i));
+            LIST_TEXT.forEach((e, i) => e.classList.toggle('active', swiper.activeIndex == i));
+            TEXT_BUTTON_PREV.forEach((e, i) => e.classList.toggle('active', swiper.activeIndex == i));
+            TEXT_BUTTON_NEXT.forEach((e, i) => e.classList.toggle('active', swiper.activeIndex == i));
          },
          transitionEnd: function (swiper) {
-            if (proggressFeaturesM == 0) {
-               startProgressFeaturesM = true;
+            if (SWIPERS[id].progress == 0) {
+               progress[id].start = true;
             }
-            if (proggressFeaturesM == 1) {
-               endProgressFeaturesM = true;
+            if (SWIPERS[id].progress == 1) {
+               progress[id].end = true;
             }
-            if (proggressFeaturesM > 0 && proggressFeaturesM < 1) {
-               startProgressFeaturesM = false;
-               endProgressFeaturesM = false;
+            if (SWIPERS[id].progress > 0 && SWIPERS[id].progress < 1) {
+               progress[id].start = false;
+               progress[id].end = false;
             }
          },
       }
    });
 }
-// ========== projects_m ==========
-const PROJECTS_M_SWIPER = PROJECTS_M.querySelector('.swiper');
-let proggressProjectsM = 0;
-let projects_m_swiper_item;
-function initSwiperProjectM() {
-   projects_m_swiper_item = new Swiper(PROJECTS_M_SWIPER, {
+
+if (FEATURES_M) addFeaturesSwiper(FEATURES_M, 'features_m');
+if (FEATURES_R) addFeaturesSwiper(FEATURES_R, 'features_r');
+
+// ========== projects ==========
+function initSwiperProject(element, id) {
+   const projectsSwiper = element.querySelector('.swiper');
+   SWIPERS[id].swiper = new Swiper(projectsSwiper, {
       spaceBetween: MIN1024.matches ? 50 : 20,
       speed: 700,
       slidesPerView: MIN1024.matches ? 2.5 : 1.1,
       grabCursor: true,
       mousewheel: {
          enabled: true,
-         eventsTarget: '.projects__swiper'
+         eventsTarget: '#' + id,
       },
       scrollbar: {
-         el: ".projects__swiper-pagination-body",
+         el: element.querySelector(".projects__swiper-pagination-body"),
          draggable: true,
       },
       on: {
          init: function () {
             if (!MIN1024.matches) return;
-            if (this.isBeginning == this.isEnd) {
-               startProgressProjectM = true;
-               endProgressProjectM = true;
+            if ((this.isBeginning == true && this.isEnd == true) == true) {
+               offsetLabel(element, 0.5);
+               progress[id].start = true;
+               progress[id].end = true;
             }
          },
          progress: function (swiper, progress) {
             if (!MIN1024.matches) return;
-            proggressProjectsM = progress;
+            if ((this.isBeginning == true && this.isEnd == true) == false) offsetLabel(element, progress);
+            SWIPERS[id].progress = progress;
          },
          transitionEnd: function (swiper) {
             if (!MIN1024.matches) return;
-            if (proggressProjectsM == 0) {
-               startProgressProjectM = true;
+            if (SWIPERS[id].progress == 0) {
+               progress[id].start = true;
             }
-            if (proggressProjectsM == 1) {
-               endProgressProjectM = true;
+            if (SWIPERS[id].progress == 1) {
+               progress[id].end = true;
             }
-            if (proggressProjectsM > 0 && proggressProjectsM < 1) {
-               startProgressProjectM = false;
-               endProgressProjectM = false;
+            if (SWIPERS[id].progress > 0 && SWIPERS[id].progress < 1) {
+               progress[id].start = false;
+               progress[id].end = false;
             }
          },
       }
    });
 }
-initSwiperProjectM();
-
-const PROJECTS_BUTTONS = DOC.querySelector('.projects__buttons');
-const PROJECTS_BUTTONS_LIST = DOC.querySelectorAll('.projects__button');
-const listSlides = DOC.querySelectorAll('.projects__slide');
-function updateProjectSwiperM() {
-   projects_m_swiper_item.destroy(true, true);
-   initSwiperProjectM();
+// смещение надписи 
+function offsetLabel(element, progress) {
+   element.style.setProperty('--label', (progress * -100) + '%')
 }
-function changeButtonsActive(button) {
-   PROJECTS_BUTTONS_LIST.forEach(e => { e.classList.toggle('active', e === button) })
-}
-PROJECTS_BUTTONS.addEventListener('click', (event) => {
-   if (event.target.closest('.projects__button')) {
-      const button = event.target.closest('.projects__button');
-      const valueFilter = button.dataset.filter;
-      if (!valueFilter) return;
-      if (valueFilter === 'all' || valueFilter === '') {
-         listSlides.forEach(e => { e.classList.remove('hidden') })
-         updateProjectSwiperM();
-         changeButtonsActive(button);
-         return;
-      }
-      listSlides.forEach(e => {
-         const filter = e.dataset.filter;
-         e.classList.toggle('hidden', valueFilter !== filter);
+// добавление событий клика на клопки фильтрации слайдов
+function addEventsProjects(element, id) {
+   const BUTTONS_LIST = element.querySelectorAll('.projects__button');
+   const LIST_SLIDES = element.querySelectorAll('.projects__slide');
+   BUTTONS_LIST.forEach((e) => {
+      e.addEventListener('click', (event) => {
+         filterSlides(e, LIST_SLIDES, BUTTONS_LIST, SWIPERS[id].swiper, element, id)
       })
-      updateProjectSwiperM();
-      changeButtonsActive(button);
+   })
+}
+// фильтрация слайдеров
+function filterSlides(button, listSlides, listButtons, swiper, element, id) {
+   const valueFilter = button.dataset.filter;
+   if (!valueFilter) return;
+   if (valueFilter === 'all' || valueFilter === '') {
+      listSlides.forEach(e => { e.classList.remove('hidden') })
+      updateProjectSwiper(swiper, element, id);
+      changeButtonsActive(listButtons, button);
+      return;
    }
-})
+   listSlides.forEach(e => {
+      const filter = e.dataset.filter;
+      e.classList.toggle('hidden', valueFilter !== filter);
+   })
+   updateProjectSwiper(swiper, element, id);
+   changeButtonsActive(listButtons, button);
+}
+// смена активной кнопки
+function changeButtonsActive(list, activeButton) {
+   list.forEach(e => { e.classList.toggle('active', e === activeButton) })
+}
+// обновление слайдера после фильтрации
+function updateProjectSwiper(swiper, element, id) {
+   swiper.destroy(true, true);
+   initSwiperProject(element, id);
+}
+if (PROJECTS_M) {
+   initSwiperProject(PROJECTS_M, 'projects_m');
+   addEventsProjects(PROJECTS_M, 'projects_m')
+}
+if (PROJECTS_R) {
+   initSwiperProject(PROJECTS_R, 'projects_r');
+   addEventsProjects(PROJECTS_R, 'projects_r')
+}
 
 
+// =========== stages, process ===========
+function addSwiperFade(element, id) {
+   const title = element.querySelector('.process__title');
+   SWIPERS[id].swiper = new Swiper(element.querySelector('.swiper'), {
+      spaceBetween: 0,
+      slidesPerView: 1,
+      speed: 0, // глючит > 0
+      grabCursor: true,
+      effect: "fade",
+      // direction: "vertical", // глючит
+      mousewheel: {
+         enabled: true,
+         eventsTarget: '#' + id,
+      },
+      on: {
+         init: function () {
+            if (!MIN1024.matches) return;
+            if (this.isBeginning == this.isEnd) {
+               progress[id].start = true;
+               progress[id].end = true;
+            }
+         },
+         progress: function (swiper, progress) {
+            if (!MIN1024.matches) return;
+            SWIPERS[id].progress = progress;
+         },
+         transitionEnd: function (swiper) {
+            if (!MIN1024.matches) return;
+            if (title) title.classList.toggle('hide', SWIPERS[id].progress == 1); // прятать title
+            if (SWIPERS[id].progress == 0) {
+               setTimeout(() => { progress[id].start = true }, TRANSITION_TIME);
+               return;
+            }
+            if (SWIPERS[id].progress == 1) {
+               setTimeout(() => { progress[id].end = true }, TRANSITION_TIME);
+               return;
+            }
+            if (SWIPERS[id].progress > 0 && SWIPERS[id].progress < 1) {
+               setTimeout(() => {
+                  progress[id].start = false;
+                  progress[id].end = false;
+               }, TRANSITION_TIME)
+            }
+         },
+      }
+   });
+}
+function addEvensProcess(element, swiper) {
+   const listButtons = element.querySelectorAll('.process__button button');
+   listButtons.forEach((e) => {
+      e.addEventListener('click', () => { swiper.slideNext() })
+   })
 
-/* пример инициализации слайдера */
-// if (document.querySelector('.swiper')) {
-//    const swiper = new Swiper('.swiper', {
-//       keyboard: {
-//          enabled: true,
-//          onlyInViewport: true,
-//       },
-//       allowTouchMove: false,
-//       loop: true,
-//       spaceBetween: 10,
-//       speed: 300,
-//       slidesPerView: 2.5,
-//       slidesPerView: 'auto', // количаство слайдеров без авто ширины
-//       grabCursor: true,
-//       initialSlide: 2,
-//       centeredSlides: true,
-//       effect: "fade",
-//       breakpoints: {
-//          1024: {
-//             spaceBetween: 20,
-//             slidesPerView: 3
-//          },
-//          768: {
-//             slidesPerView: 2
-//          }
-//       },
-//       navigation: {
-//          nextEl: ".next",
-//          prevEl: ".prev",
-//       },
-//       pagination: {
-//          el: '.pagination__body',
-//          type: 'bullets',
-//          type: 'fraction',
-//          clickable: true,
-//       },
-//       autoplay: {
-//          delay: 2000,
-//       },
-//       virtual: {
-//          enabled: true,
-//       },
-//       freeMode: {
-//          enabled: true,
-//          momentum: false // Отключаем инерцию для точного позиционирования
-//       },
-//    });
-// }
-
-
-
-
-/* создание и ликвидация состояния слайдера в зависимости от ширины вьюпорта */
-// if (document.querySelector('.swiper')) {
-//    let swiperState;
-//    let swiper;
-//    changeStateSlider();
-//    window.addEventListener('resize', () => {
-//       changeStateSlider();
-//    })
-//    function initswiper() {
-//       swiper = new Swiper('.swiper', {
-//          keyboard: {
-//             enabled: true,
-//             onlyInViewport: true,
-//          },
-//          allowTouchMove: true,
-//          loop: false,
-//          speed: 300,
-//          slidesPerView: 1.3,
-//          spaceBetween: 24,
-//       });
-//    }
-//    function changeStateSlider() {
-//       if (!MIN768.matches) {
-//          if (!swiperState) {
-//             swiperState = true;
-//             initswiper();
-//          }
-//       } else {
-//          if (swiperState) {
-//             swiperState = false;
-//             swiper.destroy(true, true);
-//          }
-//       }
-//    }
-// }
+}
+if (STAGES_R) addSwiperFade(STAGES_R, 'stages_r');
+if (PROCESS_R) addSwiperFade(PROCESS_R, 'process_r');
+if (PROCESS_R) addEvensProcess(PROCESS_R, SWIPERS.process_r.swiper)

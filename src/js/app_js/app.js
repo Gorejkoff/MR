@@ -35,29 +35,135 @@ const MEBEL = DOC.getElementById('mebel');
 const REMONT = DOC.getElementById('remont');
 const START = DOC.getElementById('start');
 const FIRST_M = DOC.getElementById('first_m');
+const FIRST_R = DOC.getElementById('first_r');
 const ABOUT_M = DOC.getElementById('about_m');
+const ABOUT_R = DOC.getElementById('about_r');
 const FEATURES_M = DOC.getElementById('features_m');
+const FEATURES_R = DOC.getElementById('features_r');
 const SERVICES_M = DOC.getElementById('services_m');
 const PROJECTS_M = DOC.getElementById('projects_m');
+const PROJECTS_R = DOC.getElementById('projects_r');
 const PARTNERS_M = DOC.getElementById('partners_m');
 const CONTACTS_M = DOC.getElementById('contacts_m');
+const CONTACTS_R = DOC.getElementById('contacts_r');
+const STAGES_R = DOC.getElementById('stages_r');
+const PROCESS_R = DOC.getElementById('process_r');
+
+let smoother = undefined;
+
+// слайдеры и их прогресс
+const SWIPERS = {
+   features_m: {
+      swiper: {},
+      progress: 0
+   },
+   features_r: {
+      swiper: {},
+      progress: 0
+   },
+   projects_m: {
+      swiper: {},
+      progress: 0
+   },
+   projects_r: {
+      swiper: {},
+      progress: 0
+   },
+   process_r: {
+      swiper: {},
+      progress: 0
+   },
+   stages_r: {
+      swiper: {},
+      progress: 0
+   }
+}
+
+const tl_about = {
+   about_m: {},
+   about_r: {}
+}
+
+// для глобального отслеживания состояния начальной и конечной позиции прогресса
+const progress = {
+   about_m: {
+      start: false,
+      end: false
+   },
+   about_r: {
+      start: false,
+      end: false
+   },
+   features_m: {
+      start: false,
+      end: false
+   },
+   features_r: {
+      start: false,
+      end: false
+   },
+   projects_m: {
+      start: false,
+      end: false
+   },
+   projects_r: {
+      start: false,
+      end: false
+   },
+   services_m: {
+      start: false,
+      end: false
+   },
+   partners_m: {
+      start: false,
+      end: false
+   },
+   process_r: {
+      start: false,
+      end: false
+   },
+   stages_r: {
+      start: false,
+      end: false
+   },
+}
 
 
 // ** ======================= CLICK ======================  ** //
 DOC.documentElement.addEventListener("click", (event) => {
    if (event.target.closest('.cookie__agree')) {
-      COOKIE.remove()
+      COOKIE.remove();
    }
    // управление меню
    if (event.target.closest('.header__button')) { toggleMenu() }
    if (!event.target.closest('.header__button') && !event.target.closest('.header__nav-list')) { closeMenu() }
    // навигация
-   if (isPC && event.target.closest('.next-mebel')) {
-      hiddenStartScreen();
-      nextMebel();
+   if (event.target.closest('.next-mebel')) {
+      if (MIN1024.matches) {
+         hideSections_L();
+         showSectionNotAnimated(FIRST_M);
+         hiddenStartScreen();
+         activeMebelBranch();
+         checkingActiveSection();
+         return;
+      }
+      activeMebelBranch();
+      hiddenStartScreen('mebel')
    }
-   if (event.target.closest('.next-mebel-mobile')) { hiddenStartScreen('mebel') }
-   if (event.target.closest('.next-mebel-about')) { nextMebelAbout() }
+   if (event.target.closest('.next-remont')) {
+      if (MIN1024.matches) {
+         hideSections_L();
+         showSectionNotAnimated(FIRST_R);
+         hiddenStartScreen();
+         activeRemontBranch();
+         checkingActiveSection();
+         return;
+      }
+      activeRemontBranch();
+      hiddenStartScreen('remont')
+   }
+   if (event.target.closest('.next-mebel-about')) { changeGsap_RL(ABOUT_M, '#about_ms', '#about_mc') }
+   if (event.target.closest('.next-remont-about')) { changeGsap_RL(ABOUT_R, '#about_rs', '#about_rc') }
    // меню
    if (event.target.closest('[href^="#"] ')) {
       MIN1024.matches && event.preventDefault();
@@ -68,62 +174,91 @@ DOC.documentElement.addEventListener("click", (event) => {
       closeMenu();
    }
    if (MIN1024.matches && event.target.closest('.to-start')) { showStartScreen() }
-   if (MIN1024.matches && event.target.closest('.to-about-m')) { nextMebelAbout() }
-   if (MIN1024.matches && event.target.closest('.to-features-m')) { nextMebelFeatures() }
-   if (MIN1024.matches && event.target.closest('.to-services-m')) { nextMebelServices() }
-   if (MIN1024.matches && event.target.closest('.to-projects-m')) { nextMebelProjects() }
-   if (MIN1024.matches && event.target.closest('.to-partners-m')) { nextMebelPartners() }
-   if (MIN1024.matches && event.target.closest('.to-contacts-m')) { nextMebelContacts() }
+   if (MIN1024.matches && event.target.closest('.to-about-m')) { changeGsap_RL(ABOUT_M, '#about_ms', '#about_mc') }
+   if (MIN1024.matches && event.target.closest('.to-features-m')) { change_LR(FEATURES_M) }
+   if (MIN1024.matches && event.target.closest('.to-services-m')) { changeGsap_RL(SERVICES_M, '#services_ms', '#services_mc') }
+   if (MIN1024.matches && event.target.closest('.to-projects-m')) { change_RL(PROJECTS_M) }
+   if (MIN1024.matches && event.target.closest('.to-partners-m')) { changeGsap_RL(PARTNERS_M, '#partners_ms', '#partners_mc') }
+   if (MIN1024.matches && event.target.closest('.to-contacts-m')) { change_RL(CONTACTS_M) }
 
    // отключить скролл слайдера
    if (event.target.closest('.projects__info')) {
-      projects_m_swiper_item.mousewheel.disable();
+      SWIPERS.projects_m.swiper.mousewheel.disable();
    }
    // включить скролл слайдера
    if (event.target.closest('.modal--projects')) {
-      projects_m_swiper_item.mousewheel.enable();
+      SWIPERS.projects_m.swiper.mousewheel.enable();
    }
+   // переключение табов в контактах
+   if (event.target.closest('.open-map')) { openMap(event) }
+   if (event.target.closest('.open-form')) { closeMap(event) }
 })
 
-
-let startProgressAboutM = false;
-let endProgressAboutM = false;
-let startProgressFeaturesM = false;
-let endProgressFeaturesM = false;
-let startProgressProjectM = false;
-let endProgressProjectM = false;
-let startProgressServicesM = false;
-let endProgressServicesM = false;
-
-
-
+// wheel для сменя экранов
 window.addEventListener('wheel', function (event) {
-   if (active_section == 'about_m' && startProgressAboutM && event.deltaY < 0) {
-      prevMebel()
-   }
-   if (active_section == 'about_m' && endProgressAboutM && event.deltaY > 0) {
-      nextMebelFeatures()
-   }
-   if (active_section == 'features_m' && startProgressFeaturesM && event.deltaY < 0) {
-      prevMebelAbout();
-   }
-   if (active_section == 'features_m' && endProgressFeaturesM && event.deltaY > 0) {
-      nextMebelServices();
-   }
-   if (active_section == 'projects_m' && startProgressProjectM && event.deltaY < 0) {
-      prevMebelServices()
-   }
-   if (active_section == 'projects_m' && endProgressProjectM && event.deltaY > 0) {
-      nextMebelPartners();
-   }
-   if (active_section == 'services_m' && startProgressServicesM && event.deltaY < 0) {
-      prevMebelFeatures()
-   }
-   if (active_section == 'services_m' && endProgressServicesM && event.deltaY > 0) {
-      nextMebelProjects()
-   }
-});
 
+   if (active_section == 'about_m' && progress.about_m.start && event.deltaY < 0) {
+      prevFirst(FIRST_M)
+   }
+   if (active_section == 'about_m' && progress.about_m.end && event.deltaY > 0) {
+      change_RL(FEATURES_M)
+   }
+   if (active_section == 'about_r' && progress.about_r.start && event.deltaY < 0) {
+      prevFirst(FIRST_R)
+   }
+   if (active_section == 'about_r' && progress.about_r.end && event.deltaY > 0) {
+      change_RL(FEATURES_R)
+   }
+   if (active_section == 'features_m' && progress.features_m.start && event.deltaY < 0) {
+      changeGsap_RL(ABOUT_M, '#about_ms', '#about_mc');
+   }
+   if (active_section == 'features_m' && progress.features_m.end && event.deltaY > 0) {
+      changeGsap_RL(SERVICES_M, '#services_ms', '#services_mc');
+   }
+   if (active_section == 'features_r' && progress.features_r.start && event.deltaY < 0) {
+      changeGsap_LR(ABOUT_R, '#about_rs', '#about_rc');
+   }
+   if (active_section == 'features_r' && progress.features_r.end && event.deltaY > 0) {
+      change_RL(STAGES_R)
+   }
+   if (active_section == 'projects_m' && progress.projects_m.start && event.deltaY < 0) {
+      changeGsap_LR(SERVICES_M, '#services_ms', '#services_mc')
+   }
+   if (active_section == 'projects_m' && progress.projects_m.end && event.deltaY > 0) {
+      changeGsap_RL(PARTNERS_M, '#partners_ms', '#partners_mc');
+   }
+   if (active_section == 'projects_r' && progress.projects_r.start && event.deltaY < 0) {
+      change_LR(STAGES_R)
+   }
+   if (active_section == 'projects_r' && progress.projects_r.end && event.deltaY > 0) {
+      change_RL(PROCESS_R);
+   }
+   if (active_section == 'services_m' && progress.services_m.start && event.deltaY < 0) {
+      change_LR(FEATURES_M)
+   }
+   if (active_section == 'services_m' && progress.services_m.end && event.deltaY > 0) {
+      change_RL(PROJECTS_M)
+   }
+   if (active_section == 'partners_m' && progress.partners_m.start && event.deltaY < 0) {
+      change_LR(PROJECTS_M)
+   }
+   if (active_section == 'partners_m' && progress.partners_m.end && event.deltaY > 0) {
+      change_RL(CONTACTS_M)
+   }
+   if (active_section == 'stages_r' && progress.stages_r.start && event.deltaY < 0) {
+      change_LR(FEATURES_R)
+   }
+   if (active_section == 'stages_r' && progress.stages_r.end && event.deltaY > 0) {
+      change_RL(PROJECTS_R)
+   }
+   if (active_section == 'process_r' && progress.process_r.start && event.deltaY < 0) {
+      // change_LR(FEATURES_R)
+   }
+   if (active_section == 'process_r' && progress.process_r.end && event.deltaY > 0) {
+      change_RL(CONTACTS_R)
+   }
+
+});
 
 
 // управление
@@ -137,14 +272,33 @@ function toggleMenu() {
    DOC.body.classList.toggle('menu-open');
 }
 
-// функции навигации по блокам
-function hiddenStartScreen(sectionName) {
-   START.classList.add('offset-left');
-   if (!MIN1024.matches) {
-      if (sectionName && sectionName === 'mebel') swowMebelMobile();
-      if (sectionName && sectionName === 'remont') swowRemontMobile();
-   }
+// переключение табов в контактах
+function openMap(event) {
+   const contacts = event.target.closest('.contacts');
+   if (!contacts) return;
+   const map = contacts.querySelector('.contacts__map');
+   const form = contacts.querySelector('.contacts__form');
+   if (map) map.style.display = 'block';
+   if (form) form.style.display = 'none';
 }
+function closeMap(event) {
+   const contacts = event.target.closest('.contacts');
+   if (!contacts) return;
+   const map = contacts.querySelector('.contacts__map');
+   const form = contacts.querySelector('.contacts__form');
+   if (map) map.style.display = 'none';
+   if (form) form.style.display = 'block';
+}
+// маркировка направдения
+function activeMebelBranch() {
+   DOC.body.classList.add('mebel-branch');
+   DOC.body.classList.remove('remont-branch');
+}
+function activeRemontBranch() {
+   DOC.body.classList.add('remont-branch');
+   DOC.body.classList.remove('mebel-branch');
+}
+// функции навигации по блокам
 function swowMebelMobile() {
    REMONT.classList.remove('active');
    MEBEL.classList.add('active');
@@ -153,68 +307,43 @@ function swowRemontMobile() {
    REMONT.classList.add('active');
    MEBEL.classList.remove('active');
 }
+function hiddenStartScreen(sectionName) {
+   START.classList.add('offset-left');
+   if (!MIN1024.matches) {
+      if (sectionName && sectionName === 'mebel') swowMebelMobile();
+      if (sectionName && sectionName === 'remont') swowRemontMobile();
+   }
+   window.scrollTo(0, 0);
+}
 function showStartScreen() {
-   hideActiveSections_R();
-   showSection_LR(START);
-   setTimeout(() => { prepareScreen(FIRST_M) }, TRANSITION_TIME)
+   change_RL(START)
+   setTimeout(() => {
+      prepareScreen(FIRST_M);
+      prepareScreen(FIRST_R);
+   }, TRANSITION_TIME)
 }
-function nextMebel() {
-   FIRST_M.classList.add('active');
-}
-function prevMebel() {
-   showSection_LR(FIRST_M);
-   hideActiveSections_R();
+function prevFirst(element) {
+   change_RL(element)
    if (smoother) smoother.paused(true);
 }
-function nextMebelAbout() {
-   initScroll("#about_s", "#about_c");
-   hideActiveSections_L()
-   showSection_RL(ABOUT_M);
+
+function changeGsap_LR(element, s, c) {
+   initScroll(s, c);
+   change_LR(element)
    setTimeout(() => { if (smoother) smoother.paused(false) }, TRANSITION_TIME)
 }
-function prevMebelAbout() {
-   initScroll("#about_s", "#about_c");
-   hideActiveSections_R();
-   showSection_LR(ABOUT_M);
+function changeGsap_RL(element, s, c) {
+   initScroll(s, c);
+   change_RL(element)
    setTimeout(() => { if (smoother) smoother.paused(false) }, TRANSITION_TIME)
 }
-function nextMebelFeatures() {
-   hideActiveSections_L()
-   showSection_RL(FEATURES_M);
+function change_LR(element) {
+   hideSections_R()
+   showSection_LR(element);
 }
-function prevMebelFeatures() {
-   hideActiveSections_R()
-   showSection_LR(FEATURES_M);
-}
-function nextMebelServices() {
-   initScroll("#services_m", "#services_c");
-   hideSections_L();
-   showSection_RL(SERVICES_M);
-   setTimeout(() => { if (smoother) smoother.paused(false) }, TRANSITION_TIME)
-}
-function prevMebelServices() {
-   initScroll("#services_m", "#services_c");
-   hideActiveSections_R();
-   showSection_LR(SERVICES_M);
-   setTimeout(() => { if (smoother) smoother.paused(false) }, TRANSITION_TIME)
-}
-function nextMebelProjects() {
-   hideSections_L();
-   showSection_RL(PROJECTS_M);
-}
-function prevMebelProjects() {
-   hideActiveSections_R();
-   showSection_LR(PROJECTS_M);
-}
-function nextMebelPartners() {
-   initScroll("#partners_s", "#partners_c");
-   hideSections_L();
-   showSection_RL(PARTNERS_M);
-   setTimeout(() => { if (smoother) smoother.paused(false) }, TRANSITION_TIME)
-}
-function nextMebelContacts() {
-   hideSections_L();
-   showSection_RL(CONTACTS_M);
+function change_RL(element) {
+   hideSections_L()
+   showSection_RL(element);
 }
 
 // ************* служебные функции ******************
@@ -224,8 +353,8 @@ function showSectionNotAnimated(item) {
    item.style.transition = 'all 0s';
    item.classList.remove('offset-left');
    item.classList.remove('offset-right');
+   active_section = item.id;
    requestAnimationFrame(() => {
-      active_section = item.id;
       item.style.transition = '';
       item.classList.add('active');
    })
@@ -247,12 +376,13 @@ function showSection_RL(item) {
    item.style.transition = 'all 0s';
    item.classList.remove('offset-left');
    item.classList.add('offset-right');
+   active_section = item.id;
    requestAnimationFrame(() => {
-      active_section = item.id;
       item.style.transition = '';
       item.classList.remove('offset-right');
       item.classList.add('active');
-      // console.log(item);
+      checkingActiveSection();
+      console.log(active_section);
    })
 }
 // показать секуию с анимацией слева направо
@@ -260,38 +390,33 @@ function showSection_LR(item) {
    item.style.transition = 'all 0s';
    item.classList.remove('offset-right');
    item.classList.add('offset-left');
+   active_section = item.id;
    requestAnimationFrame(() => {
-      active_section = item.id;
       item.style.transition = '';
       item.classList.remove('offset-left');
       item.classList.add('active');
-      // console.log(item);
+      checkingActiveSection();
+      console.log(active_section);
    })
 }
-
-// прячет секции влево
-function hideSections_L() {
-   if (smoother) smoother.paused(true);
-   SECTIONS.forEach(e => {
-      e.classList.remove('offset-right', 'active');
-      e.classList.add('offset-left');
-   })
+function checkingActiveSection() {
+   DOC.body.classList.toggle('first-screen-active', active_section === 'first_m' || active_section === 'first_r')
 }
 // прячет активную секцию налево
-function hideActiveSections_L() {
+function hideSections_L() {
    if (smoother) smoother.paused(true);
    const section = DOC.querySelector('.section.active');
    if (!section) return;
    section.classList.add('offset-left');
-   section.classList.remove('active');
+   setTimeout(() => { section.classList.remove('active') }, TRANSITION_TIME)
 }
 // прячет активную секцию навправо
-function hideActiveSections_R() {
+function hideSections_R() {
    if (smoother) smoother.paused(true);
    const section = DOC.querySelector('.section.active');
    if (!section) return;
    section.classList.add('offset-right');
-   section.classList.remove('active');
+   setTimeout(() => { section.classList.remove('active') }, TRANSITION_TIME)
 }
 
 

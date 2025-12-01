@@ -1,19 +1,21 @@
 .first {
-
    min-width: 100vw;
    width: 100vw;
    height: var(--vh);
    overflow: hidden;
    transform: translateX(0);
    transition: transform var(--tr-time);
+   z-index: -1;
 
    @media (min-width:1024px) {
       position: fixed;
       top: 0;
       left: 0;
-      z-index: 9;
    }
 
+   &.active {
+      z-index: 9;
+   }
 
    &__background {
       position: absolute;
@@ -31,8 +33,9 @@
       transform: translate(-50%, -50%);
       width: 100%;
       height: 100%;
-      z-index: -1;
+      z-index: 1;
       object-fit: cover;
+      filter: brightness(0.7)
    }
 
    &__mask {
@@ -47,8 +50,8 @@
       transition: opacity 0.5s calc(var(--tr-time) - 0.5s);
 
       @media (max-width:1023.98px) {
-         background: linear-gradient(180deg, #000 0%, rgba(0, 0, 0, 0) 50%);
-         backdrop-filter: blur(16px);
+         background: linear-gradient(180deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0) 50%), linear-gradient(#a9abb500 70%, #A9ABB5);
+         backdrop-filter: blur(20px);
          mask-size: 100% 100%;
          mask-image: url('../img/png/mask-3.png');
       }
@@ -58,7 +61,7 @@
       }
 
       .active & {
-         opacity: 0.7;
+         opacity: 1;
       }
 
       .remont--mod & {
@@ -71,14 +74,11 @@
 
       .mebel--mod & {
          @media (min-width:1024px) {
-            background: linear-gradient(45deg, #a9abb5 10%, #151519 50%);
+            background: linear-gradient(45deg, #a9abb5 -20%, #151519 40%);
             mask-position: right;
             mask-image: url('../img/png/mask-m.png');
          }
       }
-
-
-
    }
 
    &__mask-border {
@@ -99,6 +99,7 @@
       height: 100%;
 
       @media (min-width:1024px) {
+         padding-top: 0;
          width: 80%;
          flex-direction: row;
       }
@@ -194,6 +195,7 @@
 
       .mebel--mod & {
          text-align: left;
+         color: #ffffff;
       }
    }
 
@@ -218,6 +220,8 @@
       }
 
       .mebel--mod & {
+         color: #A9ABB5;
+
          @media (min-width:1024px) {
             text-align: left;
          }

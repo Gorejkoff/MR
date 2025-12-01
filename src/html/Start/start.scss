@@ -13,12 +13,43 @@
 
    &__r,
    &__m {
-      cursor: pointer;
       position: relative;
       display: flex;
       align-items: center;
       justify-content: center;
       flex: 0 0 50%;
+      overflow: hidden;
+
+      .button {
+         opacity: 0;
+
+         @media (max-width:1023.98px) {
+            animation: start-button 0.5s 2s forwards;
+         }
+
+         @media (min-width:1024px) {
+            transition: opacity 0.3s;
+         }
+      }
+
+      ._pc &:hover {
+         .button {
+            opacity: 1;
+         }
+
+         .start__content-r-title,
+         .start__content-m-title {
+            span {
+               color: #ffffff;
+            }
+         }
+      }
+
+      &:hover {
+         .start__background {
+            opacity: 0.1;
+         }
+      }
    }
 
    &__r {
@@ -84,16 +115,18 @@
       overflow: hidden;
 
       @media (min-width:1024px) {
+         overflow: visible;
          justify-content: space-between;
-      }
-
-      .button {
-         opacity: 0;
-         animation: start-button 0.5s 2s forwards;
       }
    }
 
-   &__content-r {}
+   &__content-r {
+      .button {
+         @media (min-width:1024px) {
+            margin-left: auto;
+         }
+      }
+   }
 
    &__content-m {
       color: #ffffff;
@@ -110,6 +143,7 @@
       min-height: 100%;
 
       @media (min-width:1024px) {
+         min-height: auto;
          flex-direction: row;
       }
    }
@@ -121,6 +155,10 @@
       line-height: 90%;
       letter-spacing: -0.03em;
       text-transform: uppercase;
+
+      span {
+         transition: color 0.3s;
+      }
 
       @media (min-width:1024px) {
          font-size: 9.5vh;
@@ -146,15 +184,21 @@
       text-align: center;
       transform: translateX(100vw);
       animation: start-title-m 1s 1.5s forwards;
+      color: #A9ABB5;
 
-      span {
-         color: #A9ABB5;
-      }
+      span {}
 
       @media (min-width:1024px) {
          order: 2;
          text-align: right;
+      }
+   }
 
+   &__content-r-group {}
+
+   &__content-m-group {
+      @media (min-width:1024px) {
+         align-self: flex-end;
       }
    }
 
@@ -176,17 +220,24 @@
 
    &__content-r-text {
       @media (min-width:1024px) {
+         margin-bottom: 4.5vh;
          text-align: right;
       }
    }
 
    &__content-m-text {
       @media (min-width:1024px) {
+         margin-top: 4.5vh;
          text-align: left;
       }
    }
 
-   &__r-background {
+   &__content-button {
+      opacity: 0;
+      animation: start-text 0.5s 2s forwards;
+   }
+
+   &__background {
       position: absolute;
       top: 50%;
       left: 50%;
@@ -195,7 +246,7 @@
       height: 100%;
       object-fit: cover;
       opacity: 0;
-      animation: start-background-r 1s 1s forwards;
+      transition: opacity 0.3s;
    }
 }
 
@@ -241,16 +292,6 @@
       height: 100%;
       width: auto;
       opacity: 0.2;
-   }
-}
-
-@keyframes start-background-r {
-   0% {
-      opacity: 0;
-   }
-
-   100% {
-      opacity: 1;
    }
 }
 

@@ -55,6 +55,7 @@
       text-transform: uppercase;
 
       @media (min-width:1024px) {
+         margin-bottom: 4vh;
          font-size: 5.5vh;
       }
    }
@@ -66,8 +67,12 @@
       letter-spacing: -0.02em;
       text-transform: lowercase;
 
+
       @media (min-width:1024px) {
-         font-size: 55px;
+         display: flex;
+         align-items: flex-end;
+         gap: 40px;
+         font-size: 3.8vh;
       }
    }
 
@@ -79,7 +84,7 @@
       color: #151519;
 
       @media (min-width:1024px) {
-         font-size: 22px;
+         font-size: 1.5vh;
       }
    }
 
@@ -90,6 +95,7 @@
       gap: 10px;
 
       @media (min-width:1024px) {
+         margin-bottom: 4vh;
          flex-direction: row;
       }
 
@@ -108,13 +114,18 @@
          border: 2px solid rgba(21, 21, 25, 0.5);
 
          @media (min-width:1024px) {
-            min-height: 68px;
-            font-size: 26px;
+            padding: 0.7vh 2.1vh;
+            min-height: 4.7vh;
+            font-size: 1.8vh;
          }
 
          svg {
             width: 20px;
             height: auto;
+
+            @media (min-width:1024px) {
+               width: 2.1vh;
+            }
          }
       }
    }
@@ -122,23 +133,42 @@
    &__address {
       order: 5;
       display: flex;
-      justify-content: space-between;
+      flex-direction: column;
       align-items: center;
-      gap: 10px;
-      font-size: 3.1vh;
+      gap: 20px;
+      font-size: 24px;
       line-height: 130%;
       letter-spacing: -0.02em;
 
       @media (min-width:1024px) {
+         flex-direction: row;
+         font-size: 2.2vh;
          order: 4;
       }
+   }
 
-      svg {
-         display: none;
+   &__address-line {
+      flex: 1 1 auto;
+      height: 1px;
+      background-color: #ffffff;
+      display: none;
 
-         @media (min-width:1024px) {
-            display: block;
-         }
+      @media (min-width:1024px) {
+         display: block;
+      }
+   }
+
+   &__address-map {
+      font-size: 18px;
+      line-height: 130%;
+      letter-spacing: -0.02em;
+      text-decoration: underline;
+      text-decoration-style: dotted;
+      text-underline-offset: 0.2em;
+      color: #151519;
+
+      @media (min-width:1024px) {
+         font-size: 1.9vh;
       }
    }
 
@@ -153,7 +183,7 @@
 
       @media (min-width:1024px) {
          order: 5;
-         font-size: 30px;
+         font-size: 2.1vh;
       }
 
       span {
@@ -236,14 +266,8 @@
       width: auto;
    }
 
-   &__button-back {
-      display: none;
-      align-items: center;
-      gap: 16px;
-
-      @media (min-width:1024px) {
-         display: flex;
-      }
+   &__tabs {
+      flex: 0 1 60%;
    }
 
    &__map {
@@ -251,10 +275,12 @@
       padding-bottom: min(120%, 80vh);
       border-radius: 10px;
       overflow: hidden;
+      width: 100%;
+      display: none;
 
       @media (min-width:1024px) {
          padding-bottom: 0;
-         flex: 0 1 60%;
+         height: 100%;
          filter: grayscale(80%);
       }
 
@@ -266,4 +292,193 @@
          height: 100%;
       }
    }
+
+   &__map-button {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      z-index: 2;
+      min-width: 17vh;
+   }
+
+   &__form {
+      font-size: 1.95vh;
+      line-height: 140%;
+      letter-spacing: -0.02em;
+   }
+
+   &__form-group {
+      margin-bottom: 25px;
+      display: flex;
+      gap: 20px;
+   }
+
+   &__input {
+      position: relative;
+      flex: 1 1 1%;
+
+      input {
+         height: 6.3vh;
+         width: 100%;
+         padding: 0 2.1vh;
+         border-radius: 10px;
+         border: 2px solid rgba(0, 0, 0, 0.2);
+
+         &:not(:placeholder-shown)+span,
+         &:focus+span {
+            display: none;
+         }
+      }
+   }
+
+   &__placeholder {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%);
+      color: #151519;
+      padding: 0 2.1vh;
+      pointer-events: none;
+
+      span {
+         color: #ffffff;
+      }
+   }
+
+   &__file {
+      margin-bottom: 25px;
+      cursor: pointer;
+      display: block;
+      position: relative;
+      height: 6.3vh;
+      width: 100%;
+      padding: 0 2.1vh;
+      border-radius: 10px;
+      border: 2px solid rgba(0, 0, 0, 0.2);
+
+      .contacts__placeholder {
+         span {
+            font-size: 1.3vh;
+            line-height: 140%;
+            letter-spacing: -0.02em;
+            color: #5D606E;
+         }
+      }
+
+      input {
+         display: none;
+      }
+   }
+
+   &__textarea {
+      padding: 2.1vh;
+      border-radius: 10px;
+      border: 2px solid rgba(0, 0, 0, 0.2);
+      height: 17.2vh;
+      width: 100%;
+   }
+
+   textarea,
+   input {
+      &::-webkit-input-placeholder {
+         font-size: 1.95vh;
+         line-height: 140%;
+         letter-spacing: -0.02em;
+         color: #151519;
+      }
+
+      &::-moz-placeholder {
+         font-size: 1.95vh;
+         line-height: 140%;
+         letter-spacing: -0.02em;
+         color: #151519;
+      }
+
+      &::placeholder {
+         font-size: 1.95vh;
+         line-height: 140%;
+         letter-spacing: -0.02em;
+         color: #151519;
+      }
+   }
+
+   &__note {
+      margin-top: 10px;
+      margin-bottom: 15px;
+      font-size: 1.2vh;
+      line-height: 140%;
+      letter-spacing: -0.02em;
+      color: #151519;
+
+      span {
+         color: #ffffff;
+      }
+   }
+
+   &__buttons {
+      display: flex;
+      gap: 20px;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: flex-start;
+
+      .button {
+         @media (max-width:1023.98px) {
+            width: 100%;
+         }
+      }
+
+      @media (min-width:1024px) {
+         flex-direction: row;
+      }
+   }
+
+   &__check {
+      cursor: pointer;
+      display: flex;
+      gap: 20px;
+      font-size: 20px;
+      line-height: 140%;
+      letter-spacing: -0.02em;
+      color: #5D606E;
+
+      @media (min-width:1024px) {
+         font-size: 1.4vh;
+      }
+
+      a {
+         text-decoration: underline;
+      }
+
+      .checkbox {
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         width: 2.1vh;
+         min-width: 2.1vh;
+         height: 2.1vh;
+         border: 2px solid rgba(0, 0, 0, 0.2);
+         border-radius: 5px;
+         transition: border-color 0.3s;
+
+         svg {
+            width: 57%;
+            opacity: 0;
+            transition: opacity 0.3s;
+         }
+      }
+
+      input {
+         display: none;
+      }
+
+      input:checked+.checkbox {
+         border-color: #ffffff;
+
+         svg {
+            opacity: 1;
+         }
+      }
+   }
+
 }

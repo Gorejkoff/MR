@@ -13,6 +13,7 @@
       padding: var(--padding-header-body);
       display: flex;
       justify-content: space-between;
+      align-items: center;
    }
 
    &__nav {
@@ -28,11 +29,23 @@
       right: 0;
       border-radius: 10px;
       fill: var(--dark);
-      border: 1px solid rgba(169, 171, 181, 0.2);
+      border: 1px solid rgba(169, 171, 181, 0.5);
       backdrop-filter: blur(16px);
       background-color: #151519;
       transition: transform 0.5s, right 0.5s, border-color;
       z-index: 1;
+
+      @media (min-width:1024px) {
+         .mebel-branch & {
+            background-color: #A9ABB5;
+            border-color: rgba(255, 255, 255, 0.2);
+         }
+
+         .first-screen-active.mebel-branch & {
+            background-color: #151519;
+            border-color: rgba(169, 171, 181, 0.5)
+         }
+      }
 
       .menu-open & {
          @media (max-width:1023.98px) {
@@ -43,9 +56,9 @@
       }
 
       @media (min-width:1024px) {
-         width: 192px;
-         height: 122px;
-         border-width: 3px;
+         width: 13.3vh;
+         height: 8.47vh;
+         border-width: 2px;
       }
 
    }
@@ -161,15 +174,15 @@
       padding: 15px 24px;
       pointer-events: all;
       border-radius: 10px;
-      backdrop-filter: blur(20.399999618530273px);
+      backdrop-filter: blur(20.4px);
       background: linear-gradient(rgba(255, 255, 255, 0.1) -20%, rgba(255, 255, 255, 0.1) 100%);
 
       @media (min-width:1024px) {
          order: 2;
          padding: 0;
+         padding-right: 5.5vh;
          backdrop-filter: blur(0);
          background: none;
-
       }
 
       &::before {
@@ -184,10 +197,8 @@
          height: calc(100% - 2px);
          border-radius: 10px;
          background-color: #151519;
-      }
 
-      @media (min-width:1024px) {
-         &::before {
+         @media (min-width:1024px) {
             display: none;
          }
       }
@@ -196,6 +207,66 @@
       img {
          width: 32px;
          height: auto;
+
+         @media (min-width:1024px) {
+            width: auto;
+            height: 3.95vh;
+         }
       }
+   }
+}
+
+
+
+
+
+.logo-mebel-first,
+.logo-remont-first,
+.logo-remont,
+.logo-mebel,
+.menu-mebel,
+.menu-remont {
+   display: none;
+}
+
+.mebel-branch {
+   .logo-mebel {
+      display: block;
+   }
+
+   &.first-screen-active {
+      .logo-mebel-first {
+         display: block;
+      }
+
+      .logo-mebel {
+         display: none;
+      }
+   }
+
+   .menu-mebel {
+      display: block;
+   }
+
+
+}
+
+.remont-branch {
+   .logo-remont {
+      display: block;
+   }
+
+   &.first-screen-active {
+      .logo-remont-first {
+         display: block;
+      }
+
+      .logo-remont {
+         display: none;
+      }
+   }
+
+   .menu-remont {
+      display: block;
    }
 }

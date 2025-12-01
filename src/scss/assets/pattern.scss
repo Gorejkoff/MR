@@ -43,6 +43,7 @@ body {
    }
 }
 
+#remont,
 #mebel {
    @media (max-width:1023.98px) {
       opacity: 0;
@@ -84,6 +85,12 @@ body {
    }
 }
 
+.hide-max1024 {
+   @media (max-width:1023.98px) {
+      display: none !important;
+   }
+}
+
 .section {
    z-index: 2;
 
@@ -113,10 +120,10 @@ body {
    border-radius: 50px;
 
    @media (min-width:1024px) {
-      padding: 20px;
-      font-size: 26px;
-      min-height: 82px;
-      min-width: 430px;
+      padding: 1.3vh;
+      font-size: 1.8vh;
+      min-height: 5.6vh;
+      min-width: 30vh;
    }
 
    &.button-dark {
@@ -136,12 +143,20 @@ body {
       left: 0;
       width: 100%;
       height: 100%;
-      background: linear-gradient(180deg, #151519 40%, #a9abb5 150%);
-      box-shadow: inset 0 -2px 9px 0 rgba(255, 255, 255, 0.25),
-         0 22px 42px 0 rgba(255, 255, 255, 0.25);
       border-radius: inherit;
       opacity: 0;
       transition: opacity 0.3s;
+   }
+
+   &.button-light::before {
+      background: linear-gradient(180deg, #151519 40%, #a9abb5 150%);
+      box-shadow: inset 0 -2px 9px 0 rgba(255, 255, 255, 0.25),
+         0 22px 42px 0 rgba(255, 255, 255, 0.25);
+   }
+
+   &.button-dark::before {
+      box-shadow: inset 0 -2px 11px 0 rgba(255, 255, 255, 0.75), inset 0 4px 18px 0 rgba(0, 0, 0, 0.25), inset 0 4px 4px 0 rgba(0, 0, 0, 0.05), inset 0 -2px 4px 0 rgba(255, 255, 255, 0.55);
+      background: #A9ABB5;
    }
 
    .arrow {
@@ -175,7 +190,6 @@ body {
 
 .button-simple {
    min-height: 44px;
-
    font-weight: 500;
    font-size: 16px;
    letter-spacing: -0.02em;
@@ -184,9 +198,9 @@ body {
    color: #ffffff;
 
    @media (min-width:1024px) {
-      min-width: 420px;
-      min-height: 80px;
-      font-size: 26px;
+      min-width: 29vh;
+      min-height: 5.5vh;
+      font-size: 1.8vh;
    }
 }
 
