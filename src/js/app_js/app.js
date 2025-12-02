@@ -18,18 +18,14 @@ if (isPC) { document.body.classList.add('_pc') } else { document.body.classList.
 
 // media queries
 const MIN1024 = window.matchMedia('(min-width: 1024px)');
-const MIN768 = window.matchMedia('(min-width: 768px)');
 const DOC = document;
 const TRANSITION_TIME = 1500;
 let active_section;
-
 DOC.body.style.setProperty('--tr-time', TRANSITION_TIME / 1000 + 's')
 
 // variables
 const SECTIONS = DOC.querySelectorAll('.section');
 const COOKIE = DOC.querySelector('.cookie');
-// const LINE_M = DOC.querySelector('.line-m');
-
 const HEADER = DOC.getElementById('header');
 const MEBEL = DOC.getElementById('mebel');
 const REMONT = DOC.getElementById('remont');
@@ -78,7 +74,7 @@ const SWIPERS = {
       progress: 0
    }
 }
-
+// time line gsap
 const tl_about = {
    about_m: {},
    about_r: {}
@@ -87,43 +83,43 @@ const tl_about = {
 // для глобального отслеживания состояния начальной и конечной позиции прогресса
 const progress = {
    about_m: {
-      start: false,
+      start: true,
       end: false
    },
    about_r: {
-      start: false,
+      start: true,
       end: false
    },
    features_m: {
-      start: false,
+      start: true,
       end: false
    },
    features_r: {
-      start: false,
+      start: true,
       end: false
    },
    projects_m: {
-      start: false,
+      start: true,
       end: false
    },
    projects_r: {
-      start: false,
+      start: true,
       end: false
    },
    services_m: {
-      start: false,
+      start: true,
       end: false
    },
    partners_m: {
-      start: false,
+      start: true,
       end: false
    },
    process_r: {
-      start: false,
+      start: true,
       end: false
    },
    stages_r: {
-      start: false,
+      start: true,
       end: false
    },
 }
@@ -142,6 +138,7 @@ DOC.documentElement.addEventListener("click", (event) => {
       if (MIN1024.matches) {
          hideSections_L();
          showSectionNotAnimated(FIRST_M);
+         hide_L(FIRST_R);
          hiddenStartScreen();
          activeMebelBranch();
          checkingActiveSection();
@@ -154,6 +151,7 @@ DOC.documentElement.addEventListener("click", (event) => {
       if (MIN1024.matches) {
          hideSections_L();
          showSectionNotAnimated(FIRST_R);
+         hide_L(FIRST_M)
          hiddenStartScreen();
          activeRemontBranch();
          checkingActiveSection();
@@ -199,9 +197,13 @@ DOC.documentElement.addEventListener("click", (event) => {
    if (event.target.closest('.open-map')) { openMap(event) }
    if (event.target.closest('.open-form')) { closeMap(event) }
 })
-
+let wheelDisabled = true;
 // wheel для сменя экранов
 window.addEventListener('wheel', function (event) {
+   if (wheelDisabled) {
+      event.preventDefault();
+      return;
+   }
 
    if (active_section == 'about_m' && progress.about_m.start && event.deltaY < 0) {
       prevFirst(FIRST_M)
@@ -210,13 +212,13 @@ window.addEventListener('wheel', function (event) {
       change_RL(FEATURES_M)
    }
    if (active_section == 'about_r' && progress.about_r.start && event.deltaY < 0) {
-      prevFirst(FIRST_R)
+      prevFirst(FIRST_R);
    }
    if (active_section == 'about_r' && progress.about_r.end && event.deltaY > 0) {
       change_RL(FEATURES_R)
    }
    if (active_section == 'features_m' && progress.features_m.start && event.deltaY < 0) {
-      changeGsap_RL(ABOUT_M, '#about_ms', '#about_mc');
+      changeGsap_LR(ABOUT_M, '#about_ms', '#about_mc');
    }
    if (active_section == 'features_m' && progress.features_m.end && event.deltaY > 0) {
       changeGsap_RL(SERVICES_M, '#services_ms', '#services_mc');
@@ -264,8 +266,46 @@ window.addEventListener('wheel', function (event) {
       change_RL(CONTACTS_R)
    }
 
-});
+}, { passive: false });
 
+
+// управление прогрессом секциц
+function gsapToStart(id) {
+   if (smoother) {
+      requestAnimationFrame(() => {
+         smoother.scrollTo(0, false);
+         if (progress[id]) {
+            progress[id].start = true;
+            progress[id].end = false;
+         }
+      })
+   }
+}
+function gsapToEnd(id) {
+   if (smoother) {
+      requestAnimationFrame(() => {
+         smoother.scrollTo(smoother.scrollTrigger.end, false);
+         if (progress[id]) {
+            progress[id].start = false;
+            progress[id].end = true;
+         }
+      })
+   }
+}
+function swiperToStart(id) {
+   if (SWIPERS[id]) SWIPERS[id].swiper.slideTo(0, 0);
+   if (progress[id]) {
+      progress[id].start = true;
+      progress[id].end = false;
+   }
+}
+function swiperToEnd(id) {
+   if (SWIPERS[id]) SWIPERS[id].swiper.slideTo(SWIPERS[id].swiper.slides.length - 1, 0);
+   if (progress[id]) {
+      progress[id].start = false;
+      progress[id].end = true;
+   }
+}
 
 // управление
 function openMenu() {
@@ -277,7 +317,11 @@ function closeMenu() {
 function toggleMenu() {
    DOC.body.classList.toggle('menu-open');
 }
-
+// пауза whill
+function disabledWheel() {
+   wheelDisabled = true;
+   setTimeout(() => { wheelDisabled = false }, TRANSITION_TIME * 1.2)
+}
 // переключение табов в контактах
 function openMap(event) {
    const contacts = event.target.closest('.contacts');
@@ -299,10 +343,24 @@ function closeMap(event) {
 function activeMebelBranch() {
    DOC.body.classList.add('mebel-branch');
    DOC.body.classList.remove('remont-branch');
+   requestAnimationFrame(() => {
+      tl_about.about_r.scrollTrigger.disable();
+      tl_about.about_m.scrollTrigger.enable();
+      tl_about.about_m.scrollTrigger.refresh();
+      window.scrollTo(0, 0);
+      // window.scrollTo({top: 0, behavior: 'instant'}); // без плавной прокрутки
+   })
 }
 function activeRemontBranch() {
    DOC.body.classList.add('remont-branch');
    DOC.body.classList.remove('mebel-branch');
+   requestAnimationFrame(() => {
+      tl_about.about_m.scrollTrigger.disable();
+      tl_about.about_r.scrollTrigger.enable();
+      tl_about.about_r.scrollTrigger.refresh();
+      window.scrollTo(0, 0);
+      //  window.scrollTo({top: 0, behavior: 'instant'}); // без плавной прокрутки
+   })
 }
 // функции навигации по блокам
 function swowMebelMobile() {
@@ -334,21 +392,29 @@ function prevFirst(element) {
 }
 
 function changeGsap_LR(element, s, c) {
+   disabledWheel();
    initScroll(s, c);
-   change_LR(element)
+   gsapToEnd(element.id);
+   change_LR(element);
    setTimeout(() => { if (smoother) smoother.paused(false) }, TRANSITION_TIME)
 }
 function changeGsap_RL(element, s, c) {
+   disabledWheel();
    initScroll(s, c);
-   change_RL(element)
+   gsapToStart(element.id);
+   change_RL(element);
    setTimeout(() => { if (smoother) smoother.paused(false) }, TRANSITION_TIME)
 }
 function change_LR(element) {
-   hideSections_R()
+   disabledWheel();
+   hideSections_R();
+   swiperToEnd(element.id)
    showSection_LR(element);
 }
 function change_RL(element) {
+   disabledWheel();
    hideSections_L()
+   swiperToStart(element.id)
    showSection_RL(element);
 }
 
@@ -423,6 +489,11 @@ function hideSections_R() {
    if (!section) return;
    section.classList.add('offset-right');
    setTimeout(() => { section.classList.remove('active') }, TRANSITION_TIME)
+}
+// прячет секцию налево
+function hide_L(element) {
+   element.classList.remove('offset-right');
+   element.classList.add('offset-left');
 }
 
 

@@ -54,6 +54,10 @@
          backdrop-filter: blur(20px);
          mask-size: 100% 100%;
          mask-image: url('../img/png/mask-3.png');
+
+         .remont--mod & {
+            background: linear-gradient(180deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0) 50%), linear-gradient(#a9abb500 70%, #151519);
+         }
       }
 
       @media (min-width:1024px) {
@@ -106,7 +110,8 @@
    }
 
    &__left {
-      flex: 1 1 auto;
+      // flex: 1 1 auto;
+      margin-bottom: 25px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -115,17 +120,21 @@
       @media (min-width:1024px) {
          flex: 0 0 50%;
          align-items: flex-start;
-         order: 1;
+         // order: 2;
       }
 
       .mebel--mod & {
          @media (min-width:1024px) {
+            order: 2;
+            align-items: flex-end;
             justify-content: center;
          }
       }
 
       .remont--mod & {
-         padding-top: 23vh;
+         @media (min-width:1024px) {
+            padding-top: 23vh;
+         }
       }
    }
 
@@ -136,11 +145,13 @@
       letter-spacing: -0.03em;
       text-transform: uppercase;
       color: #ffffff;
+      text-align: center;
       opacity: 0;
       transition: opacity 0.3s var(--tr-time);
 
       @media (min-width:1024px) {
          font-size: 9.4vh;
+         text-align: left;
       }
 
       span {
@@ -151,31 +162,40 @@
          opacity: 1;
       }
 
-      .remont--mod & {
-         color: #151519;
+      .mebel--mod & {
+         @media (min-width:1024px) {
+            text-align: right;
+         }
+      }
 
-         span {
-            color: #ffffff;
+      .remont--mod & {
+         @media (min-width:1024px) {
+            color: #151519;
+
+            span {
+               color: #ffffff;
+            }
          }
       }
    }
 
    &__right {
-      margin-bottom: 25px;
+      flex: 1 1 auto;
       display: flex;
       flex-direction: column;
       justify-content: center;
-      text-align: center;
+      align-items: center;
 
       @media (min-width:1024px) {
          margin-bottom: 0;
-         order: 2;
          flex: 0 0 50%;
          align-items: flex-end;
       }
 
       .mebel--mod & {
          @media (min-width:1024px) {
+            order: 1;
+            align-items: flex-start;
             text-align: right;
          }
       }
@@ -189,6 +209,7 @@
       line-height: 100%;
       letter-spacing: -0.02em;
       text-align: right;
+
       opacity: 0;
       transition: opacity 0.5s calc(var(--tr-time) + 0.3s);
 
@@ -215,6 +236,10 @@
       color: #ffffff;
       opacity: 0;
       transition: opacity 0.5s calc(var(--tr-time) + 0.6s);
+
+      @media (max-width:1023.98px) {
+         flex: 1 1 auto;
+      }
 
       @media (min-width:1024px) {
          font-size: 2.5vh;

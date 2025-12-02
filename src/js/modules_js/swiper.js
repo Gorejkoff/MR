@@ -44,6 +44,8 @@ function addFeaturesSwiper(element, id) {
                progress[id].start = false;
                progress[id].end = false;
             }
+            console.log('features_m', progress[id].start);
+            console.log('features_m', progress[id].end);
          },
       }
    });

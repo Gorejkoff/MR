@@ -40,6 +40,7 @@
    }
 
    &__card {
+      padding-top: 50px;
       position: relative;
       display: flex;
       flex-direction: column;
@@ -152,7 +153,6 @@
 
       @media (min-width:1024px) {
          padding-top: 150px;
-         // padding-top: 0;
          flex: 0 0 50%;
       }
    }
@@ -167,15 +167,18 @@
       @media (min-width:1024px) {
          background: none;
          height: 100%;
+
+         .mebel--mod & {
+            background: linear-gradient(#a9abb500, #A9ABB5);
+         }
+
+         .remont--mod & {
+            background: linear-gradient(#15151900, #151519);
+         }
+
       }
 
-      .mebel--mod & {
-         background: linear-gradient(#a9abb500, #A9ABB5);
-      }
 
-      .remont--mod & {
-         background: linear-gradient(#15151900, #151519);
-      }
 
       img {
          position: absolute;
@@ -202,7 +205,7 @@
       }
 
       &.animate-1 {
-         top: 100px;
+         top: 0px;
          left: 10%;
          transform: translate(80%, 80%);
 
@@ -211,6 +214,7 @@
          }
 
          @media (min-width:1024px) {
+            top: auto;
             bottom: 50%;
             left: 50%;
             transform: translate(30%, 100%);
@@ -224,7 +228,7 @@
       }
 
       &.animate-2 {
-         top: 100px;
+         top: 0;
          left: 10%;
          transform: translate(0%, 80%);
 
@@ -234,6 +238,7 @@
 
 
          @media (min-width:1024px) {
+            top: auto;
             bottom: 10%;
             left: 50%;
             transform: translate(40%, 0%);
@@ -245,7 +250,7 @@
       }
 
       &.animate-3 {
-         top: 100px;
+         top: 0;
          right: 10%;
          transform: translate(-100%, 80%);
 
@@ -254,6 +259,7 @@
          }
 
          @media (min-width:1024px) {
+            top: auto;
             bottom: 10%;
             right: 0;
             transform: translate(100%, 0);
@@ -265,7 +271,7 @@
       }
 
       &.animate-4 {
-         top: 100px;
+         top: 0;
          right: 30%;
          transform: translate(100%, 30%);
 
@@ -274,6 +280,7 @@
          }
 
          @media (min-width:1024px) {
+            top: auto;
             bottom: 10%;
             left: 50%;
             transform: translate(-50%, 0%);

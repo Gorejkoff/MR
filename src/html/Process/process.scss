@@ -3,15 +3,16 @@
    padding-bottom: 50px;
    background-color: #151519;
    width: 100vw;
-   transition: transform var(--tr-time);
    transform: translateX(0);
    overflow: hidden;
 
    @media (min-width:1024px) {
+      padding: 0;
       height: var(--vh);
       position: fixed;
       top: 0;
       left: 0;
+      transition: transform var(--tr-time);
    }
 
    &__container {}

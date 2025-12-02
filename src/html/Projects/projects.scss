@@ -1,8 +1,6 @@
 .projects {
+   position: relative;
    width: 100%;
-   display: flex;
-   align-items: center;
-   transition: transform var(--tr-time);
    overflow: hidden;
    --label: -50%;
 
@@ -10,7 +8,10 @@
       position: fixed;
       top: 0;
       left: 0;
+      display: flex;
+      align-items: center;
       height: var(--vh);
+      transition: transform var(--tr-time);
    }
 
    &.mebel--mod {
@@ -22,13 +23,20 @@
    }
 
    &__label {
+      margin: 0 auto;
+      display: block;
       pointer-events: none;
-      position: absolute;
-      top: 0;
-      left: 50%;
       width: 80%;
-      transform: translate(var(--label), -40%);
-      transition: transform 1.5s;
+      height: auto;
+
+      @media (min-width:1024px) {
+         margin: 0;
+         position: absolute;
+         top: 0;
+         left: 50%;
+         transform: translate(var(--label), -40%);
+         transition: transform 1.5s;
+      }
    }
 
    &__container {
