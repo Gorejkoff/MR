@@ -151,6 +151,13 @@
          opacity: 1;
       }
 
+      .remont--mod & {
+         color: #151519;
+
+         span {
+            color: #ffffff;
+         }
+      }
    }
 
    &__right {

@@ -1,5 +1,7 @@
 .stages {
-   height: var(--vh);
+   position: relative;
+   padding-top: 50px;
+   padding-bottom: 50px;
    width: 100vw;
    transition: transform var(--tr-time);
    transform: translateX(0);
@@ -7,9 +9,26 @@
    background-color: #151519;
 
    @media (min-width:1024px) {
+      height: var(--vh);
       position: fixed;
       top: 0;
       left: 0;
+   }
+
+   &__label {
+      position: relative;
+      top: 0;
+      left: 50%;
+      transform: translate(-50%, 0);
+      max-height: 25vh;
+      height: auto;
+      width: auto;
+      max-width: 80%;
+
+      @media (min-width:1024px) {
+         transform: translate(-50%, -40%);
+         position: absolute;
+      }
    }
 
    &__container {}
@@ -19,56 +38,93 @@
    }
 
    &__header {
-      position: absolute;
-      top: 20vh;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 100%;
+      @media (min-width:1024px) {
+         position: absolute;
+         top: 20vh;
+         left: 50%;
+         transform: translateX(-50%);
+         width: 100%;
+      }
    }
 
    &__title {
       margin-bottom: 3.4vh;
-      font-size: 8.3vh;
+      font-size: 32px;
       line-height: 100%;
       letter-spacing: -0.02em;
       text-align: center;
-      color: #ffffff
+      color: #ffffff;
+
+      @media (min-width:1024px) {
+         font-size: 8.3vh;
+      }
+
+      span {
+         color: #A9ABB5;
+         text-decoration: underline;
+         text-decoration-color: #ffffff;
+      }
    }
 
    &__text {
-      font-size: 2.9vh;
+      font-size: 20px;
       line-height: 130%;
       letter-spacing: -0.02em;
       text-align: center;
       color: #A9ABB5;
+
+      @media (min-width:1024px) {
+         font-size: 2.9vh;
+      }
    }
 
    &__card {
-      padding-bottom: 10vh;
       display: flex;
       align-items: flex-end;
       justify-content: center;
-      height: var(--vh);
+
+      @media (min-width:1024px) {
+         padding-bottom: 10vh;
+         height: var(--vh);
+      }
    }
 
    &__card-grid {
       display: flex;
       justify-content: center;
       gap: 20px;
+      flex-direction: column;
 
+      @media (min-width:1024px) {
+         flex-direction: row;
+      }
    }
 
    &__media {
+      margin: 33px 0 10px;
       position: relative;
-      flex: 0 0 42.7vh;
+
+      @media (min-width:1024px) {
+         margin: 0;
+         flex: 0 0 42.7vh;
+
+         .revers & {
+            order: 2;
+         }
+      }
+
    }
 
    &__media-img {
+      padding-bottom: 45vw;
       position: relative;
-      padding-bottom: 89%;
       overflow: hidden;
       background: linear-gradient(45deg, #A9ABB5, #4A4B4F);
       border-radius: 10px;
+
+      @media (min-width:1024px) {
+         padding-bottom: 89%;
+      }
 
       img {
          position: absolute;
@@ -76,8 +132,12 @@
          left: 50%;
          transform: translate(-50%, -50%);
          width: 100%;
-         height: 100%;
+         height: 80%;
          object-fit: contain;
+
+         @media (min-width:1024px) {
+            height: 100%;
+         }
       }
    }
 
@@ -87,20 +147,30 @@
       z-index: 2;
 
       &.left--mod {
-         left: 0;
-         transform: translate(-60%, 50%);
+         left: 50%;
+         transform: translate(-50%, -50%);
+
+         @media (min-width:1024px) {
+            left: 0;
+            transform: translate(-60%, 50%);
+         }
       }
 
       &.right--mod {
-         right: 0;
-         transform: translate(60%, 50%);
+         right: 50%;
+         transform: translate(50%, -50%);
+
+         @media (min-width:1024px) {
+            right: 0;
+            transform: translate(60%, 50%);
+         }
       }
 
       &::before {
          content: '0' counter(item) '.';
          counter-increment: item;
          font-family: var(--font-family-benzin);
-         font-size: 5.5vh;
+         font-size: 32px;
          font-weight: 500;
          line-height: 100%;
          letter-spacing: -0.02em;
@@ -109,25 +179,42 @@
          background-clip: text;
          -webkit-background-clip: text;
          -webkit-text-fill-color: transparent;
+
+         @media (min-width:1024px) {
+            font-size: 5.5vh;
+         }
       }
    }
 
    &__content {
-      padding: 3.4vh;
-      flex: 0 0 42.7vh;
+      padding: 20px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       background-color: #26262C;
       border-radius: 10px;
 
+      @media (min-width:1024px) {
+         padding: 3.4vh;
+         flex: 0 0 42.7vh;
+
+         .revers & {
+            order: 1;
+         }
+      }
+
    }
 
    &__content-title {
-      font-size: 3.1vh;
+      margin-bottom: 25px;
+      font-size: 20px;
       line-height: 100%;
       letter-spacing: -0.02em;
       color: #ffffff;
+
+      @media (min-width:1024px) {
+         font-size: 3.1vh;
+      }
 
       span {
          color: #A9ABB5;
@@ -135,14 +222,23 @@
    }
 
    &__content-text {
-      font-size: 2vh;
+      font-size: 14px;
       line-height: 120%;
       letter-spacing: -0.02em;
       color: #A9ABB5;
+
+      @media (min-width:1024px) {
+         font-size: 2vh;
+      }
    }
 
    .swiper-wrapper {
       counter-reset: item;
+      display: block;
+
+      @media (min-width:1024px) {
+         display: flex;
+      }
    }
 
    .swiper-fade {

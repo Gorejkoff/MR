@@ -163,11 +163,18 @@
       height: 55vh;
       overflow: hidden;
       border-radius: 10px;
-      background: linear-gradient(#a9abb500, #A9ABB5);
 
       @media (min-width:1024px) {
          background: none;
          height: 100%;
+      }
+
+      .mebel--mod & {
+         background: linear-gradient(#a9abb500, #A9ABB5);
+      }
+
+      .remont--mod & {
+         background: linear-gradient(#15151900, #151519);
       }
 
       img {

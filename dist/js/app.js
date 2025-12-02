@@ -175,11 +175,17 @@ DOC.documentElement.addEventListener("click", (event) => {
    }
    if (MIN1024.matches && event.target.closest('.to-start')) { showStartScreen() }
    if (MIN1024.matches && event.target.closest('.to-about-m')) { changeGsap_RL(ABOUT_M, '#about_ms', '#about_mc') }
-   if (MIN1024.matches && event.target.closest('.to-features-m')) { change_LR(FEATURES_M) }
+   if (MIN1024.matches && event.target.closest('.to-about-r')) { changeGsap_RL(ABOUT_R, '#about_rs', '#about_rc') }
+   if (MIN1024.matches && event.target.closest('.to-features-m')) { change_RL(FEATURES_M) }
+   if (MIN1024.matches && event.target.closest('.to-features-r')) { change_RL(FEATURES_R) }
    if (MIN1024.matches && event.target.closest('.to-services-m')) { changeGsap_RL(SERVICES_M, '#services_ms', '#services_mc') }
    if (MIN1024.matches && event.target.closest('.to-projects-m')) { change_RL(PROJECTS_M) }
+   if (MIN1024.matches && event.target.closest('.to-projects-r')) { change_RL(PROJECTS_R) }
    if (MIN1024.matches && event.target.closest('.to-partners-m')) { changeGsap_RL(PARTNERS_M, '#partners_ms', '#partners_mc') }
    if (MIN1024.matches && event.target.closest('.to-contacts-m')) { change_RL(CONTACTS_M) }
+   if (MIN1024.matches && event.target.closest('.to-contacts-r')) { change_RL(CONTACTS_R) }
+   if (MIN1024.matches && event.target.closest('.to-stages-r')) { change_RL(STAGES_R) }
+   if (MIN1024.matches && event.target.closest('.to-process-r')) { change_RL(PROCESS_R); }
 
    // отключить скролл слайдера
    if (event.target.closest('.projects__info')) {
@@ -252,7 +258,7 @@ window.addEventListener('wheel', function (event) {
       change_RL(PROJECTS_R)
    }
    if (active_section == 'process_r' && progress.process_r.start && event.deltaY < 0) {
-      // change_LR(FEATURES_R)
+      change_LR(PROJECTS_R)
    }
    if (active_section == 'process_r' && progress.process_r.end && event.deltaY > 0) {
       change_RL(CONTACTS_R)
@@ -323,7 +329,7 @@ function showStartScreen() {
    }, TRANSITION_TIME)
 }
 function prevFirst(element) {
-   change_RL(element)
+   change_LR(element)
    if (smoother) smoother.paused(true);
 }
 
@@ -526,7 +532,7 @@ function addAboutAnimation(element, id, trigger, scroller) {
    tl_about[id] = gsap.timeline({
       scrollTrigger: {
          trigger: trigger,
-         scroller: scroller,
+         scroller: MIN1024.matches ? scroller : document.body,
          start: "top top",
          end: `bottom top`,
          pin: true,
@@ -553,9 +559,9 @@ function addAboutAnimation(element, id, trigger, scroller) {
 }
 
 const ABOUT_TEXT_M = document.querySelector('.about-text-m');
-if (MIN1024.matches && ABOUT_TEXT_M) addAboutAnimation(ABOUT_TEXT_M, 'about_m', '.trigger-about-m', '#about_ms');
+if (ABOUT_TEXT_M) addAboutAnimation(ABOUT_TEXT_M, 'about_m', '.trigger-about-m', '#about_ms');
 const ABOUT_TEXT_R = document.querySelector('.about-text-r');
-if (MIN1024.matches && ABOUT_TEXT_R) addAboutAnimation(ABOUT_TEXT_R, 'about_r', '.trigger-about-r', '#about_rs');
+if (ABOUT_TEXT_R) addAboutAnimation(ABOUT_TEXT_R, 'about_r', '.trigger-about-r', '#about_rs');
 
 
 // services_m
@@ -899,6 +905,6 @@ function addEvensProcess(element, swiper) {
    })
 
 }
-if (STAGES_R) addSwiperFade(STAGES_R, 'stages_r');
-if (PROCESS_R) addSwiperFade(PROCESS_R, 'process_r');
-if (PROCESS_R) addEvensProcess(PROCESS_R, SWIPERS.process_r.swiper)
+if (MIN1024.matches && STAGES_R) addSwiperFade(STAGES_R, 'stages_r');
+if (MIN1024.matches && PROCESS_R) addSwiperFade(PROCESS_R, 'process_r');
+if (MIN1024.matches && PROCESS_R) addEvensProcess(PROCESS_R, SWIPERS.process_r.swiper)

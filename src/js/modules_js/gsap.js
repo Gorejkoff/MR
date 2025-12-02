@@ -39,7 +39,7 @@ function addAboutAnimation(element, id, trigger, scroller) {
    tl_about[id] = gsap.timeline({
       scrollTrigger: {
          trigger: trigger,
-         scroller: scroller,
+         scroller: MIN1024.matches ? scroller : document.body,
          start: "top top",
          end: `bottom top`,
          pin: true,
@@ -66,9 +66,9 @@ function addAboutAnimation(element, id, trigger, scroller) {
 }
 
 const ABOUT_TEXT_M = document.querySelector('.about-text-m');
-if (MIN1024.matches && ABOUT_TEXT_M) addAboutAnimation(ABOUT_TEXT_M, 'about_m', '.trigger-about-m', '#about_ms');
+if (ABOUT_TEXT_M) addAboutAnimation(ABOUT_TEXT_M, 'about_m', '.trigger-about-m', '#about_ms');
 const ABOUT_TEXT_R = document.querySelector('.about-text-r');
-if (MIN1024.matches && ABOUT_TEXT_R) addAboutAnimation(ABOUT_TEXT_R, 'about_r', '.trigger-about-r', '#about_rs');
+if (ABOUT_TEXT_R) addAboutAnimation(ABOUT_TEXT_R, 'about_r', '.trigger-about-r', '#about_rs');
 
 
 // services_m

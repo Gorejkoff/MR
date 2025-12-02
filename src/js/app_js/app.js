@@ -175,11 +175,17 @@ DOC.documentElement.addEventListener("click", (event) => {
    }
    if (MIN1024.matches && event.target.closest('.to-start')) { showStartScreen() }
    if (MIN1024.matches && event.target.closest('.to-about-m')) { changeGsap_RL(ABOUT_M, '#about_ms', '#about_mc') }
-   if (MIN1024.matches && event.target.closest('.to-features-m')) { change_LR(FEATURES_M) }
+   if (MIN1024.matches && event.target.closest('.to-about-r')) { changeGsap_RL(ABOUT_R, '#about_rs', '#about_rc') }
+   if (MIN1024.matches && event.target.closest('.to-features-m')) { change_RL(FEATURES_M) }
+   if (MIN1024.matches && event.target.closest('.to-features-r')) { change_RL(FEATURES_R) }
    if (MIN1024.matches && event.target.closest('.to-services-m')) { changeGsap_RL(SERVICES_M, '#services_ms', '#services_mc') }
    if (MIN1024.matches && event.target.closest('.to-projects-m')) { change_RL(PROJECTS_M) }
+   if (MIN1024.matches && event.target.closest('.to-projects-r')) { change_RL(PROJECTS_R) }
    if (MIN1024.matches && event.target.closest('.to-partners-m')) { changeGsap_RL(PARTNERS_M, '#partners_ms', '#partners_mc') }
    if (MIN1024.matches && event.target.closest('.to-contacts-m')) { change_RL(CONTACTS_M) }
+   if (MIN1024.matches && event.target.closest('.to-contacts-r')) { change_RL(CONTACTS_R) }
+   if (MIN1024.matches && event.target.closest('.to-stages-r')) { change_RL(STAGES_R) }
+   if (MIN1024.matches && event.target.closest('.to-process-r')) { change_RL(PROCESS_R); }
 
    // отключить скролл слайдера
    if (event.target.closest('.projects__info')) {
@@ -252,7 +258,7 @@ window.addEventListener('wheel', function (event) {
       change_RL(PROJECTS_R)
    }
    if (active_section == 'process_r' && progress.process_r.start && event.deltaY < 0) {
-      // change_LR(FEATURES_R)
+      change_LR(PROJECTS_R)
    }
    if (active_section == 'process_r' && progress.process_r.end && event.deltaY > 0) {
       change_RL(CONTACTS_R)
@@ -323,7 +329,7 @@ function showStartScreen() {
    }, TRANSITION_TIME)
 }
 function prevFirst(element) {
-   change_RL(element)
+   change_LR(element)
    if (smoother) smoother.paused(true);
 }
 
