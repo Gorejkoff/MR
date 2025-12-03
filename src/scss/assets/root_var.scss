@@ -5,9 +5,4 @@
    --color-gray: #A9ABB5;
    --vh: 100vh;
    --tr-time: 1.5s;
-
-   @supports (height: 100dvh) {
-      --vh: 100dvh;
-   }
-
 }

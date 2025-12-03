@@ -31,12 +31,6 @@
   --tr-time: 1.5s;
 }
 
-@supports (height: 100dvh) {
-  :root {
-    --vh: 100dvh;
-  }
-}
-
 * {
   padding: 0;
   margin: 0;

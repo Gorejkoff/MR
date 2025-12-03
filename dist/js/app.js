@@ -497,11 +497,6 @@ function hide_L(element) {
 }
 
 
-
-
-
-
-
 // перемещение блоков при адаптиве
 // data-da=".class,3,768,min" 
 // класс родителя куда перемещать
@@ -559,6 +554,8 @@ function moving(e, order, addressMove) {
    if (addressMove.children[order]) { addressMove.children[order].before(e); return; }
    addressMove.append(e);
 }
+
+
 
 
 

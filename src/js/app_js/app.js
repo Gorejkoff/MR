@@ -496,8 +496,3 @@ function hide_L(element) {
    element.classList.add('offset-left');
 }
 
-
-
-
-
-
