@@ -1,12 +1,11 @@
 
-//  ========== features_m ============
+//  ========== features ============
 function addFeaturesSwiper(element, id) {
    const SWIPER = element.querySelector('.swiper');
    const LIST_TEXT = element.querySelectorAll('.features--text');
    const TEXT_BUTTON_PREV = element.querySelectorAll('.features__button.prev span');
    const TEXT_BUTTON_NEXT = element.querySelectorAll('.features__button.next span');
    SWIPERS[id].swiper = new Swiper(SWIPER, {
-      //   allowTouchMove: false,
       direction: MIN1024.matches ? "vertical" : "horizontal",
       spaceBetween: 20,
       speed: 700,
@@ -44,8 +43,6 @@ function addFeaturesSwiper(element, id) {
                progress[id].start = false;
                progress[id].end = false;
             }
-            console.log('features_m', progress[id].start);
-            console.log('features_m', progress[id].end);
          },
       }
    });
@@ -161,7 +158,7 @@ function addSwiperFade(element, id) {
       effect: "fade",
       // direction: "vertical", // глючит
       mousewheel: {
-         enabled: true,
+         enabled: isPC ? true : false,
          eventsTarget: '#' + id,
       },
       on: {
@@ -194,6 +191,9 @@ function addSwiperFade(element, id) {
                }, TRANSITION_TIME)
             }
          },
+         // touchMove: function (swiper, event) {
+         //    // console.log(event);
+         // }
       }
    });
 }

@@ -99,12 +99,21 @@
 
    &__card {
       position: relative;
-      box-shadow: 0 10px 35px 4px rgba(255, 255, 255, 0);
+      width: 100%;
+      box-shadow: 0 20px 125px 8px transparent;
       transition: box-shadow 0.5s;
       border-radius: 10px;
 
-      &:hover {
-         box-shadow: 0 10px 35px 4px rgba(255, 255, 255, 0.8);
+      .mebel--mod & {
+         --color-shadow: rgba(255, 255, 255, 0.5);
+      }
+
+      .remont--mod & {
+         --color-shadow: rgba(169, 171, 181, 0.5);
+      }
+
+      ._pc &:hover {
+         box-shadow: 0 20px 125px 8px var(--color-shadow);
 
          .projects__text {
             color: #ffffff;
@@ -121,6 +130,7 @@
    }
 
    &__image {
+      display: block;
       padding-bottom: 100%;
       position: relative;
       overflow: hidden;
@@ -145,8 +155,8 @@
 
    &__topic {
       position: absolute;
-      top: 30px;
-      left: 30px;
+      top: 15px;
+      left: 15px;
       padding: 5px 10px;
       font-size: 12px;
       line-height: 130%;
@@ -158,6 +168,8 @@
       transition: background-color 0.3s, color 0.3s;
 
       @media (min-width:1024px) {
+         top: 30px;
+         left: 30px;
          padding: 0.7vh 1.4vh;
          font-size: 1.67vh;
       }
@@ -167,7 +179,7 @@
       position: absolute;
       left: 30px;
       top: 100%;
-      transform: translateY(-1em);
+      transform: translateY(-0.85em);
       max-width: 60%;
       font-family: var(--font-family-benzin);
       font-weight: 400;
@@ -186,11 +198,13 @@
 
    &__info {
       position: absolute;
-      top: 30px;
-      right: 30px;
+      top: 15px;
+      right: 15px;
       width: 30px;
 
       @media (min-width:1024px) {
+         top: 30px;
+         right: 30px;
          width: 3.47vh;
          opacity: 0;
       }

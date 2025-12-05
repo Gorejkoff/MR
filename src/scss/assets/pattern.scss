@@ -243,6 +243,140 @@ body {
    touch-action: pan-y;
 }
 
+.map-marker {
+   width: 53px;
+   height: 53px;
+   border-radius: 50%;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   background: linear-gradient(180deg, #151519 18%, #a9abb5 200%);
+   box-shadow: 0 3px 2px 0 rgba(0, 0, 0, 0.09), 0 7px 5px 0 rgba(0, 0, 0, 0.13), 0 13px 10px 0 rgba(0, 0, 0, 0.16), 0 22px 18px 0 rgba(0, 0, 0, 0.19), 0 42px 33px 0 rgba(0, 0, 0, 0.23), 0 100px 80px 0 rgba(0, 0, 0, 0.32);
+
+   svg {
+      width: 40%;
+      height: auto;
+   }
+
+   .mebel-branch & {
+      .map-marker__r {
+         display: none;
+      }
+   }
+
+   .remont-branch & {
+      .map-marker__m {
+         display: none;
+      }
+   }
+}
+
+.link-social-network {
+   position: relative;
+   padding: 10px 30px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   gap: 20px;
+   min-height: 50px;
+   font-weight: 500;
+   font-size: 16px;
+   line-height: 130%;
+   letter-spacing: -0.02em;
+   border-radius: 100px;
+   transition: border-color 0.3s;
+
+   @media (min-width:1024px) {
+      padding: 0.7vh 2.1vh;
+      min-height: 4.7vh;
+      font-size: 1.8vh;
+   }
+
+   .mebel--mod & {
+      border: 2px solid rgba(21, 21, 25, 0.5);
+   }
+
+   .remont--mod & {
+      border: 2px solid rgba(169, 171, 181, 0.5);
+   }
+
+   svg {
+      width: 20px;
+      height: auto;
+
+      @media (min-width:1024px) {
+         width: 2.1vh;
+      }
+
+      .mebel--mod & {
+         path {
+            fill: #151519;
+            transition: fill 0.3s;
+         }
+      }
+
+      .remont--mod & {
+         path {
+            fill: #A9ABB5;
+            transition: fill 0.3s;
+         }
+      }
+   }
+
+   &::before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      width: calc(100% + 4px);
+      height: calc(100% + 4px);
+      border-radius: inherit;
+      z-index: -1;
+      opacity: 0;
+      transition: opacity 0.3s;
+
+      .mebel--mod & {
+         box-shadow: inset 0 -2px 9px 0 rgba(255, 255, 255, 0.25);
+         background: linear-gradient(180deg, #151519 18.69%, #a9abb5 200%);
+      }
+
+      .remont--mod & {
+         box-shadow: inset 0 -2px 11px 0 rgba(255, 255, 255, 0.75), inset 0 4px 18px 0 rgba(0, 0, 0, 0.25), inset 0 4px 4px 0 rgba(0, 0, 0, 0.05), inset 0 -2px 4px 0 rgba(255, 255, 255, 0.55);
+         background: #A9ABB5;
+      }
+
+   }
+
+   ._pc &:hover {
+      &::before {
+         opacity: 1;
+      }
+   }
+
+   ._pc .mebel--mod &:hover {
+      border-color: transparent;
+
+      svg path {
+         fill: #A9ABB5;
+      }
+   }
+
+   ._pc .remont--mod &:hover {
+      border-color: transparent;
+
+      svg path {
+         fill: #151519;
+      }
+   }
+}
+
+.services__title,
+.trigger-partners,
+.trigger-about-r,
+.trigger-about-m {
+   left: 0 !important;
+}
+
 // .js-tabs-shell {
 //    will-change: height;
 //    transform: translateZ(0);

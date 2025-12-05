@@ -13,6 +13,8 @@
       position: fixed;
       top: 0;
       left: 0;
+      display: flex;
+      flex-direction: column;
    }
 
    &__label {
@@ -31,16 +33,24 @@
       }
    }
 
-   &__container {}
+   &__container {
+      flex: 1 1 auto;
+
+      .swiper,
+      .swiper-wrapper {
+         height: 100%;
+      }
+   }
 
    &__body {
       position: relative;
+      height: 100%;
    }
 
    &__header {
       @media (min-width:1024px) {
          position: absolute;
-         top: 20vh;
+         top: 14vh;
          left: 50%;
          transform: translateX(-50%);
          width: 100%;
@@ -84,8 +94,8 @@
       justify-content: center;
 
       @media (min-width:1024px) {
-         padding-bottom: 10vh;
-         height: var(--vh);
+         // padding-bottom: 10vh;
+         height: 100%;
       }
    }
 

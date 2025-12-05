@@ -7,10 +7,17 @@
    width: 100vw;
    height: var(--height-modal);
    backdrop-filter: blur(31.3px);
-   background: rgba(169, 171, 181, 0.8);
    overflow-y: auto;
    overflow-x: hidden;
    transition: left var(--tr-time);
+
+   &.mebel--mod {
+      background: rgba(169, 171, 181, 0.8);
+   }
+
+   &.remont--mod {
+      background: rgba(21, 21, 25, 0.8);
+   }
 
    @supports(height: 100dvh) {
       --height-modal: 100dvh;

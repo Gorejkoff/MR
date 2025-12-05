@@ -9,8 +9,8 @@
    pointer-events: none;
 
    &__body {
-      --padding-header-body: 20px;
-      padding: var(--padding-header-body);
+      --padding-header-body: 5.333vw;
+      padding: 20px var(--padding-header-body);
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -27,40 +27,72 @@
       width: 80px;
       height: 56px;
       right: 0;
-      border-radius: 10px;
+      border-radius: 5px;
       fill: var(--dark);
       border: 1px solid rgba(169, 171, 181, 0.5);
       backdrop-filter: blur(16px);
       background-color: #151519;
-      transition: transform 0.5s, right 0.5s, border-color;
+      transition: transform 0.5s, right 0.5s, border-color 0.3s, background-color 0.3s;
       z-index: 1;
 
-      @media (min-width:1024px) {
-         .mebel-branch & {
-            background-color: #A9ABB5;
-            border-color: rgba(255, 255, 255, 0.2);
-         }
 
-         .first-screen-active.mebel-branch & {
-            background-color: #151519;
-            border-color: rgba(169, 171, 181, 0.5)
-         }
-      }
-
-      .menu-open & {
-         @media (max-width:1023.98px) {
-            right: calc(50vw - var(--padding-header-body));
-            transform: translateX(50%);
-            border-color: transparent;
-         }
-      }
 
       @media (min-width:1024px) {
          width: 13.3vh;
          height: 8.47vh;
          border-width: 2px;
+         border-radius: 10px;
+
+         ._pc.first-screen-active.mebel-branch &:hover,
+         ._pc.mebel-branch &:hover,
+         ._pc.remont-branch &:hover {
+            background-color: #ffffff;
+            border-color: #ffffff;
+
+            .header__line-1,
+            .header__line-2 {
+               background-color: #151519;
+            }
+         }
+
+         ._pc.mebel-branch & {
+            background-color: #A9ABB5;
+            border-color: rgba(255, 255, 255, 0.2);
+         }
+
+         ._pc.first-screen-active.mebel-branch & {
+            background-color: #151519;
+            border-color: rgba(169, 171, 181, 0.5)
+         }
+
+         ._pc.remont-branch.menu-open & {
+            background-color: #99a4ab !important;
+            border-color: #99a4ab !important;
+
+            .header__line-1,
+            .header__line-2 {
+               background-color: #ffffff !important;
+            }
+         }
+
+         ._pc.mebel-branch.menu-open & {
+            background-color: #151519 !important;
+            border-color: #151519 !important;
+
+            .header__line-1,
+            .header__line-2 {
+               background-color: #ffffff !important;
+            }
+         }
       }
 
+      @media (max-width:1023.98px) {
+         .menu-open & {
+            right: calc(50vw - var(--padding-header-body));
+            transform: translateX(50%);
+            border-color: transparent;
+         }
+      }
    }
 
    &__line-1,
@@ -72,10 +104,10 @@
       height: 3px;
       border-radius: 10px;
       background-color: #ffffff;
-      transition: transform 0.3s;
+      transition: transform 0.3s, background-color 0.3;
 
       @media (min-width:1024px) {
-         height: 4px;
+         height: 0.28vh;
       }
    }
 
@@ -83,7 +115,7 @@
       transform: translate(-50%, calc(-50% + 5px));
 
       @media (min-width:1024px) {
-         transform: translate(-50%, calc(-50% + 10px));
+         transform: translate(-50%, calc(-50% + 0.7vh));
       }
 
       .menu-open & {
@@ -95,7 +127,7 @@
       transform: translate(-50%, calc(-50% - 5px));
 
       @media (min-width:1024px) {
-         transform: translate(-50%, calc(-50% - 10px));
+         transform: translate(-50%, calc(-50% - 0.7vh));
       }
 
       .menu-open & {
@@ -173,7 +205,7 @@
       position: relative;
       padding: 15px 24px;
       pointer-events: all;
-      border-radius: 10px;
+      border-radius: 5px;
       backdrop-filter: blur(20.4px);
       background: linear-gradient(rgba(255, 255, 255, 0.1) -20%, rgba(255, 255, 255, 0.1) 100%);
 
@@ -183,6 +215,7 @@
          padding-right: 5.5vh;
          backdrop-filter: blur(0);
          background: none;
+         border-radius: 10px;
       }
 
       &::before {
@@ -195,7 +228,7 @@
          z-index: -1;
          width: calc(100% - 2px);
          height: calc(100% - 2px);
-         border-radius: 10px;
+         border-radius: 5px;
          background-color: #151519;
 
          @media (min-width:1024px) {
@@ -213,12 +246,23 @@
             height: 3.95vh;
          }
       }
+
+      .logo-mebel-animate,
+      .logo-remont-animate {
+         transition: transform 0.5s;
+      }
+
+      ._pc &:hover {
+         .logo-remont-animate {
+            transform: translateX(50%);
+         }
+
+         .logo-mebel-animate {
+            transform: translateY(35%);
+         }
+      }
    }
 }
-
-
-
-
 
 .logo-mebel-first,
 .logo-remont-first,
@@ -230,17 +274,27 @@
 }
 
 .mebel-branch {
-   .logo-mebel {
+   .logo-mebel-first {
       display: block;
    }
 
-   &.first-screen-active {
-      .logo-mebel-first {
+   @media (min-width:1024px) {
+      .logo-mebel {
          display: block;
       }
 
-      .logo-mebel {
+      .logo-mebel-first {
          display: none;
+      }
+
+      &.first-screen-active {
+         .logo-mebel-first {
+            display: block;
+         }
+
+         .logo-mebel {
+            display: none;
+         }
       }
    }
 

@@ -50,10 +50,13 @@
       transition: opacity 0.5s calc(var(--tr-time) - 0.5s);
 
       @media (max-width:1023.98px) {
-         background: linear-gradient(180deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0) 50%), linear-gradient(#a9abb500 70%, #A9ABB5);
          backdrop-filter: blur(20px);
          mask-size: 100% 100%;
-         mask-image: url('../img/png/mask-3.png');
+         mask-image: url('../img/png/mask-4.png');
+
+         .mebel--mod & {
+            background: linear-gradient(180deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0) 50%), linear-gradient(#a9abb500 70%, #A9ABB5);
+         }
 
          .remont--mod & {
             background: linear-gradient(180deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0) 50%), linear-gradient(#a9abb500 70%, #151519);
@@ -65,7 +68,7 @@
       }
 
       .active & {
-         opacity: 1;
+         opacity: 0.8;
       }
 
       .remont--mod & {

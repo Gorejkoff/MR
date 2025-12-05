@@ -46,6 +46,7 @@ function addAboutAnimation(element, id, trigger, scroller) {
          end: `bottom top`,
          pin: true,
          scrub: true,
+         pinType: isPC ? "transform" : "fixed",
          onUpdate: (self) => {
             if (!MIN1024.matches) return;
             if (Number(self.progress.toFixed(4)) == 0 && active_section === id) {
@@ -75,7 +76,7 @@ if (ABOUT_TEXT_R) addAboutAnimation(ABOUT_TEXT_R, 'about_r', '.trigger-about-r',
 
 // services_m
 const SERVICES_TITLE = document.querySelector('.services__title');
-if (isPC && SERVICES_TITLE) {
+if (MIN1024.matches && SERVICES_TITLE) {
    let tl_services = gsap.timeline({
       scrollTrigger: {
          trigger: SERVICES_TITLE,
@@ -84,6 +85,7 @@ if (isPC && SERVICES_TITLE) {
          start: "0% 0%",
          end: `100% 100%`,
          pin: true,
+         pinType: isPC ? "transform" : "fixed",
          pinSpacing: false,
          scrub: true,
          onUpdate: (self) => {
@@ -106,7 +108,7 @@ if (isPC && SERVICES_TITLE) {
 // partners_m, анимация текста блюр
 
 const PARTNERS_TEXT = document.querySelector('.partners__text');
-if (isPC && PARTNERS_TEXT) {
+if (MIN1024.matches && PARTNERS_TEXT) {
    wrapLetters(PARTNERS_TEXT);
    let tl_mpt = gsap.timeline({
       scrollTrigger: {
@@ -115,6 +117,7 @@ if (isPC && PARTNERS_TEXT) {
          start: "top top",
          end: `bottom top`,
          pin: true,
+         pinType: "fixed",
          scrub: true,
          onUpdate: (self) => {
             if (!MIN1024.matches) return;

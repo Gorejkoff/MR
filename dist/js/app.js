@@ -44,6 +44,8 @@ const CONTACTS_M = DOC.getElementById('contacts_m');
 const CONTACTS_R = DOC.getElementById('contacts_r');
 const STAGES_R = DOC.getElementById('stages_r');
 const PROCESS_R = DOC.getElementById('process_r');
+const FORM_R = DOC.getElementById('form_r');
+const FORM_M = DOC.getElementById('form_m');
 
 let smoother = undefined;
 
@@ -167,11 +169,14 @@ DOC.documentElement.addEventListener("click", (event) => {
       MIN1024.matches && event.preventDefault();
       closeMenu();
    }
-   if (event.target.closest('.to-start-mobile')) {
+   if (event.target.closest('.to-start')) {
+      if (MIN1024.matches) {
+         showStartScreen()
+         return;
+      }
       START.classList.remove('offset-left');
       closeMenu();
    }
-   if (MIN1024.matches && event.target.closest('.to-start')) { showStartScreen() }
    if (MIN1024.matches && event.target.closest('.to-about-m')) { changeGsap_RL(ABOUT_M, '#about_ms', '#about_mc') }
    if (MIN1024.matches && event.target.closest('.to-about-r')) { changeGsap_RL(ABOUT_R, '#about_rs', '#about_rc') }
    if (MIN1024.matches && event.target.closest('.to-features-m')) { change_RL(FEATURES_M) }
@@ -185,88 +190,169 @@ DOC.documentElement.addEventListener("click", (event) => {
    if (MIN1024.matches && event.target.closest('.to-stages-r')) { change_RL(STAGES_R) }
    if (MIN1024.matches && event.target.closest('.to-process-r')) { change_RL(PROCESS_R); }
 
-   // отключить скролл слайдера
-   if (event.target.closest('.projects__info')) {
-      SWIPERS.projects_m.swiper.mousewheel.disable();
-   }
-   // включить скролл слайдера
-   if (event.target.closest('.modal--projects')) {
-      SWIPERS.projects_m.swiper.mousewheel.enable();
-   }
+   // // отключить скролл слайдера
+   // if (event.target.closest('.projects__card')) {
+   //    console.log('projects swiper off');
+   //    SWIPERS.projects_m.swiper.mousewheel.disable();
+   //    SWIPERS.projects_r.swiper.mousewheel.disable();
+   // }
+   // // включить скролл слайдера
+   // if (event.target.closest('.modal--projects')) {
+   //    console.log('projects swiper on');
+   //    SWIPERS.projects_m.swiper.mousewheel.enable();
+   //    SWIPERS.projects_r.swiper.mousewheel.enable();
+   // }
+
    // переключение табов в контактах
    if (event.target.closest('.open-map')) { openMap(event) }
    if (event.target.closest('.open-form')) { closeMap(event) }
 })
-let wheelDisabled = true;
-// wheel для сменя экранов
-window.addEventListener('wheel', function (event) {
-   if (wheelDisabled) {
-      event.preventDefault();
-      return;
-   }
 
-   if (active_section == 'about_m' && progress.about_m.start && event.deltaY < 0) {
-      prevFirst(FIRST_M)
-   }
-   if (active_section == 'about_m' && progress.about_m.end && event.deltaY > 0) {
+
+function actionsNext() {
+   if (active_section == 'about_m' && progress.about_m.end) {
       change_RL(FEATURES_M)
    }
-   if (active_section == 'about_r' && progress.about_r.start && event.deltaY < 0) {
-      prevFirst(FIRST_R);
-   }
-   if (active_section == 'about_r' && progress.about_r.end && event.deltaY > 0) {
+   if (active_section == 'about_r' && progress.about_r.end) {
       change_RL(FEATURES_R)
    }
-   if (active_section == 'features_m' && progress.features_m.start && event.deltaY < 0) {
-      changeGsap_LR(ABOUT_M, '#about_ms', '#about_mc');
-   }
-   if (active_section == 'features_m' && progress.features_m.end && event.deltaY > 0) {
+   if (active_section == 'features_m' && progress.features_m.end) {
       changeGsap_RL(SERVICES_M, '#services_ms', '#services_mc');
    }
-   if (active_section == 'features_r' && progress.features_r.start && event.deltaY < 0) {
-      changeGsap_LR(ABOUT_R, '#about_rs', '#about_rc');
-   }
-   if (active_section == 'features_r' && progress.features_r.end && event.deltaY > 0) {
+   if (active_section == 'features_r' && progress.features_r.end) {
       change_RL(STAGES_R)
    }
-   if (active_section == 'projects_m' && progress.projects_m.start && event.deltaY < 0) {
-      changeGsap_LR(SERVICES_M, '#services_ms', '#services_mc')
-   }
-   if (active_section == 'projects_m' && progress.projects_m.end && event.deltaY > 0) {
+   if (active_section == 'projects_m' && progress.projects_m.end) {
       changeGsap_RL(PARTNERS_M, '#partners_ms', '#partners_mc');
    }
-   if (active_section == 'projects_r' && progress.projects_r.start && event.deltaY < 0) {
-      change_LR(STAGES_R)
-   }
-   if (active_section == 'projects_r' && progress.projects_r.end && event.deltaY > 0) {
+   if (active_section == 'projects_r' && progress.projects_r.end) {
       change_RL(PROCESS_R);
    }
-   if (active_section == 'services_m' && progress.services_m.start && event.deltaY < 0) {
-      change_LR(FEATURES_M)
-   }
-   if (active_section == 'services_m' && progress.services_m.end && event.deltaY > 0) {
+   if (active_section == 'services_m' && progress.services_m.end) {
       change_RL(PROJECTS_M)
    }
-   if (active_section == 'partners_m' && progress.partners_m.start && event.deltaY < 0) {
-      change_LR(PROJECTS_M)
-   }
-   if (active_section == 'partners_m' && progress.partners_m.end && event.deltaY > 0) {
+   if (active_section == 'partners_m' && progress.partners_m.end) {
       change_RL(CONTACTS_M)
    }
-   if (active_section == 'stages_r' && progress.stages_r.start && event.deltaY < 0) {
-      change_LR(FEATURES_R)
-   }
-   if (active_section == 'stages_r' && progress.stages_r.end && event.deltaY > 0) {
+   if (active_section == 'stages_r' && progress.stages_r.end) {
       change_RL(PROJECTS_R)
    }
-   if (active_section == 'process_r' && progress.process_r.start && event.deltaY < 0) {
-      change_LR(PROJECTS_R)
-   }
-   if (active_section == 'process_r' && progress.process_r.end && event.deltaY > 0) {
+   if (active_section == 'process_r' && progress.process_r.end) {
       change_RL(CONTACTS_R)
    }
+}
 
-}, { passive: false });
+
+function actionsPrev() {
+   if (active_section == 'about_m' && progress.about_m.start) {
+      prevFirst(FIRST_M)
+   }
+   if (active_section == 'about_r' && progress.about_r.start) {
+      prevFirst(FIRST_R);
+   }
+   if (active_section == 'features_m' && progress.features_m.start) {
+      changeGsap_LR(ABOUT_M, '#about_ms', '#about_mc');
+   }
+   if (active_section == 'features_r' && progress.features_r.start) {
+      changeGsap_LR(ABOUT_R, '#about_rs', '#about_rc');
+   }
+   if (active_section == 'projects_m' && progress.projects_m.start) {
+      changeGsap_LR(SERVICES_M, '#services_ms', '#services_mc')
+   }
+   if (active_section == 'projects_r' && progress.projects_r.start) {
+      change_LR(STAGES_R)
+   }
+   if (active_section == 'services_m' && progress.services_m.start) {
+      change_LR(FEATURES_M)
+   }
+   if (active_section == 'partners_m' && progress.partners_m.start) {
+      change_LR(PROJECTS_M)
+   }
+   if (active_section == 'stages_r' && progress.stages_r.start) {
+      change_LR(FEATURES_R)
+   }
+   if (active_section == 'process_r' && progress.process_r.start) {
+      change_LR(PROJECTS_R)
+   }
+}
+
+let wheelDisabled = true;
+// wheel для смены экранов
+if (isPC && MIN1024.matches) {
+   console.log('wheel active');
+   window.addEventListener('wheel', function (event) {
+      if (wheelDisabled) {
+         event.preventDefault();
+         return;
+      }
+      if (event.deltaY < 0) { actionsPrev() }
+      if (event.deltaY > 0) { actionsNext() }
+   }, { passive: false });
+}
+
+let startX = 0;
+let startY = 0;
+let threshold = 50;   // минимальное расстояние для определения жеста
+if (!isPC && MIN1024.matches) {
+   console.log('touchMove active');
+
+
+   DOC.addEventListener('touchstart', onTouchStart);
+   DOC.addEventListener('touchend', onTouchEnd);
+
+
+   function onTouchStart(event) {
+      startX = event.touches[0].clientX;
+      startY = event.touches[0].clientY;
+   }
+
+   function onTouchEnd(event) {
+      const endX = event.changedTouches[0].clientX;
+      const endY = event.changedTouches[0].clientY;
+      detectGesture(endX, endY);
+   }
+
+   function detectGesture(endX, endY) {
+      const diffX = endX - startX;
+      const diffY = endY - startY;
+
+      // Определяем направление
+      if (Math.abs(diffX) > Math.abs(diffY)) {
+         if (Math.abs(diffX) > threshold) {
+            if (diffX > 0) {
+               onSwipeRight();
+            } else {
+               onSwipeLeft();
+            }
+         }
+      } else {
+         if (Math.abs(diffY) > threshold) {
+            if (diffY > 0) {
+               onSwipeDown();
+            } else {
+               onSwipeUp();
+            }
+         }
+      }
+   }
+
+   function onSwipeLeft() {
+      actionsNext()
+   }
+
+   function onSwipeRight() {
+      actionsPrev()
+   }
+
+   function onSwipeUp() {
+      actionsNext()
+   }
+
+   function onSwipeDown() {
+      actionsPrev()
+   }
+}
+
 
 
 // управление прогрессом секциц
@@ -496,6 +582,44 @@ function hide_L(element) {
    element.classList.add('offset-left');
 }
 
+// проверка заполнения форм
+function checkingFormFilling(formItem) {
+   formItem.addEventListener('submit', (event) => {
+      event.preventDefault();
+      let test = true;
+      const inputs = formItem.querySelectorAll('.required');
+      inputs.forEach((e) => {
+         const value = e.querySelector('input').value.trim();
+         if (!value) {
+            e.classList.add('invalid');
+            test = false;
+         } else {
+            e.classList.remove('invalid');
+            e.classList.add('valid');
+         }
+      })
+      if (test) formItem.submit();
+   })
+}
+
+checkingFormFilling(FORM_M)
+checkingFormFilling(FORM_R)
+
+const inputsRequired = DOC.querySelectorAll('.required');
+inputsRequired.forEach((e) => {
+   const input = e.querySelector('input');
+   input.addEventListener('input', (event) => {
+      const value = event.target.value.trim();
+      if (value.length > 0) {
+         e.classList.remove('invalid');
+         e.classList.add('valid');
+      } else {
+         e.classList.add('invalid');
+         e.classList.remove('valid');
+      }
+
+   })
+})
 
 // перемещение блоков при адаптиве
 // data-da=".class,3,768,min" 
@@ -605,6 +729,7 @@ function addAboutAnimation(element, id, trigger, scroller) {
          end: `bottom top`,
          pin: true,
          scrub: true,
+         pinType: isPC ? "transform" : "fixed",
          onUpdate: (self) => {
             if (!MIN1024.matches) return;
             if (Number(self.progress.toFixed(4)) == 0 && active_section === id) {
@@ -634,7 +759,7 @@ if (ABOUT_TEXT_R) addAboutAnimation(ABOUT_TEXT_R, 'about_r', '.trigger-about-r',
 
 // services_m
 const SERVICES_TITLE = document.querySelector('.services__title');
-if (isPC && SERVICES_TITLE) {
+if (MIN1024.matches && SERVICES_TITLE) {
    let tl_services = gsap.timeline({
       scrollTrigger: {
          trigger: SERVICES_TITLE,
@@ -643,6 +768,7 @@ if (isPC && SERVICES_TITLE) {
          start: "0% 0%",
          end: `100% 100%`,
          pin: true,
+         pinType: isPC ? "transform" : "fixed",
          pinSpacing: false,
          scrub: true,
          onUpdate: (self) => {
@@ -665,7 +791,7 @@ if (isPC && SERVICES_TITLE) {
 // partners_m, анимация текста блюр
 
 const PARTNERS_TEXT = document.querySelector('.partners__text');
-if (isPC && PARTNERS_TEXT) {
+if (MIN1024.matches && PARTNERS_TEXT) {
    wrapLetters(PARTNERS_TEXT);
    let tl_mpt = gsap.timeline({
       scrollTrigger: {
@@ -674,6 +800,7 @@ if (isPC && PARTNERS_TEXT) {
          start: "top top",
          end: `bottom top`,
          pin: true,
+         pinType: "fixed",
          scrub: true,
          onUpdate: (self) => {
             if (!MIN1024.matches) return;
@@ -715,6 +842,61 @@ if (isPC && PARTNERS_TEXT) {
 //    fontWeight: "bold",
 //    indent: 20
 // },
+// map
+const mapContainer = document.querySelectorAll('.contacts__map');
+const data = {
+   coordinates: '37.541027, 55.807390 ',
+}
+async function initMap() {
+   await ymaps3.ready;
+   const { YMap, YMapMarker, YMapDefaultSchemeLayer, YMapDefaultFeaturesLayer } = ymaps3;
+
+   const map_r = new YMap(
+      mapContainer[1],
+      {
+         location: {
+            center: data.coordinates.split(','),
+            zoom: 17,
+         }
+      }, [
+      new YMapDefaultSchemeLayer(),
+      new YMapDefaultFeaturesLayer()
+   ]
+   );
+   const markerTemplate_r = document.getElementById('marker_r');
+   const markerClone_r = markerTemplate_r.content.cloneNode(true);
+   const marker_r = new YMapMarker(
+      {
+         coordinates: data.coordinates.split(','),
+      },
+      markerClone_r
+   );
+   map_r.addChild(marker_r);
+
+   const map_m = new YMap(
+      mapContainer[0],
+      {
+         location: {
+            center: data.coordinates.split(','),
+            zoom: 17,
+         }
+      }, [
+      new YMapDefaultSchemeLayer(),
+      new YMapDefaultFeaturesLayer()
+   ]
+   );
+   const markerTemplate_m = document.getElementById('marker_m');
+   const markerClone_m = markerTemplate_m.content.cloneNode(true);
+   const marker_m = new YMapMarker(
+      {
+         coordinates: data.coordinates.split(','),
+      },
+      markerClone_m
+   );
+   map_m.addChild(marker_m);
+}
+initMap();
+
 /* открывает, закрывает модальные окна. */
 /*
 добавить классы
@@ -770,14 +952,13 @@ function activeScrollCloseModal() {
 }
 
 
-//  ========== features_m ============
+//  ========== features ============
 function addFeaturesSwiper(element, id) {
    const SWIPER = element.querySelector('.swiper');
    const LIST_TEXT = element.querySelectorAll('.features--text');
    const TEXT_BUTTON_PREV = element.querySelectorAll('.features__button.prev span');
    const TEXT_BUTTON_NEXT = element.querySelectorAll('.features__button.next span');
    SWIPERS[id].swiper = new Swiper(SWIPER, {
-      //   allowTouchMove: false,
       direction: MIN1024.matches ? "vertical" : "horizontal",
       spaceBetween: 20,
       speed: 700,
@@ -815,8 +996,6 @@ function addFeaturesSwiper(element, id) {
                progress[id].start = false;
                progress[id].end = false;
             }
-            console.log('features_m', progress[id].start);
-            console.log('features_m', progress[id].end);
          },
       }
    });
@@ -932,7 +1111,7 @@ function addSwiperFade(element, id) {
       effect: "fade",
       // direction: "vertical", // глючит
       mousewheel: {
-         enabled: true,
+         enabled: isPC ? true : false,
          eventsTarget: '#' + id,
       },
       on: {
@@ -965,6 +1144,9 @@ function addSwiperFade(element, id) {
                }, TRANSITION_TIME)
             }
          },
+         // touchMove: function (swiper, event) {
+         //    // console.log(event);
+         // }
       }
    });
 }

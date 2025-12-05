@@ -47,6 +47,7 @@
       height: var(--vh);
 
       @media (min-width:1024px) {
+         padding-top: 0;
          height: 100%;
          flex-direction: row;
       }
@@ -150,9 +151,10 @@
    }
 
    &__image {
+      // padding-top: 150px;
 
       @media (min-width:1024px) {
-         padding-top: 150px;
+         padding-top: 0;
          flex: 0 0 50%;
       }
    }
@@ -164,10 +166,7 @@
       overflow: hidden;
       border-radius: 10px;
 
-      @media (min-width:1024px) {
-         background: none;
-         height: 100%;
-
+      @media (max-width:1023.98px) {
          .mebel--mod & {
             background: linear-gradient(#a9abb500, #A9ABB5);
          }
@@ -175,10 +174,12 @@
          .remont--mod & {
             background: linear-gradient(#15151900, #151519);
          }
-
       }
 
-
+      @media (min-width:1024px) {
+         background: none;
+         height: 100%;
+      }
 
       img {
          position: absolute;
@@ -307,6 +308,7 @@
          left: var(--padding);
          transform: translateY(-50%);
          flex-direction: column;
+         width: auto;
       }
 
       .swiper-pagination-bullet {

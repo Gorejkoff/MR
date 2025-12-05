@@ -214,7 +214,7 @@
             width: auto;
          }
 
-         span {
+         ._pc & span {
             filter: blur(7px);
             transition: filter 0.3s;
          }

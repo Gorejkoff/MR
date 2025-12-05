@@ -355,6 +355,140 @@ body.remont-branch {
       touch-action: pan-y;
 }
 
+.map-marker {
+  width: 53px;
+  height: 53px;
+  border-radius: 50%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(18%, #151519), color-stop(200%, #a9abb5));
+  background: linear-gradient(180deg, #151519 18%, #a9abb5 200%);
+  -webkit-box-shadow: 0 3px 2px 0 rgba(0, 0, 0, 0.09), 0 7px 5px 0 rgba(0, 0, 0, 0.13), 0 13px 10px 0 rgba(0, 0, 0, 0.16), 0 22px 18px 0 rgba(0, 0, 0, 0.19), 0 42px 33px 0 rgba(0, 0, 0, 0.23), 0 100px 80px 0 rgba(0, 0, 0, 0.32);
+          box-shadow: 0 3px 2px 0 rgba(0, 0, 0, 0.09), 0 7px 5px 0 rgba(0, 0, 0, 0.13), 0 13px 10px 0 rgba(0, 0, 0, 0.16), 0 22px 18px 0 rgba(0, 0, 0, 0.19), 0 42px 33px 0 rgba(0, 0, 0, 0.23), 0 100px 80px 0 rgba(0, 0, 0, 0.32);
+}
+
+.map-marker svg {
+  width: 40%;
+  height: auto;
+}
+
+.mebel-branch .map-marker .map-marker__r {
+  display: none;
+}
+
+.remont-branch .map-marker .map-marker__m {
+  display: none;
+}
+
+.link-social-network {
+  position: relative;
+  padding: 10px 30px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  gap: 20px;
+  min-height: 50px;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 130%;
+  letter-spacing: -0.02em;
+  border-radius: 100px;
+  -webkit-transition: border-color 0.3s;
+  transition: border-color 0.3s;
+}
+
+.mebel--mod .link-social-network {
+  border: 2px solid rgba(21, 21, 25, 0.5);
+}
+
+.remont--mod .link-social-network {
+  border: 2px solid rgba(169, 171, 181, 0.5);
+}
+
+.link-social-network svg {
+  width: 20px;
+  height: auto;
+}
+
+.mebel--mod .link-social-network svg path {
+  fill: #151519;
+  -webkit-transition: fill 0.3s;
+  transition: fill 0.3s;
+}
+
+.remont--mod .link-social-network svg path {
+  fill: #A9ABB5;
+  -webkit-transition: fill 0.3s;
+  transition: fill 0.3s;
+}
+
+.link-social-network::before {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+  border-radius: inherit;
+  z-index: -1;
+  opacity: 0;
+  -webkit-transition: opacity 0.3s;
+  transition: opacity 0.3s;
+}
+
+.mebel--mod .link-social-network::before {
+  -webkit-box-shadow: inset 0 -2px 9px 0 rgba(255, 255, 255, 0.25);
+          box-shadow: inset 0 -2px 9px 0 rgba(255, 255, 255, 0.25);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(18.69%, #151519), color-stop(200%, #a9abb5));
+  background: linear-gradient(180deg, #151519 18.69%, #a9abb5 200%);
+}
+
+.remont--mod .link-social-network::before {
+  -webkit-box-shadow: inset 0 -2px 11px 0 rgba(255, 255, 255, 0.75), inset 0 4px 18px 0 rgba(0, 0, 0, 0.25), inset 0 4px 4px 0 rgba(0, 0, 0, 0.05), inset 0 -2px 4px 0 rgba(255, 255, 255, 0.55);
+          box-shadow: inset 0 -2px 11px 0 rgba(255, 255, 255, 0.75), inset 0 4px 18px 0 rgba(0, 0, 0, 0.25), inset 0 4px 4px 0 rgba(0, 0, 0, 0.05), inset 0 -2px 4px 0 rgba(255, 255, 255, 0.55);
+  background: #A9ABB5;
+}
+
+._pc .link-social-network:hover::before {
+  opacity: 1;
+}
+
+._pc .mebel--mod .link-social-network:hover {
+  border-color: transparent;
+}
+
+._pc .mebel--mod .link-social-network:hover svg path {
+  fill: #A9ABB5;
+}
+
+._pc .remont--mod .link-social-network:hover {
+  border-color: transparent;
+}
+
+._pc .remont--mod .link-social-network:hover svg path {
+  fill: #151519;
+}
+
+.services__title,
+.trigger-partners,
+.trigger-about-r,
+.trigger-about-m {
+  left: 0 !important;
+}
+
 .header {
   position: fixed;
   top: 0;
@@ -365,8 +499,8 @@ body.remont-branch {
 }
 
 .header__body {
-  --padding-header-body: 20px;
-  padding: var(--padding-header-body);
+  --padding-header-body: 5.333vw;
+  padding: 20px var(--padding-header-body);
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -391,15 +525,15 @@ body.remont-branch {
   width: 80px;
   height: 56px;
   right: 0;
-  border-radius: 10px;
+  border-radius: 5px;
   fill: var(--dark);
   border: 1px solid rgba(169, 171, 181, 0.5);
   backdrop-filter: blur(16px);
   background-color: #151519;
-  -webkit-transition: right 0.5s, border-color, -webkit-transform 0.5s;
-  transition: right 0.5s, border-color, -webkit-transform 0.5s;
-  transition: transform 0.5s, right 0.5s, border-color;
-  transition: transform 0.5s, right 0.5s, border-color, -webkit-transform 0.5s;
+  -webkit-transition: right 0.5s, border-color 0.3s, background-color 0.3s, -webkit-transform 0.5s;
+  transition: right 0.5s, border-color 0.3s, background-color 0.3s, -webkit-transform 0.5s;
+  transition: transform 0.5s, right 0.5s, border-color 0.3s, background-color 0.3s;
+  transition: transform 0.5s, right 0.5s, border-color 0.3s, background-color 0.3s, -webkit-transform 0.5s;
   z-index: 1;
 }
 
@@ -412,10 +546,10 @@ body.remont-branch {
   height: 3px;
   border-radius: 10px;
   background-color: #ffffff;
-  -webkit-transition: -webkit-transform 0.3s;
-  transition: -webkit-transform 0.3s;
-  transition: transform 0.3s;
-  transition: transform 0.3s, -webkit-transform 0.3s;
+  -webkit-transition: background-color 0.3, -webkit-transform 0.3s;
+  transition: background-color 0.3, -webkit-transform 0.3s;
+  transition: transform 0.3s, background-color 0.3;
+  transition: transform 0.3s, background-color 0.3, -webkit-transform 0.3s;
 }
 
 .header__line-1 {
@@ -510,7 +644,7 @@ body.remont-branch {
   position: relative;
   padding: 15px 24px;
   pointer-events: all;
-  border-radius: 10px;
+  border-radius: 5px;
   backdrop-filter: blur(20.4px);
   background: -webkit-gradient(linear, left top, left bottom, color-stop(-20%, rgba(255, 255, 255, 0.1)), to(rgba(255, 255, 255, 0.1)));
   background: linear-gradient(rgba(255, 255, 255, 0.1) -20%, rgba(255, 255, 255, 0.1) 100%);
@@ -526,7 +660,7 @@ body.remont-branch {
   z-index: -1;
   width: calc(100% - 2px);
   height: calc(100% - 2px);
-  border-radius: 10px;
+  border-radius: 5px;
   background-color: #151519;
 }
 
@@ -534,6 +668,26 @@ body.remont-branch {
 .header__logo img {
   width: 32px;
   height: auto;
+}
+
+.header__logo .logo-mebel-animate,
+.header__logo .logo-remont-animate {
+  -webkit-transition: -webkit-transform 0.5s;
+  transition: -webkit-transform 0.5s;
+  transition: transform 0.5s;
+  transition: transform 0.5s, -webkit-transform 0.5s;
+}
+
+._pc .header__logo:hover .logo-remont-animate {
+  -webkit-transform: translateX(50%);
+      -ms-transform: translateX(50%);
+          transform: translateX(50%);
+}
+
+._pc .header__logo:hover .logo-mebel-animate {
+  -webkit-transform: translateY(35%);
+      -ms-transform: translateY(35%);
+          transform: translateY(35%);
 }
 
 .logo-mebel-first,
@@ -545,16 +699,8 @@ body.remont-branch {
   display: none;
 }
 
-.mebel-branch .logo-mebel {
+.mebel-branch .logo-mebel-first {
   display: block;
-}
-
-.mebel-branch.first-screen-active .logo-mebel-first {
-  display: block;
-}
-
-.mebel-branch.first-screen-active .logo-mebel {
-  display: none;
 }
 
 .mebel-branch .menu-mebel {
@@ -586,11 +732,18 @@ body.remont-branch {
   width: 100vw;
   height: var(--height-modal);
   backdrop-filter: blur(31.3px);
-  background: rgba(169, 171, 181, 0.8);
   overflow-y: auto;
   overflow-x: hidden;
   -webkit-transition: left var(--tr-time);
   transition: left var(--tr-time);
+}
+
+.modal.mebel--mod {
+  background: rgba(169, 171, 181, 0.8);
+}
+
+.modal.remont--mod {
+  background: rgba(21, 21, 25, 0.8);
 }
 
 @supports (height: 100dvh) {
@@ -671,7 +824,7 @@ body.remont-branch {
 }
 
 .active .first__mask {
-  opacity: 1;
+  opacity: 0.8;
 }
 
 .first__mask-border {
@@ -857,8 +1010,8 @@ body.remont-branch {
   overflow: hidden;
 }
 
-.start__r .button,
-.start__m .button {
+.start__r ._pc .button,
+.start__m ._pc .button {
   opacity: 0;
 }
 
@@ -1653,6 +1806,7 @@ body.remont-branch {
 }
 
 .services__string {
+  padding-bottom: 32px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1791,8 +1945,9 @@ body.remont-branch {
 
 .projects__card {
   position: relative;
-  -webkit-box-shadow: 0 10px 35px 4px rgba(255, 255, 255, 0);
-          box-shadow: 0 10px 35px 4px rgba(255, 255, 255, 0);
+  width: 100%;
+  -webkit-box-shadow: 0 20px 125px 8px transparent;
+          box-shadow: 0 20px 125px 8px transparent;
   -webkit-transition: -webkit-box-shadow 0.5s;
   transition: -webkit-box-shadow 0.5s;
   transition: box-shadow 0.5s;
@@ -1800,24 +1955,33 @@ body.remont-branch {
   border-radius: 10px;
 }
 
-.projects__card:hover {
-  -webkit-box-shadow: 0 10px 35px 4px rgba(255, 255, 255, 0.8);
-          box-shadow: 0 10px 35px 4px rgba(255, 255, 255, 0.8);
+.mebel--mod .projects__card {
+  --color-shadow: rgba(255, 255, 255, 0.5);
 }
 
-.projects__card:hover .projects__text {
+.remont--mod .projects__card {
+  --color-shadow: rgba(169, 171, 181, 0.5);
+}
+
+._pc .projects__card:hover {
+  -webkit-box-shadow: 0 20px 125px 8px var(--color-shadow);
+          box-shadow: 0 20px 125px 8px var(--color-shadow);
+}
+
+._pc .projects__card:hover .projects__text {
   color: #ffffff;
 }
 
-.projects__card:hover .projects__topic {
+._pc .projects__card:hover .projects__topic {
   background-color: #A9ABB5;
 }
 
-.projects__card:hover .projects__info {
+._pc .projects__card:hover .projects__info {
   opacity: 1;
 }
 
 .projects__image {
+  display: block;
   padding-bottom: 100%;
   position: relative;
   overflow: hidden;
@@ -1840,8 +2004,8 @@ body.remont-branch {
 
 .projects__topic {
   position: absolute;
-  top: 30px;
-  left: 30px;
+  top: 15px;
+  left: 15px;
   padding: 5px 10px;
   font-size: 12px;
   line-height: 130%;
@@ -1857,9 +2021,9 @@ body.remont-branch {
   position: absolute;
   left: 30px;
   top: 100%;
-  -webkit-transform: translateY(-1em);
-      -ms-transform: translateY(-1em);
-          transform: translateY(-1em);
+  -webkit-transform: translateY(-0.85em);
+      -ms-transform: translateY(-0.85em);
+          transform: translateY(-0.85em);
   max-width: 60%;
   font-family: var(--font-family-benzin);
   font-weight: 400;
@@ -1873,8 +2037,8 @@ body.remont-branch {
 
 .projects__info {
   position: absolute;
-  top: 30px;
-  right: 30px;
+  top: 15px;
+  right: 15px;
   width: 30px;
 }
 
@@ -2041,6 +2205,7 @@ body.remont-branch {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
+  font-style: normal;
 }
 
 .contacts__title {
@@ -2066,11 +2231,12 @@ body.remont-branch {
 }
 
 .contacts__time {
+  margin-bottom: 5px;
   font-weight: 300;
   font-size: 14px;
   line-height: 130%;
   letter-spacing: -0.02em;
-  color: #151519;
+  color: #5D606E;
 }
 
 .contacts__links {
@@ -2085,40 +2251,6 @@ body.remont-branch {
       -ms-flex-direction: column;
           flex-direction: column;
   gap: 10px;
-}
-
-.contacts__links a {
-  padding: 10px 30px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  gap: 20px;
-  min-height: 50px;
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 130%;
-  letter-spacing: -0.02em;
-  border-radius: 100px;
-  border: 2px solid rgba(21, 21, 25, 0.5);
-}
-
-.remont--mod .contacts__links a {
-  border-color: rgba(169, 171, 181, 0.5);
-}
-
-.contacts__links a svg {
-  width: 20px;
-  height: auto;
-}
-
-.remont--mod .contacts__links a svg path {
-  fill: #A9ABB5;
 }
 
 .contacts__address {
@@ -2158,10 +2290,17 @@ body.remont-branch {
   text-decoration-style: dotted;
   text-underline-offset: 0.2em;
   color: #151519;
+  -webkit-transition: color 0.3s, text-decoration-color 0.3s;
+  transition: color 0.3s, text-decoration-color 0.3s;
 }
 
 .remont--mod .contacts__address-map {
   color: #A9ABB5;
+}
+
+.contacts__address-map:hover {
+  color: #ffffff;
+  text-decoration-color: transparent;
 }
 
 .contacts__mail {
@@ -2273,6 +2412,15 @@ body.remont-branch {
   color: #151519;
 }
 
+.contacts__bottom a {
+  -webkit-transition: color 0.3s;
+  transition: color 0.3s;
+}
+
+.contacts__bottom a:hover {
+  color: #A9ABB5;
+}
+
 .contacts__footer-logo {
   position: absolute;
   top: 0;
@@ -2297,15 +2445,27 @@ body.remont-branch {
   border-radius: 10px;
   overflow: hidden;
   width: 100%;
-  display: none;
 }
 
-.contacts__map iframe {
+.contacts__map ymaps {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
+  -webkit-filter: grayscale(80%);
+          filter: grayscale(80%);
+}
+
+.contacts__map ymaps [class*=container] {
+  padding: 0;
+}
+
+.contacts__map ymaps .ymaps3x0--map-copyrights {
+  height: auto !important;
+  width: auto !important;
+  right: auto !important;
+  bottom: auto !important;
 }
 
 .contacts__map-button {
@@ -2319,8 +2479,12 @@ body.remont-branch {
 .contacts__form {
   line-height: 140%;
   letter-spacing: -0.02em;
-  color: #151519;
   font-size: 20px;
+  display: none;
+}
+
+.mebel--mod .contacts__form {
+  color: #151519;
 }
 
 .remont--mod .contacts__form {
@@ -2352,10 +2516,16 @@ body.remont-branch {
   padding: 0 2.1vh;
   border-radius: 10px;
   border: 2px solid rgba(0, 0, 0, 0.2);
+  -webkit-transition: border-color 0.3s;
+  transition: border-color 0.3s;
+}
+
+.mebel--mod .contacts__input input {
+  border: 2px solid rgba(0, 0, 0, 0.2);
 }
 
 .remont--mod .contacts__input input {
-  border-color: #A9ABB5;
+  border: 2px solid rgba(169, 171, 181, 0.2);
 }
 
 .contacts__input input:not(:-moz-placeholder) + span {
@@ -2369,6 +2539,43 @@ body.remont-branch {
 .contacts__input input:not(:placeholder-shown) + span,
 .contacts__input input:focus + span {
   display: none;
+}
+
+.mebel--mod .contacts__input input:focus,
+.mebel--mod .contacts__input input:hover {
+  border-color: #ffffff;
+  color: #ffffff;
+}
+
+.remont--mod .contacts__input input:focus,
+.remont--mod .contacts__input input:hover {
+  border-color: #ffffff;
+  color: #ffffff;
+}
+
+.contacts__input.valid input {
+  border-color: #ffffff;
+  color: #ffffff;
+}
+
+.contacts__input.invalid input {
+  border-color: #CC1215;
+}
+
+.contacts__input.invalid .contacts__error {
+  display: block;
+}
+
+.contacts__input.invalid .error {
+  display: block;
+}
+
+.contacts__input.valid .error {
+  display: none;
+}
+
+.contacts__input.valid .right {
+  display: block;
 }
 
 .contacts__placeholder {
@@ -2387,6 +2594,29 @@ body.remont-branch {
   color: #ffffff;
 }
 
+.contacts__input-icon {
+  position: absolute;
+  top: 50%;
+  right: 2.1vh;
+  -webkit-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+          transform: translateY(-50%);
+  width: 20px;
+  height: auto;
+  display: none;
+}
+
+.contacts__error {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 2.1vh;
+  font-size: 1.18vh;
+  line-height: 140%;
+  letter-spacing: -0.02em;
+  color: #CC1215;
+  display: none;
+}
+
 .contacts__file {
   margin-bottom: 25px;
   cursor: pointer;
@@ -2396,11 +2626,14 @@ body.remont-branch {
   width: 100%;
   padding: 0 2.1vh;
   border-radius: 10px;
+}
+
+.mebel--mod .contacts__file {
   border: 2px solid rgba(0, 0, 0, 0.2);
 }
 
 .remont--mod .contacts__file {
-  border-color: #A9ABB5;
+  border: 2px solid rgba(169, 171, 181, 0.2);
 }
 
 .contacts__file .contacts__placeholder span {
@@ -2417,13 +2650,16 @@ body.remont-branch {
 .contacts__textarea {
   padding: 2.1vh;
   border-radius: 10px;
-  border: 2px solid rgba(0, 0, 0, 0.2);
   height: 17.2vh;
   width: 100%;
 }
 
+.mebel--mod .contacts__textarea {
+  border: 2px solid rgba(0, 0, 0, 0.2);
+}
+
 .remont--mod .contacts__textarea {
-  border-color: #A9ABB5;
+  border: 2px solid rgba(169, 171, 181, 0.2);
 }
 
 .contacts textarea,
@@ -2770,24 +3006,30 @@ body.remont-branch {
   background: linear-gradient(rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.6588235294) 70%, #ffffff);
 }
 
-.kitchen-modal__close {
+.projects-modal__close {
   position: absolute;
   z-index: 5;
-  top: 6vh;
-  left: 50%;
-  width: 35px;
-  height: 35px;
-  -webkit-transform: translateX(-50%);
-      -ms-transform: translateX(-50%);
-          transform: translateX(-50%);
 }
 
-.kitchen-modal__close svg {
+.projects-modal__close svg {
+  -webkit-transition: -webkit-transform 0.3s;
+  transition: -webkit-transform 0.3s;
+  transition: transform 0.3s;
+  transition: transform 0.3s, -webkit-transform 0.3s;
+}
+
+._pc .projects-modal__close:hover svg {
+  -webkit-transform: rotate(180deg);
+      -ms-transform: rotate(180deg);
+          transform: rotate(180deg);
+}
+
+.projects-modal__close svg {
   width: 100%;
   height: auto;
 }
 
-.kitchen-modal__body {
+.projects-modal__body {
   padding-bottom: 20px;
   position: relative;
   width: 100%;
@@ -2795,7 +3037,7 @@ body.remont-branch {
   width: 100%;
 }
 
-.kitchen-modal__main-screen {
+.projects-modal__main-screen {
   min-height: var(--vh);
   display: -webkit-box;
   display: -ms-flexbox;
@@ -2806,7 +3048,7 @@ body.remont-branch {
           flex-direction: column;
 }
 
-.kitchen-modal__main-image {
+.projects-modal__main-image {
   position: relative;
   -webkit-box-flex: 1;
       -ms-flex: 1 1 auto;
@@ -2815,7 +3057,7 @@ body.remont-branch {
   min-height: var(--vh);
 }
 
-.kitchen-modal__main-image-item {
+.projects-modal__main-image-item {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -2829,23 +3071,33 @@ body.remont-branch {
      object-fit: cover;
 }
 
-.kitchen-modal__main-image-text {
+.projects-modal__main-image-text {
   position: absolute;
   top: 15vh;
   left: 12vw;
   z-index: 4;
+  font-family: var(--font-family-benzin);
   font-size: 30px;
   line-height: 90%;
   letter-spacing: -0.02em;
   text-transform: uppercase;
   color: #ffffff;
+  max-width: 80%;
 }
 
-.kitchen-modal__main-image-text span {
+.projects-modal__main-image-text br {
+  display: none;
+}
+
+.remont--mod .projects-modal__main-image-text span {
+  color: #151519;
+}
+
+.mebel--mod .projects-modal__main-image-text span {
   color: #A9ABB5;
 }
 
-.kitchen-modal__main-text {
+.projects-modal__main-text {
   padding: 5vh 6vh;
   font-family: var(--font-family-benzin);
   font-size: 24px;
@@ -2853,7 +3105,7 @@ body.remont-branch {
   text-transform: uppercase;
 }
 
-.kitchen-modal__main-image-arrow {
+.projects-modal__main-image-arrow {
   position: absolute;
   bottom: 5vh;
   left: 50%;
@@ -2863,7 +3115,7 @@ body.remont-branch {
   z-index: 4;
 }
 
-.kitchen-modal__grid {
+.projects-modal__grid {
   padding-left: 20px;
   padding-right: 20px;
   display: -ms-grid;
@@ -2873,7 +3125,7 @@ body.remont-branch {
   gap: 20px;
 }
 
-.kitchen-modal__cell {
+.projects-modal__cell {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -2881,23 +3133,23 @@ body.remont-branch {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  border-bottom: 1px solid #151519;
+  border-bottom: 1px solid rgba(21, 21, 25, 0.2);
 }
 
-.kitchen-modal__cell-img {
+.projects-modal__cell-img {
   -webkit-box-flex: 1;
       -ms-flex: 1 1 auto;
           flex: 1 1 auto;
 }
 
-.kitchen-modal__cell-img-item {
+.projects-modal__cell-img-item {
   position: relative;
   padding-bottom: 84%;
   overflow: hidden;
   border-radius: 10px;
 }
 
-.kitchen-modal__cell-img-item img {
+.projects-modal__cell-img-item img {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -2910,15 +3162,42 @@ body.remont-branch {
      object-fit: cover;
 }
 
-.kitchen-modal__cell-text {
+.projects-modal__cell-text {
   padding-top: 20px;
   padding-bottom: 15px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
   font-weight: 400;
   font-size: 16px;
   letter-spacing: -0.02em;
 }
 
-.kitchen--mebel .first__mask {
+.projects-modal__list {
+  padding-top: 2.1vh;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.projects-modal__list li {
+  padding-top: 20px;
+  padding-bottom: 15px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  font-weight: 400;
+  font-size: 16px;
+  letter-spacing: -0.02em;
+  border-bottom: 1px solid rgba(21, 21, 25, 0.2);
+}
+
+.projects--mebel .first__mask {
   background: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.7)), color-stop(50%, rgba(0, 0, 0, 0.5)), color-stop(70%, rgba(255, 255, 255, 0.2)), color-stop(98%, #ffffff));
   background: linear-gradient(180deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.5) 50%, rgba(255, 255, 255, 0.2) 70%, #ffffff 98%);
 }
@@ -2952,8 +3231,20 @@ body.remont-branch {
   max-width: 80%;
 }
 
+.stages__container {
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 auto;
+          flex: 1 1 auto;
+}
+
+.stages__container .swiper,
+.stages__container .swiper-wrapper {
+  height: 100%;
+}
+
 .stages__body {
   position: relative;
+  height: 100%;
 }
 
 .stages__title {
@@ -3315,7 +3606,7 @@ body.remont-branch {
   width: auto;
 }
 
-.process__button button span {
+._pc .process__button button span {
   -webkit-filter: blur(7px);
           filter: blur(7px);
   -webkit-transition: -webkit-filter 0.3s;
@@ -3469,37 +3760,84 @@ body.remont-branch {
     font-size: 1.8vh;
   }
 
-  .mebel-branch .header__button {
-    background-color: #A9ABB5;
-    border-color: rgba(255, 255, 255, 0.2);
+  .link-social-network {
+    padding: 0.7vh 2.1vh;
+    min-height: 4.7vh;
+    font-size: 1.8vh;
   }
 
-  .first-screen-active.mebel-branch .header__button {
-    background-color: #151519;
-    border-color: rgba(169, 171, 181, 0.5);
+  .link-social-network svg {
+    width: 2.1vh;
   }
 
   .header__button {
     width: 13.3vh;
     height: 8.47vh;
     border-width: 2px;
+    border-radius: 10px;
+  }
+
+  ._pc.first-screen-active.mebel-branch .header__button:hover,
+  ._pc.mebel-branch .header__button:hover,
+  ._pc.remont-branch .header__button:hover {
+    background-color: #ffffff;
+    border-color: #ffffff;
+  }
+
+  ._pc.first-screen-active.mebel-branch .header__button:hover .header__line-1,
+  ._pc.first-screen-active.mebel-branch .header__button:hover .header__line-2,
+  ._pc.mebel-branch .header__button:hover .header__line-1,
+  ._pc.mebel-branch .header__button:hover .header__line-2,
+  ._pc.remont-branch .header__button:hover .header__line-1,
+  ._pc.remont-branch .header__button:hover .header__line-2 {
+    background-color: #151519;
+  }
+
+  ._pc.mebel-branch .header__button {
+    background-color: #A9ABB5;
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+
+  ._pc.first-screen-active.mebel-branch .header__button {
+    background-color: #151519;
+    border-color: rgba(169, 171, 181, 0.5);
+  }
+
+  ._pc.remont-branch.menu-open .header__button {
+    background-color: #99a4ab !important;
+    border-color: #99a4ab !important;
+  }
+
+  ._pc.remont-branch.menu-open .header__button .header__line-1,
+  ._pc.remont-branch.menu-open .header__button .header__line-2 {
+    background-color: #ffffff !important;
+  }
+
+  ._pc.mebel-branch.menu-open .header__button {
+    background-color: #151519 !important;
+    border-color: #151519 !important;
+  }
+
+  ._pc.mebel-branch.menu-open .header__button .header__line-1,
+  ._pc.mebel-branch.menu-open .header__button .header__line-2 {
+    background-color: #ffffff !important;
   }
 
   .header__line-1,
   .header__line-2 {
-    height: 4px;
+    height: 0.28vh;
   }
 
   .header__line-1 {
-    -webkit-transform: translate(-50%, calc(-50% + 10px));
-        -ms-transform: translate(-50%, calc(-50% + 10px));
-            transform: translate(-50%, calc(-50% + 10px));
+    -webkit-transform: translate(-50%, calc(-50% + 0.7vh));
+        -ms-transform: translate(-50%, calc(-50% + 0.7vh));
+            transform: translate(-50%, calc(-50% + 0.7vh));
   }
 
   .header__line-2 {
-    -webkit-transform: translate(-50%, calc(-50% - 10px));
-        -ms-transform: translate(-50%, calc(-50% - 10px));
-            transform: translate(-50%, calc(-50% - 10px));
+    -webkit-transform: translate(-50%, calc(-50% - 0.7vh));
+        -ms-transform: translate(-50%, calc(-50% - 0.7vh));
+            transform: translate(-50%, calc(-50% - 0.7vh));
   }
 
   .header__nav-list {
@@ -3524,6 +3862,7 @@ body.remont-branch {
     padding-right: 5.5vh;
     backdrop-filter: blur(0);
     background: none;
+    border-radius: 10px;
   }
 
   .header__logo::before {
@@ -3534,6 +3873,22 @@ body.remont-branch {
   .header__logo img {
     width: auto;
     height: 3.95vh;
+  }
+
+  .mebel-branch .logo-mebel {
+    display: block;
+  }
+
+  .mebel-branch .logo-mebel-first {
+    display: none;
+  }
+
+  .mebel-branch.first-screen-active .logo-mebel-first {
+    display: block;
+  }
+
+  .mebel-branch.first-screen-active .logo-mebel {
+    display: none;
   }
 
   .first {
@@ -3651,8 +4006,8 @@ body.remont-branch {
     display: block;
   }
 
-  .start__r .button,
-  .start__m .button {
+  .start__r ._pc .button,
+  .start__m ._pc .button {
     -webkit-transition: opacity 0.3s;
     transition: opacity 0.3s;
   }
@@ -3777,6 +4132,7 @@ body.remont-branch {
   }
 
   .features__card {
+    padding-top: 0;
     height: 100%;
     -webkit-box-orient: horizontal;
     -webkit-box-direction: normal;
@@ -3815,7 +4171,7 @@ body.remont-branch {
   }
 
   .features__image {
-    padding-top: 150px;
+    padding-top: 0;
     -webkit-box-flex: 0;
         -ms-flex: 0 0 50%;
             flex: 0 0 50%;
@@ -3824,16 +4180,6 @@ body.remont-branch {
   .features__image-body {
     background: none;
     height: 100%;
-  }
-
-  .mebel--mod .features__image-body {
-    background: -webkit-gradient(linear, left top, left bottom, from(rgba(169, 171, 181, 0)), to(#A9ABB5));
-    background: linear-gradient(rgba(169, 171, 181, 0), #A9ABB5);
-  }
-
-  .remont--mod .features__image-body {
-    background: -webkit-gradient(linear, left top, left bottom, from(rgba(21, 21, 25, 0)), to(#151519));
-    background: linear-gradient(rgba(21, 21, 25, 0), #151519);
   }
 
   .features__image-small {
@@ -3911,6 +4257,7 @@ body.remont-branch {
     -webkit-box-direction: normal;
         -ms-flex-direction: column;
             flex-direction: column;
+    width: auto;
   }
 
   .features__pagination .swiper-pagination-bullet {
@@ -4041,6 +4388,8 @@ body.remont-branch {
   }
 
   .projects__topic {
+    top: 30px;
+    left: 30px;
     padding: 0.7vh 1.4vh;
     font-size: 1.67vh;
   }
@@ -4051,6 +4400,8 @@ body.remont-branch {
   }
 
   .projects__info {
+    top: 30px;
+    right: 30px;
     width: 3.47vh;
     opacity: 0;
   }
@@ -4129,16 +4480,6 @@ body.remont-branch {
             flex-direction: row;
   }
 
-  .contacts__links a {
-    padding: 0.7vh 2.1vh;
-    min-height: 4.7vh;
-    font-size: 1.8vh;
-  }
-
-  .contacts__links a svg {
-    width: 2.1vh;
-  }
-
   .contacts__address {
     -webkit-box-orient: horizontal;
     -webkit-box-direction: normal;
@@ -4198,13 +4539,13 @@ body.remont-branch {
   }
 
   .contacts__map {
+    display: none;
     padding-bottom: 0;
     height: 100%;
-    -webkit-filter: grayscale(80%);
-            filter: grayscale(80%);
   }
 
   .contacts__form {
+    display: block;
     font-size: 1.95vh;
   }
 
@@ -4264,23 +4605,23 @@ body.remont-branch {
     font-size: 24px;
   }
 
-  .kitchen-modal__close {
-    top: 4vh;
-    right: calc(4vh + 20px);
+  .projects-modal__close {
+    top: 6.25vh;
+    right: 6.25vh;
     width: 4vh;
     height: 4vh;
   }
 
-  .kitchen-modal__body {
+  .projects-modal__body {
     margin-left: auto;
     max-width: 75vw;
   }
 
-  .kitchen-modal__main-image {
-    min-height: auto;
+  .projects-modal__main-image {
+    min-height: 84vh;
   }
 
-  .kitchen-modal__main-image::before {
+  .projects-modal__main-image::before {
     content: "";
     position: absolute;
     top: 20px;
@@ -4292,11 +4633,22 @@ body.remont-branch {
     z-index: 2;
   }
 
-  .kitchen-modal__main-text {
-    font-size: 60px;
+  .projects-modal__main-image-text br {
+    display: inline;
   }
 
-  .kitchen-modal__grid {
+  .projects-modal__main-image-text {
+    font-size: 6vh;
+    top: 6vh;
+    left: 6vh;
+    max-width: 55%;
+  }
+
+  .projects-modal__main-text {
+    font-size: 4.16vh;
+  }
+
+  .projects-modal__grid {
     -ms-grid-columns: 1fr 1fr;
     grid-template-columns: 1fr 1fr;
     -webkit-column-gap: 20px;
@@ -4305,19 +4657,25 @@ body.remont-branch {
     row-gap: 56px;
   }
 
-  .kitchen-modal__cell:nth-child(4n+3) .modal__cell-img-item,
-  .kitchen-modal__cell:nth-child(4n+2) .modal__cell-img-item {
+  .projects-modal__cell:nth-child(4n+3) .projects-modal__cell-img-item,
+  .projects-modal__cell:nth-child(4n+2) .projects-modal__cell-img-item {
     padding-bottom: 55%;
   }
 
-  .kitchen-modal__cell-img-item {
+  .projects-modal__cell-img-item {
     padding-bottom: 71.5%;
   }
 
-  .kitchen-modal__cell-text {
-    padding-top: 30px;
-    padding-bottom: 30px;
-    font-size: 36px;
+  .projects-modal__cell-text {
+    padding-top: 2.1vh;
+    padding-bottom: 2.1vh;
+    font-size: 2.5vh;
+  }
+
+  .projects-modal__list li {
+    padding-top: 2.1vh;
+    padding-bottom: 2.1vh;
+    font-size: 2.5vh;
   }
 
   .stages {
@@ -4325,6 +4683,13 @@ body.remont-branch {
     position: fixed;
     top: 0;
     left: 0;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
   }
 
   .stages__label {
@@ -4336,7 +4701,7 @@ body.remont-branch {
 
   .stages__header {
     position: absolute;
-    top: 20vh;
+    top: 14vh;
     left: 50%;
     -webkit-transform: translateX(-50%);
         -ms-transform: translateX(-50%);
@@ -4353,8 +4718,7 @@ body.remont-branch {
   }
 
   .stages__card {
-    padding-bottom: 10vh;
-    height: var(--vh);
+    height: 100%;
   }
 
   .stages__card-grid {
@@ -4586,13 +4950,16 @@ body.remont-branch {
   }
 
   .first__mask {
-    background: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.7)), color-stop(50%, rgba(0, 0, 0, 0))), -webkit-gradient(linear, left top, left bottom, color-stop(70%, rgba(169, 171, 181, 0)), to(#A9ABB5));
-    background: linear-gradient(180deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0) 50%), linear-gradient(rgba(169, 171, 181, 0) 70%, #A9ABB5);
     backdrop-filter: blur(20px);
     -webkit-mask-size: 100% 100%;
             mask-size: 100% 100%;
-    -webkit-mask-image: url("../img/png/mask-3.png");
-            mask-image: url("../img/png/mask-3.png");
+    -webkit-mask-image: url("../img/png/mask-4.png");
+            mask-image: url("../img/png/mask-4.png");
+  }
+
+  .mebel--mod .first__mask {
+    background: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.7)), color-stop(50%, rgba(0, 0, 0, 0))), -webkit-gradient(linear, left top, left bottom, color-stop(70%, rgba(169, 171, 181, 0)), to(#A9ABB5));
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0) 50%), linear-gradient(rgba(169, 171, 181, 0) 70%, #A9ABB5);
   }
 
   .remont--mod .first__mask {
@@ -4606,10 +4973,20 @@ body.remont-branch {
             flex: 1 1 auto;
   }
 
-  .start__r .button,
-  .start__m .button {
+  .start__r ._pc .button,
+  .start__m ._pc .button {
     -webkit-animation: start-button 0.5s 2s forwards;
             animation: start-button 0.5s 2s forwards;
+  }
+
+  .mebel--mod .features__image-body {
+    background: -webkit-gradient(linear, left top, left bottom, from(rgba(169, 171, 181, 0)), to(#A9ABB5));
+    background: linear-gradient(rgba(169, 171, 181, 0), #A9ABB5);
+  }
+
+  .remont--mod .features__image-body {
+    background: -webkit-gradient(linear, left top, left bottom, from(rgba(21, 21, 25, 0)), to(#151519));
+    background: linear-gradient(rgba(21, 21, 25, 0), #151519);
   }
 
   .partners__text .color {
@@ -4619,7 +4996,25 @@ body.remont-branch {
     color: var(--color);
   }
 
+  .contacts__address-map {
+    display: none;
+  }
+
+  .contacts__map-button {
+    display: none;
+  }
+
   .contacts__buttons .button {
     width: 100%;
+  }
+
+  .projects-modal__close {
+    top: 6vh;
+    left: 50%;
+    width: 35px;
+    height: 35px;
+    -webkit-transform: translateX(-50%);
+        -ms-transform: translateX(-50%);
+            transform: translateX(-50%);
   }
 }
