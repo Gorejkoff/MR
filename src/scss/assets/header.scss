@@ -9,7 +9,7 @@
    pointer-events: none;
 
    &__body {
-      --padding-header-body: 5.333vw;
+      --padding-header-body: 20px;
       padding: 20px var(--padding-header-body);
       display: flex;
       justify-content: space-between;

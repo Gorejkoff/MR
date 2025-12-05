@@ -499,7 +499,7 @@ body.remont-branch {
 }
 
 .header__body {
-  --padding-header-body: 5.333vw;
+  --padding-header-body: 20px;
   padding: 20px var(--padding-header-body);
   display: -webkit-box;
   display: -ms-flexbox;
@@ -1757,6 +1757,7 @@ body.remont-branch {
   transition: transform var(--tr-time);
   transition: transform var(--tr-time), -webkit-transform var(--tr-time);
   background-color: #a9abb5;
+  overflow: hidden;
 }
 
 .services__name {
@@ -3092,7 +3093,7 @@ body.remont-branch {
 }
 
 .projects-modal__main-text {
-  padding: 5vh 6vh;
+  padding: 20px;
   font-family: var(--font-family-benzin);
   font-size: 24px;
   line-height: 90%;
@@ -4253,6 +4254,9 @@ body.remont-branch {
     -webkit-box-direction: normal;
         -ms-flex-direction: column;
             flex-direction: column;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
     width: auto;
   }
 
@@ -4641,6 +4645,7 @@ body.remont-branch {
   }
 
   .projects-modal__main-text {
+    padding: 5vh 6vh;
     font-size: 4.16vh;
   }
 

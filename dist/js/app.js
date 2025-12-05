@@ -81,7 +81,9 @@ const tl_about = {
    about_m: {},
    about_r: {}
 }
-
+const tl_services = {
+   services_m: {}
+}
 // для глобального отслеживания состояния начальной и конечной позиции прогресса
 const progress = {
    about_m: {
@@ -222,6 +224,9 @@ function actionsNext() {
    if (active_section == 'features_r' && progress.features_r.end) {
       change_RL(STAGES_R)
    }
+   if (active_section == 'stages_r' && progress.stages_r.end) {
+      change_RL(PROJECTS_R)
+   }
    if (active_section == 'projects_m' && progress.projects_m.end) {
       changeGsap_RL(PARTNERS_M, '#partners_ms', '#partners_mc');
    }
@@ -234,9 +239,7 @@ function actionsNext() {
    if (active_section == 'partners_m' && progress.partners_m.end) {
       change_RL(CONTACTS_M)
    }
-   if (active_section == 'stages_r' && progress.stages_r.end) {
-      change_RL(PROJECTS_R)
-   }
+
    if (active_section == 'process_r' && progress.process_r.end) {
       change_RL(CONTACTS_R)
    }
@@ -256,6 +259,9 @@ function actionsPrev() {
    if (active_section == 'features_r' && progress.features_r.start) {
       changeGsap_LR(ABOUT_R, '#about_rs', '#about_rc');
    }
+   if (active_section == 'stages_r' && progress.stages_r.start) {
+      change_LR(FEATURES_R)
+   }
    if (active_section == 'projects_m' && progress.projects_m.start) {
       changeGsap_LR(SERVICES_M, '#services_ms', '#services_mc')
    }
@@ -268,9 +274,7 @@ function actionsPrev() {
    if (active_section == 'partners_m' && progress.partners_m.start) {
       change_LR(PROJECTS_M)
    }
-   if (active_section == 'stages_r' && progress.stages_r.start) {
-      change_LR(FEATURES_R)
-   }
+
    if (active_section == 'process_r' && progress.process_r.start) {
       change_LR(PROJECTS_R)
    }
@@ -292,7 +296,7 @@ if (isPC && MIN1024.matches) {
 
 let startX = 0;
 let startY = 0;
-let threshold = 50;   // минимальное расстояние для определения жеста
+let threshold = 20;   // минимальное расстояние для определения жеста
 if (!isPC && MIN1024.matches) {
    console.log('touchMove active');
 
@@ -474,7 +478,7 @@ function showStartScreen() {
 }
 function prevFirst(element) {
    change_LR(element)
-   if (smoother) smoother.paused(true);
+   if (isPC && smoother) smoother.paused(true);
 }
 
 function changeGsap_LR(element, s, c) {
@@ -482,14 +486,14 @@ function changeGsap_LR(element, s, c) {
    initScroll(s, c);
    gsapToEnd(element.id);
    change_LR(element);
-   setTimeout(() => { if (smoother) smoother.paused(false) }, TRANSITION_TIME)
+   setTimeout(() => { if (isPC && smoother) smoother.paused(false) }, TRANSITION_TIME)
 }
 function changeGsap_RL(element, s, c) {
    disabledWheel();
    initScroll(s, c);
    gsapToStart(element.id);
    change_RL(element);
-   setTimeout(() => { if (smoother) smoother.paused(false) }, TRANSITION_TIME)
+   setTimeout(() => { if (isPC && smoother) smoother.paused(false) }, TRANSITION_TIME)
 }
 function change_LR(element) {
    disabledWheel();
@@ -562,7 +566,7 @@ function checkingActiveSection() {
 }
 // прячет активную секцию налево
 function hideSections_L() {
-   if (smoother) smoother.paused(true);
+   if (isPC && smoother) smoother.paused(true);
    const section = DOC.querySelector('.section.active');
    if (!section) return;
    section.classList.add('offset-left');
@@ -570,9 +574,10 @@ function hideSections_L() {
 }
 // прячет активную секцию навправо
 function hideSections_R() {
-   if (smoother) smoother.paused(true);
+   if (isPC && smoother) smoother.paused(true);
    const section = DOC.querySelector('.section.active');
    if (!section) return;
+   section.classList.remove('offset-left');
    section.classList.add('offset-right');
    setTimeout(() => { section.classList.remove('active') }, TRANSITION_TIME)
 }
@@ -712,10 +717,10 @@ function initScroll(s, c) {
    smoother = ScrollSmoother.create({
       wrapper: s,
       content: c,
-      smooth: 1,
+      smooth: isPC ? 1 : 0,
       normalizeScroll: true,
    })
-   if (smoother) smoother.paused(true);
+   if (isPC && smoother) smoother.paused(true);
 }
 
 // about, анимация текста блюр
@@ -760,7 +765,7 @@ if (ABOUT_TEXT_R) addAboutAnimation(ABOUT_TEXT_R, 'about_r', '.trigger-about-r',
 // services_m
 const SERVICES_TITLE = document.querySelector('.services__title');
 if (MIN1024.matches && SERVICES_TITLE) {
-   let tl_services = gsap.timeline({
+   tl_services.services_m = gsap.timeline({
       scrollTrigger: {
          trigger: SERVICES_TITLE,
          endTrigger: '.services-end-trigger',
@@ -768,6 +773,14 @@ if (MIN1024.matches && SERVICES_TITLE) {
          start: "0% 0%",
          end: `100% 100%`,
          pin: true,
+         // pinType: "fixed",
+         // markers: {
+         //    startColor: "green",
+         //    endColor: "red",
+         //    fontSize: "40px",
+         //    fontWeight: "bold",
+         //    indent: 20
+         // },
          pinType: isPC ? "transform" : "fixed",
          pinSpacing: false,
          scrub: true,
@@ -787,6 +800,22 @@ if (MIN1024.matches && SERVICES_TITLE) {
       },
    })
 }
+
+if (!MIN1024.matches && SERVICES_TITLE) {
+   gsap.utils.toArray(".services__card").forEach((item, index) => {
+      gsap.from(item, {
+         x: index % 2 === 0 ? '100vw' : '-100vw',
+         duration: 0.8,
+         ease: "power2.out",
+         scrollTrigger: {
+            trigger: item,
+            start: "top 80%",
+            toggleActions: "play none none reverse"
+         }
+      });
+   });
+}
+
 
 // partners_m, анимация текста блюр
 
@@ -986,13 +1015,16 @@ function addFeaturesSwiper(element, id) {
             TEXT_BUTTON_NEXT.forEach((e, i) => e.classList.toggle('active', swiper.activeIndex == i));
          },
          transitionEnd: function (swiper) {
-            if (SWIPERS[id].progress == 0) {
+            console.log('transitionEnd');
+            if (SWIPERS[id].progress <= 0) {
                progress[id].start = true;
+               return;
             }
-            if (SWIPERS[id].progress == 1) {
+            if (SWIPERS[id].progress >= 1) {
                progress[id].end = true;
+               return;
             }
-            if (SWIPERS[id].progress > 0 && SWIPERS[id].progress < 1) {
+            if (SWIPERS[id].progress >= 0 && SWIPERS[id].progress <= 1) {
                progress[id].start = false;
                progress[id].end = false;
             }

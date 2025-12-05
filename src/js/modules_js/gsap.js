@@ -29,10 +29,10 @@ function initScroll(s, c) {
    smoother = ScrollSmoother.create({
       wrapper: s,
       content: c,
-      smooth: 1,
+      smooth: isPC ? 1 : 0,
       normalizeScroll: true,
    })
-   if (smoother) smoother.paused(true);
+   if (isPC && smoother) smoother.paused(true);
 }
 
 // about, анимация текста блюр
@@ -77,7 +77,7 @@ if (ABOUT_TEXT_R) addAboutAnimation(ABOUT_TEXT_R, 'about_r', '.trigger-about-r',
 // services_m
 const SERVICES_TITLE = document.querySelector('.services__title');
 if (MIN1024.matches && SERVICES_TITLE) {
-   let tl_services = gsap.timeline({
+   tl_services.services_m = gsap.timeline({
       scrollTrigger: {
          trigger: SERVICES_TITLE,
          endTrigger: '.services-end-trigger',
@@ -85,6 +85,14 @@ if (MIN1024.matches && SERVICES_TITLE) {
          start: "0% 0%",
          end: `100% 100%`,
          pin: true,
+         // pinType: "fixed",
+         // markers: {
+         //    startColor: "green",
+         //    endColor: "red",
+         //    fontSize: "40px",
+         //    fontWeight: "bold",
+         //    indent: 20
+         // },
          pinType: isPC ? "transform" : "fixed",
          pinSpacing: false,
          scrub: true,
@@ -104,6 +112,22 @@ if (MIN1024.matches && SERVICES_TITLE) {
       },
    })
 }
+
+if (!MIN1024.matches && SERVICES_TITLE) {
+   gsap.utils.toArray(".services__card").forEach((item, index) => {
+      gsap.from(item, {
+         x: index % 2 === 0 ? '100vw' : '-100vw',
+         duration: 0.8,
+         ease: "power2.out",
+         scrollTrigger: {
+            trigger: item,
+            start: "top 80%",
+            toggleActions: "play none none reverse"
+         }
+      });
+   });
+}
+
 
 // partners_m, анимация текста блюр
 

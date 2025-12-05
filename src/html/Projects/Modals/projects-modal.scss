@@ -132,13 +132,14 @@
    }
 
    &__main-text {
-      padding: 5vh 6vh;
+      padding: 20px;
       font-family: var(--font-family-benzin);
       font-size: 24px;
       line-height: 90%;
       text-transform: uppercase;
 
       @media (min-width:1024px) {
+         padding: 5vh 6vh;
          font-size: 4.16vh;
       }
    }

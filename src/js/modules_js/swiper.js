@@ -33,13 +33,16 @@ function addFeaturesSwiper(element, id) {
             TEXT_BUTTON_NEXT.forEach((e, i) => e.classList.toggle('active', swiper.activeIndex == i));
          },
          transitionEnd: function (swiper) {
-            if (SWIPERS[id].progress == 0) {
+            console.log('transitionEnd');
+            if (SWIPERS[id].progress <= 0) {
                progress[id].start = true;
+               return;
             }
-            if (SWIPERS[id].progress == 1) {
+            if (SWIPERS[id].progress >= 1) {
                progress[id].end = true;
+               return;
             }
-            if (SWIPERS[id].progress > 0 && SWIPERS[id].progress < 1) {
+            if (SWIPERS[id].progress >= 0 && SWIPERS[id].progress <= 1) {
                progress[id].start = false;
                progress[id].end = false;
             }

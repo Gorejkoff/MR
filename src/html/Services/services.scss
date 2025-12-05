@@ -4,6 +4,7 @@
    width: 100%;
    transition: transform var(--tr-time);
    background-color: #a9abb5;
+   overflow: hidden;
 
    @media (min-width:1024px) {
       padding-top: 0;
