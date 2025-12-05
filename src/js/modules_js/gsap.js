@@ -30,7 +30,7 @@ function initScroll(s, c) {
       wrapper: s,
       content: c,
       smooth: isPC ? 1 : 0,
-      normalizeScroll: true,
+      normalizeScroll: isPC ? true : false,
    })
    if (isPC && smoother) smoother.paused(true);
 }
