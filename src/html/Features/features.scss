@@ -1,13 +1,14 @@
 .features {
    --padding: 0;
 
-   height: var(--vh);
+   height: 90vh;
    width: 100vw;
    transition: transform var(--tr-time);
    transform: translateX(0);
    overflow: hidden;
 
    @media (min-width:1024px) {
+      height: 100vh;
       --padding: 20px;
       position: fixed;
       top: 0;
@@ -30,10 +31,10 @@
       z-index: 8;
       padding-top: var(--padding, 0);
       padding-bottom: var(--padding, 0);
-      height: var(--vh);
       width: 100vw;
 
       @media (min-width:1024px) {
+         height: var(--vh);
          margin-left: 0;
          width: auto;
       }
@@ -44,7 +45,7 @@
       position: relative;
       display: flex;
       flex-direction: column;
-      height: var(--vh);
+      // height: var(--vh);
 
       @media (min-width:1024px) {
          padding-top: 0;
@@ -64,13 +65,13 @@
 
    &__content-limit {
       pointer-events: none;
-      padding-bottom: 60px;
+      padding-bottom: 8vh;
       padding-left: var(--padding-container);
       padding-right: var(--padding-container);
       position: absolute;
       top: var(--padding);
       left: 0;
-      height: var(--vh);
+      height: 90vh;
       z-index: 1;
       display: flex;
       flex-direction: column;
@@ -87,10 +88,10 @@
          justify-content: center;
       }
 
-      &:last-child {
-         top: auto;
-         bottom: var(--padding);
-      }
+      // &:last-child {
+      //    top: auto;
+      //    bottom: var(--padding);
+      // }
 
       &.active {
          opacity: 1;

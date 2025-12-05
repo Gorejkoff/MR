@@ -1446,7 +1446,7 @@ body.remont-branch {
 
 .features {
   --padding: 0;
-  height: var(--vh);
+  height: 90vh;
   width: 100vw;
   -webkit-transition: -webkit-transform var(--tr-time);
   transition: -webkit-transform var(--tr-time);
@@ -1472,7 +1472,6 @@ body.remont-branch {
   z-index: 8;
   padding-top: var(--padding, 0);
   padding-bottom: var(--padding, 0);
-  height: var(--vh);
   width: 100vw;
 }
 
@@ -1486,7 +1485,6 @@ body.remont-branch {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  height: var(--vh);
 }
 
 .features__content {
@@ -1495,13 +1493,13 @@ body.remont-branch {
 
 .features__content-limit {
   pointer-events: none;
-  padding-bottom: 60px;
+  padding-bottom: 8vh;
   padding-left: var(--padding-container);
   padding-right: var(--padding-container);
   position: absolute;
   top: var(--padding);
   left: 0;
-  height: var(--vh);
+  height: 90vh;
   z-index: 1;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -1518,11 +1516,6 @@ body.remont-branch {
   color: #ffffff;
   -webkit-transition: opacity 0.3s;
   transition: opacity 0.3s;
-}
-
-.features__content-limit:last-child {
-  top: auto;
-  bottom: var(--padding);
 }
 
 .features__content-limit.active {
@@ -2762,7 +2755,8 @@ body.remont-branch {
   color: #5D606E;
 }
 
-.contacts__check a {
+.contacts__check a,
+.contacts__check button {
   text-decoration: underline;
 }
 
@@ -4120,6 +4114,7 @@ body.remont-branch {
   }
 
   .features {
+    height: 100vh;
     --padding: 20px;
     position: fixed;
     top: 0;
@@ -4127,6 +4122,7 @@ body.remont-branch {
   }
 
   .features__swiper {
+    height: var(--vh);
     margin-left: 0;
     width: auto;
   }
