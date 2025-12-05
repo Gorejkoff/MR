@@ -1814,7 +1814,7 @@ body.remont-branch {
   --size: calc((100vw - var(--padding-container) * 2) * 0.63);
   position: relative;
   width: 100%;
-  background: url("../../img/png/ripples-1.png"), linear-gradient(135deg, #8A8C9A -10%, #26262C 110%);
+  background: url("../img/png/ripples-1.png"), linear-gradient(135deg, #8A8C9A -10%, #26262C 110%);
   border-radius: 10px;
 }
 
