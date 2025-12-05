@@ -800,7 +800,7 @@ if (MIN1024.matches && PARTNERS_TEXT) {
          start: "top top",
          end: `bottom top`,
          pin: true,
-         pinType: "fixed",
+         pinType: isPC ? "transform" : "fixed",
          scrub: true,
          onUpdate: (self) => {
             if (!MIN1024.matches) return;
