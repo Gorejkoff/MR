@@ -13,7 +13,6 @@
       top: 0;
       left: 0;
       height: var(--vh);
-      // transform: translateX(0);
    }
 
    &__name {
@@ -126,8 +125,8 @@
    &__card-image {
       position: relative;
       padding-bottom: var(--size);
-      overflow: hidden;
       border-radius: 10px;
+      overflow: hidden;
 
       img {
          position: absolute;

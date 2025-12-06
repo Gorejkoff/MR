@@ -60,6 +60,13 @@ function addAboutAnimation(element, id, trigger, scroller) {
             progress[id].start = false;
             progress[id].end = false;
          },
+         // markers: {
+         //    startColor: "green",
+         //    endColor: "red",
+         //    fontSize: "40px",
+         //    fontWeight: "bold",
+         //    indent: 20
+         // },
       },
    })
    const ABOUT_LETTERS = element.querySelectorAll(`.letter`);
@@ -74,25 +81,18 @@ const ABOUT_TEXT_R = document.querySelector('.about-text-r');
 if (ABOUT_TEXT_R) addAboutAnimation(ABOUT_TEXT_R, 'about_r', '.trigger-about-r', '#about_rs');
 
 
-// services_m
+// !!!! services_m
 const SERVICES_TITLE = document.querySelector('.services__title');
-if (MIN1024.matches && SERVICES_TITLE) {
+const TRIGGER_LIST = document.querySelector('.trigger-services-list');
+if (MIN1024.matches && SERVICES_TITLE && TRIGGER_LIST) {
    tl_services.services_m = gsap.timeline({
       scrollTrigger: {
          trigger: SERVICES_TITLE,
          endTrigger: '.services-end-trigger',
          scroller: "#services_ms",
          start: "0% 0%",
-         end: `100% 100%`,
+         end: isPC ? '100% 100%' : `+=${TRIGGER_LIST.offsetHeight}`,
          pin: true,
-         // pinType: "fixed",
-         // markers: {
-         //    startColor: "green",
-         //    endColor: "red",
-         //    fontSize: "40px",
-         //    fontWeight: "bold",
-         //    indent: 20
-         // },
          pinType: isPC ? "transform" : "fixed",
          pinSpacing: false,
          scrub: true,
@@ -111,6 +111,7 @@ if (MIN1024.matches && SERVICES_TITLE) {
          },
       },
    })
+   if (!isPC && MIN1024.matches) tl_services.services_m.to(TRIGGER_LIST, { y: -1000 })
 }
 
 if (!MIN1024.matches && SERVICES_TITLE) {
