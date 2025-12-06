@@ -104,7 +104,6 @@ if (MIN1024.matches && SERVICES_TITLE && TRIGGER_LIST) {
          // },
          onUpdate: (self) => {
             if (!MIN1024.matches) return;
-            console.log(Number(self.progress.toFixed(5)));
             if (Number(self.progress.toFixed(5)) <= 0.01 && active_section === 'services_m') {
                progress.services_m.start = true;
                return;

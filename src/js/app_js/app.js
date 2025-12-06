@@ -361,26 +361,26 @@ if (!isPC && MIN1024.matches) {
 
 // управление прогрессом секциц
 function gsapToStart(id) {
-   // if (smoother) {
-   //    requestAnimationFrame(() => {
-   //       smoother.scrollTo(0, false);
-   //       if (progress[id]) {
-   //          progress[id].start = true;
-   //          progress[id].end = false;
-   //       }
-   //    })
-   // }
+   if (smoother) {
+      requestAnimationFrame(() => {
+         smoother.scrollTo(0, false);
+         if (progress[id]) {
+            progress[id].start = true;
+            progress[id].end = false;
+         }
+      })
+   }
 }
 function gsapToEnd(id) {
-   // if (smoother) {
-   //    requestAnimationFrame(() => {
-   //       smoother.scrollTo(smoother.scrollTrigger.end, false);
-   //       if (progress[id]) {
-   //          progress[id].start = false;
-   //          progress[id].end = true;
-   //       }
-   //    })
-   // }
+   if (smoother) {
+      requestAnimationFrame(() => {
+         smoother.scrollTo(smoother.scrollTrigger.end, false);
+         if (progress[id]) {
+            progress[id].start = false;
+            progress[id].end = true;
+         }
+      })
+   }
 }
 function swiperToStart(id) {
    if (SWIPERS[id]) SWIPERS[id].swiper.slideTo(0, 0);
