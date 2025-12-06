@@ -88,7 +88,6 @@ if (MIN1024.matches && SERVICES_TITLE && TRIGGER_LIST) {
    tl_services.services_m = gsap.timeline({
       scrollTrigger: {
          trigger: '.services-trigger',
-         // endTrigger: isPC ? '.services-end-trigger' : false,
          scroller: "#services_ms",
          start: "0% 0%",
          end: isPC ? '100% 100%' : '100% 99%',
@@ -96,13 +95,13 @@ if (MIN1024.matches && SERVICES_TITLE && TRIGGER_LIST) {
          pinType: isPC ? "transform" : "fixed",
          pinSpacing: false,
          scrub: true,
-         markers: {
-            startColor: "green",
-            endColor: "red",
-            fontSize: "40px",
-            fontWeight: "bold",
-            indent: 20
-         },
+         // markers: {
+         //    startColor: "green",
+         //    endColor: "red",
+         //    fontSize: "40px",
+         //    fontWeight: "bold",
+         //    indent: 20
+         // },
          onUpdate: (self) => {
             if (!MIN1024.matches) return;
             console.log(Number(self.progress.toFixed(5)));

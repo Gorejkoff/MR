@@ -164,7 +164,8 @@
    }
 
    &__content-r-title {
-      margin-bottom: -0.05em;
+      // margin-bottom: -0.05em;
+      margin-bottom: -0.15em;
       max-width: 7em;
       transform: translateX(-100vw);
       text-align: center;
@@ -173,18 +174,16 @@
       @media (min-width:1024px) {
          text-align: left;
       }
-
    }
 
    &__content-m-title {
-      margin-top: -0.15em;
+      margin-top: -0.05em;
+      // margin-top: -0.15em;
       max-width: 6em;
       text-align: center;
       transform: translateX(100vw);
       animation: start-title-m 1s 1.5s forwards;
       color: #A9ABB5;
-
-      span {}
 
       @media (min-width:1024px) {
          order: 2;

@@ -361,26 +361,26 @@ if (!isPC && MIN1024.matches) {
 
 // управление прогрессом секциц
 function gsapToStart(id) {
-   if (smoother) {
-      requestAnimationFrame(() => {
-         smoother.scrollTo(0, false);
-         if (progress[id]) {
-            progress[id].start = true;
-            progress[id].end = false;
-         }
-      })
-   }
+   // if (smoother) {
+   //    requestAnimationFrame(() => {
+   //       smoother.scrollTo(0, false);
+   //       if (progress[id]) {
+   //          progress[id].start = true;
+   //          progress[id].end = false;
+   //       }
+   //    })
+   // }
 }
 function gsapToEnd(id) {
-   if (smoother) {
-      requestAnimationFrame(() => {
-         smoother.scrollTo(smoother.scrollTrigger.end, false);
-         if (progress[id]) {
-            progress[id].start = false;
-            progress[id].end = true;
-         }
-      })
-   }
+   // if (smoother) {
+   //    requestAnimationFrame(() => {
+   //       smoother.scrollTo(smoother.scrollTrigger.end, false);
+   //       if (progress[id]) {
+   //          progress[id].start = false;
+   //          progress[id].end = true;
+   //       }
+   //    })
+   // }
 }
 function swiperToStart(id) {
    if (SWIPERS[id]) SWIPERS[id].swiper.slideTo(0, 0);
@@ -483,15 +483,19 @@ function prevFirst(element) {
 
 function changeGsap_LR(element, s, c) {
    disabledWheel();
-   initScroll(s, c);
-   gsapToEnd(element.id);
+   setTimeout(() => {
+      initScroll(s, c);
+      gsapToEnd(element.id);
+   }, TRANSITION_TIME)
    change_LR(element);
    setTimeout(() => { if (isPC && smoother) smoother.paused(false) }, TRANSITION_TIME)
 }
 function changeGsap_RL(element, s, c) {
    disabledWheel();
-   initScroll(s, c);
-   gsapToStart(element.id);
+   setTimeout(() => {
+      initScroll(s, c);
+      gsapToStart(element.id);
+   }, TRANSITION_TIME)
    change_RL(element);
    setTimeout(() => { if (isPC && smoother) smoother.paused(false) }, TRANSITION_TIME)
 }
@@ -776,7 +780,6 @@ if (MIN1024.matches && SERVICES_TITLE && TRIGGER_LIST) {
    tl_services.services_m = gsap.timeline({
       scrollTrigger: {
          trigger: '.services-trigger',
-         // endTrigger: isPC ? '.services-end-trigger' : false,
          scroller: "#services_ms",
          start: "0% 0%",
          end: isPC ? '100% 100%' : '100% 99%',
@@ -784,13 +787,13 @@ if (MIN1024.matches && SERVICES_TITLE && TRIGGER_LIST) {
          pinType: isPC ? "transform" : "fixed",
          pinSpacing: false,
          scrub: true,
-         markers: {
-            startColor: "green",
-            endColor: "red",
-            fontSize: "40px",
-            fontWeight: "bold",
-            indent: 20
-         },
+         // markers: {
+         //    startColor: "green",
+         //    endColor: "red",
+         //    fontSize: "40px",
+         //    fontWeight: "bold",
+         //    indent: 20
+         // },
          onUpdate: (self) => {
             if (!MIN1024.matches) return;
             console.log(Number(self.progress.toFixed(5)));

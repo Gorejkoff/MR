@@ -1,5 +1,4 @@
 .contacts {
-
    width: 100%;
    background-color: #a9abb5;
    transition: transform var(--tr-time);
@@ -28,6 +27,7 @@
       flex-direction: column;
 
       @media (min-width:1024px) {
+         padding-top: calc(8.47vh + 40px);
          height: var(--vh);
       }
    }

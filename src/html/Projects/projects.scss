@@ -168,8 +168,8 @@
       transition: background-color 0.3s, color 0.3s;
 
       @media (min-width:1024px) {
-         top: 30px;
-         left: 30px;
+         top: 2.1vh;
+         left: 2.1vh;
          padding: 0.7vh 1.4vh;
          font-size: 1.67vh;
       }
@@ -189,8 +189,10 @@
       // color: #ffffff;
       color: #ffffff;
       transition: color 0.3s;
+      text-align: left;
 
       @media (min-width:1024px) {
+         // left: 2.1vh;
          font-size: 3.47vh;
          color: #151519;
       }
@@ -203,8 +205,8 @@
       width: 30px;
 
       @media (min-width:1024px) {
-         top: 30px;
-         right: 30px;
+         top: 2.1vh;
+         right: 2.1vh;
          width: 3.47vh;
          opacity: 0;
       }

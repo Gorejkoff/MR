@@ -1128,7 +1128,7 @@ body.remont-branch {
 }
 
 .start__content-r-title {
-  margin-bottom: -0.05em;
+  margin-bottom: -0.15em;
   max-width: 7em;
   -webkit-transform: translateX(-100vw);
       -ms-transform: translateX(-100vw);
@@ -1139,7 +1139,7 @@ body.remont-branch {
 }
 
 .start__content-m-title {
-  margin-top: -0.15em;
+  margin-top: -0.05em;
   max-width: 6em;
   text-align: center;
   -webkit-transform: translateX(100vw);
@@ -2027,6 +2027,7 @@ body.remont-branch {
   color: #ffffff;
   -webkit-transition: color 0.3s;
   transition: color 0.3s;
+  text-align: left;
 }
 
 .projects__info {
@@ -4388,8 +4389,8 @@ body.remont-branch {
   }
 
   .projects__topic {
-    top: 30px;
-    left: 30px;
+    top: 2.1vh;
+    left: 2.1vh;
     padding: 0.7vh 1.4vh;
     font-size: 1.67vh;
   }
@@ -4400,8 +4401,8 @@ body.remont-branch {
   }
 
   .projects__info {
-    top: 30px;
-    right: 30px;
+    top: 2.1vh;
+    right: 2.1vh;
     width: 3.47vh;
     opacity: 0;
   }
@@ -4442,6 +4443,7 @@ body.remont-branch {
   }
 
   .contacts__body {
+    padding-top: calc(8.47vh + 40px);
     height: var(--vh);
   }
 
