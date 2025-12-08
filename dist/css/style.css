@@ -1116,9 +1116,6 @@ body.remont-branch {
   line-height: 0.9;
   letter-spacing: -0.03em;
   text-transform: uppercase;
-  -webkit-font-smoothing: none !important;
-  -moz-osx-font-smoothing: unset !important;
-  text-rendering: geometricPrecision !important;
 }
 
 .start__content-r-title span,
@@ -1139,7 +1136,7 @@ body.remont-branch {
 }
 
 .macos .start__content-r-title {
-  margin-bottom: -0.15em;
+  margin-bottom: -0.2em;
 }
 
 .start__content-m-title {

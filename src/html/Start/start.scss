@@ -149,9 +149,9 @@
       line-height: 0.9;
       letter-spacing: -0.03em;
       text-transform: uppercase;
-      -webkit-font-smoothing: none !important;
-      -moz-osx-font-smoothing: unset !important;
-      text-rendering: geometricPrecision !important;
+      // -webkit-font-smoothing: none !important;
+      // -moz-osx-font-smoothing: unset !important;
+      // text-rendering: geometricPrecision !important;
 
       span {
          transition: color 0.3s;
@@ -174,7 +174,7 @@
       }
 
       .macos & {
-         margin-bottom: -0.15em;
+         margin-bottom: -0.2em;
       }
    }
 
