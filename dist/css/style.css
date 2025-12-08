@@ -4282,6 +4282,10 @@ body.remont-branch {
     display: block;
   }
 
+  .features__button {
+    font-size: 3.8vh;
+  }
+
   .services {
     padding-top: 0;
     padding-bottom: 0;

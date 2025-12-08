@@ -12,10 +12,15 @@ const isMobile = {
 };
 const isPC = !isMobile.any();
 if (isPC) { document.body.classList.add('_pc') } else { document.body.classList.add('_touch') };
-const isMacOS = /Mac|iPod|iPhone|iPad/.test(navigator.platform);
-if (isMacOS) {
-   document.documentElement.classList.add('macos');
+try {
+   const isMacOS = /Mac|iPod|iPhone|iPad/.test(navigator.platform);
+   if (isMacOS) {
+      document.documentElement.classList.add('macos');
+   }
+} catch (e) {
+   console.error(e);
 }
+
 // media queries
 const MIN1024 = window.matchMedia('(min-width: 1024px)');
 const DOC = document;
