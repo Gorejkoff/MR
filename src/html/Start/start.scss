@@ -149,9 +149,9 @@
       line-height: 0.9;
       letter-spacing: -0.03em;
       text-transform: uppercase;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: none !important;
+      -moz-osx-font-smoothing: unset !important;
+      text-rendering: geometricPrecision !important;
 
       span {
          transition: color 0.3s;
@@ -164,7 +164,6 @@
 
    &__content-r-title {
       margin-bottom: -0.05em;
-      // margin-bottom: -0.15em;
       max-width: 7em;
       transform: translateX(-100vw);
       text-align: center;
@@ -173,10 +172,13 @@
       @media (min-width:1024px) {
          text-align: left;
       }
+
+      .macos & {
+         margin-top: -0.1em;
+      }
    }
 
    &__content-m-title {
-      // margin-top: -0.05em;
       margin-top: -0.15em;
       max-width: 6em;
       text-align: center;
@@ -187,6 +189,10 @@
       @media (min-width:1024px) {
          order: 2;
          text-align: right;
+      }
+
+      .macos & {
+         margin-top: -0.1em;
       }
    }
 

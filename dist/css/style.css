@@ -1116,9 +1116,9 @@ body.remont-branch {
   line-height: 0.9;
   letter-spacing: -0.03em;
   text-transform: uppercase;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: none !important;
+  -moz-osx-font-smoothing: unset !important;
+  text-rendering: geometricPrecision !important;
 }
 
 .start__content-r-title span,
@@ -1138,6 +1138,10 @@ body.remont-branch {
           animation: start-title-r 1s 1.5s forwards;
 }
 
+.macos .start__content-r-title {
+  margin-top: -0.1em;
+}
+
 .start__content-m-title {
   margin-top: -0.15em;
   max-width: 6em;
@@ -1148,6 +1152,10 @@ body.remont-branch {
   -webkit-animation: start-title-m 1s 1.5s forwards;
           animation: start-title-m 1s 1.5s forwards;
   color: #A9ABB5;
+}
+
+.macos .start__content-m-title {
+  margin-top: -0.1em;
 }
 
 .start__content-r-text,
