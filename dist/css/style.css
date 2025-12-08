@@ -1113,7 +1113,7 @@ body.remont-branch {
 .start__content-m-title {
   font-family: var(--font-family-benzin);
   font-size: 30px;
-  line-height: 90%;
+  line-height: 0.9;
   letter-spacing: -0.03em;
   text-transform: uppercase;
   -webkit-font-smoothing: antialiased;
