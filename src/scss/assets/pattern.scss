@@ -95,6 +95,7 @@ body {
 }
 
 .section {
+   will-change: transform;
    z-index: 2;
 
    &.offset-left,

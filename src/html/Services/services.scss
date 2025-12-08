@@ -49,18 +49,24 @@
          margin-bottom: 0;
          height: 50vh;
          font-size: 8.3vh;
-      }
 
-      @media (min-width:1024px) {
          &::after {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
-            height: 90%;
+            height: 80%;
             z-index: -1;
             backdrop-filter: blur(5px);
+            mask-image: linear-gradient(to bottom,
+                  rgba(0, 0, 0, 1) 0%,
+                  rgba(0, 0, 0, 1) 85%,
+                  rgba(0, 0, 0, 0) 100%);
+            -webkit-mask-image: linear-gradient(to bottom,
+                  rgba(0, 0, 0, 1) 0%,
+                  rgba(0, 0, 0, 1) 85%,
+                  rgba(0, 0, 0, 0) 100%);
          }
       }
 

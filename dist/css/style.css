@@ -195,6 +195,7 @@ body.remont-branch {
 }
 
 .section {
+  will-change: transform;
   z-index: 2;
 }
 
@@ -1091,25 +1092,21 @@ body.remont-branch {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   -ms-flex-pack: distribute;
       justify-content: space-around;
+  min-height: 100%;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   overflow: hidden;
 }
 
 .start__content-m {
   color: #ffffff;
-}
-
-.start__content-r,
-.start__content-m {
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  min-height: 100%;
 }
 
 .start__content-r-title,
@@ -1119,6 +1116,9 @@ body.remont-branch {
   line-height: 90%;
   letter-spacing: -0.03em;
   text-transform: uppercase;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
 .start__content-r-title span,
@@ -1128,7 +1128,7 @@ body.remont-branch {
 }
 
 .start__content-r-title {
-  margin-bottom: -0.15em;
+  margin-bottom: -0.05em;
   max-width: 7em;
   -webkit-transform: translateX(-100vw);
       -ms-transform: translateX(-100vw);
@@ -1139,7 +1139,7 @@ body.remont-branch {
 }
 
 .start__content-m-title {
-  margin-top: -0.05em;
+  margin-top: -0.15em;
   max-width: 6em;
   text-align: center;
   -webkit-transform: translateX(100vw);
@@ -2197,9 +2197,9 @@ body.remont-branch {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   font-style: normal;
 }
 
@@ -4031,6 +4031,17 @@ body.remont-branch {
     -webkit-box-pack: justify;
         -ms-flex-pack: justify;
             justify-content: space-between;
+    min-height: auto;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+  }
+
+  .start__content-r {
+    -webkit-box-align: start;
+        -ms-flex-align: start;
+            align-items: flex-start;
   }
 
   .start__content-r .button {
@@ -4041,15 +4052,6 @@ body.remont-branch {
     -webkit-box-align: end;
         -ms-flex-align: end;
             align-items: flex-end;
-  }
-
-  .start__content-r,
-  .start__content-m {
-    min-height: auto;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: row;
-            flex-direction: row;
   }
 
   .start__content-r-title,
@@ -4304,9 +4306,13 @@ body.remont-branch {
     top: 0;
     left: 0;
     width: 100%;
-    height: 90%;
+    height: 80%;
     z-index: -1;
     backdrop-filter: blur(5px);
+    mask-image: -webkit-gradient(linear, left top, left bottom, from(rgb(0, 0, 0)), color-stop(85%, rgb(0, 0, 0)), to(rgba(0, 0, 0, 0)));
+    mask-image: linear-gradient(to bottom, rgb(0, 0, 0) 0%, rgb(0, 0, 0) 85%, rgba(0, 0, 0, 0) 100%);
+    -webkit-mask-image: -webkit-gradient(linear, left top, left bottom, from(rgb(0, 0, 0)), color-stop(85%, rgb(0, 0, 0)), to(rgba(0, 0, 0, 0)));
+    -webkit-mask-image: linear-gradient(to bottom, rgb(0, 0, 0) 0%, rgb(0, 0, 0) 85%, rgba(0, 0, 0, 0) 100%);
   }
 
   .services__string {
@@ -4452,6 +4458,10 @@ body.remont-branch {
     -webkit-box-direction: normal;
         -ms-flex-direction: row;
             flex-direction: row;
+  }
+
+  .contacts__contant {
+    gap: 3.2vh;
   }
 
   .contacts__title {

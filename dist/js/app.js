@@ -1,7 +1,4 @@
 "use strict"
-
-// window.addEventListener('load', (event) => {});
-
 // desktop or mobile (mouse or touchscreen)
 const isMobile = {
    Android: function () { return navigator.userAgent.match(/Android/i) },
@@ -19,7 +16,7 @@ if (isPC) { document.body.classList.add('_pc') } else { document.body.classList.
 // media queries
 const MIN1024 = window.matchMedia('(min-width: 1024px)');
 const DOC = document;
-const TRANSITION_TIME = 1500;
+const TRANSITION_TIME = 1000;
 let active_section;
 DOC.body.style.setProperty('--tr-time', TRANSITION_TIME / 1000 + 's')
 
@@ -46,7 +43,8 @@ const STAGES_R = DOC.getElementById('stages_r');
 const PROCESS_R = DOC.getElementById('process_r');
 const FORM_R = DOC.getElementById('form_r');
 const FORM_M = DOC.getElementById('form_m');
-
+let wheelDisabled = true;
+let touchMoveDisabled = false;
 let smoother = undefined;
 
 // слайдеры и их прогресс
@@ -128,7 +126,6 @@ const progress = {
    },
 }
 
-
 // ** ======================= CLICK ======================  ** //
 DOC.documentElement.addEventListener("click", (event) => {
    if (event.target.closest('.cookie__agree')) {
@@ -192,24 +189,31 @@ DOC.documentElement.addEventListener("click", (event) => {
    if (MIN1024.matches && event.target.closest('.to-stages-r')) { change_RL(STAGES_R) }
    if (MIN1024.matches && event.target.closest('.to-process-r')) { change_RL(PROCESS_R); }
 
-   // // отключить скролл слайдера
-   // if (event.target.closest('.projects__card')) {
-   //    console.log('projects swiper off');
-   //    SWIPERS.projects_m.swiper.mousewheel.disable();
-   //    SWIPERS.projects_r.swiper.mousewheel.disable();
-   // }
-   // // включить скролл слайдера
-   // if (event.target.closest('.modal--projects')) {
-   //    console.log('projects swiper on');
-   //    SWIPERS.projects_m.swiper.mousewheel.enable();
-   //    SWIPERS.projects_r.swiper.mousewheel.enable();
-   // }
-
    // переключение табов в контактах
    if (event.target.closest('.open-map')) { openMap(event) }
    if (event.target.closest('.open-form')) { closeMap(event) }
 })
 
+document.addEventListener('modal:open', () => {
+   // отключить скролл слайдера
+   if (isPC) {
+      console.log('projects swiper off');
+      SWIPERS.projects_m.swiper.mousewheel.disable();
+      SWIPERS.projects_r.swiper.mousewheel.disable();
+      return;
+   }
+   touchMoveDisabled = true;
+})
+document.addEventListener('modal:close', () => {
+   // включить скролл слайдера
+   if (isPC) {
+      console.log('projects swiper on');
+      SWIPERS.projects_m.swiper.mousewheel.enable();
+      SWIPERS.projects_r.swiper.mousewheel.enable();
+      return;
+   }
+   touchMoveDisabled = false;
+})
 
 function actionsNext() {
    if (active_section == 'about_m' && progress.about_m.end) {
@@ -280,7 +284,6 @@ function actionsPrev() {
    }
 }
 
-let wheelDisabled = true;
 // wheel для смены экранов
 if (isPC && MIN1024.matches) {
    console.log('wheel active');
@@ -300,10 +303,8 @@ let threshold = 20;   // минимальное расстояние для оп
 if (!isPC && MIN1024.matches) {
    console.log('touchMove active');
 
-
    DOC.addEventListener('touchstart', onTouchStart);
    DOC.addEventListener('touchend', onTouchEnd);
-
 
    function onTouchStart(event) {
       startX = event.touches[0].clientX;
@@ -320,6 +321,7 @@ if (!isPC && MIN1024.matches) {
       const diffX = endX - startX;
       const diffY = endY - startY;
 
+      if (touchMoveDisabled) return; // отключение действий
       // Определяем направление
       if (Math.abs(diffX) > Math.abs(diffY)) {
          if (Math.abs(diffX) > threshold) {
@@ -412,6 +414,11 @@ function disabledWheel() {
    wheelDisabled = true;
    setTimeout(() => { wheelDisabled = false }, TRANSITION_TIME * 1.2)
 }
+// пауза thouch move
+function disabledTouchMove() {
+   touchMoveDisabled = true;
+   setTimeout(() => { touchMoveDisabled = false }, TRANSITION_TIME * 1.2)
+}
 // переключение табов в контактах
 function openMap(event) {
    const contacts = event.target.closest('.contacts');
@@ -486,7 +493,7 @@ function changeGsap_LR(element, s, c) {
    setTimeout(() => {
       initScroll(s, c);
       gsapToEnd(element.id);
-   }, TRANSITION_TIME)
+   }, TRANSITION_TIME * 0)
    change_LR(element);
    setTimeout(() => { if (isPC && smoother) smoother.paused(false) }, TRANSITION_TIME)
 }
@@ -495,18 +502,20 @@ function changeGsap_RL(element, s, c) {
    setTimeout(() => {
       initScroll(s, c);
       gsapToStart(element.id);
-   }, TRANSITION_TIME)
+   }, TRANSITION_TIME * 0)
    change_RL(element);
    setTimeout(() => { if (isPC && smoother) smoother.paused(false) }, TRANSITION_TIME)
 }
 function change_LR(element) {
-   disabledWheel();
+   if (isPC && MIN1024.matches) disabledWheel();
+   if (!isPC && MIN1024.matches) disabledTouchMove();
    hideSections_R();
    swiperToEnd(element.id)
    showSection_LR(element);
 }
 function change_RL(element) {
-   disabledWheel();
+   if (isPC && MIN1024.matches) disabledWheel();
+   if (!isPC && MIN1024.matches) disabledTouchMove();
    hideSections_L()
    swiperToStart(element.id)
    showSection_RL(element);
@@ -629,6 +638,7 @@ inputsRequired.forEach((e) => {
 
    })
 })
+
 
 // перемещение блоков при адаптиве
 // data-da=".class,3,768,min" 
@@ -773,7 +783,7 @@ const ABOUT_TEXT_R = document.querySelector('.about-text-r');
 if (ABOUT_TEXT_R) addAboutAnimation(ABOUT_TEXT_R, 'about_r', '.trigger-about-r', '#about_rs');
 
 
-// !!!! services_m
+// services_m
 const SERVICES_TITLE = document.querySelector('.services__title');
 const TRIGGER_LIST = document.querySelector('.trigger-services-list');
 if (MIN1024.matches && SERVICES_TITLE && TRIGGER_LIST) {
@@ -795,12 +805,13 @@ if (MIN1024.matches && SERVICES_TITLE && TRIGGER_LIST) {
          //    indent: 20
          // },
          onUpdate: (self) => {
+            // console.log(Number(self.progress.toFixed(5)));
             if (!MIN1024.matches) return;
             if (Number(self.progress.toFixed(5)) <= 0.01 && active_section === 'services_m') {
                progress.services_m.start = true;
                return;
             }
-            if (Number(self.progress.toFixed(5)) >= 0.99 && active_section === 'services_m') {
+            if (Number(self.progress.toFixed(5)) >= 0.98 && active_section === 'services_m') {
                progress.services_m.end = true;
                return;
             }
@@ -809,7 +820,6 @@ if (MIN1024.matches && SERVICES_TITLE && TRIGGER_LIST) {
          },
       },
    })
-
    if (!isPC && MIN1024.matches) tl_services.services_m.to(TRIGGER_LIST, { y: (TRIGGER_LIST.offsetHeight - SERVICES_TITLE.offsetHeight) * -1, ease: 'linear' })
 }
 
@@ -828,9 +838,7 @@ if (!MIN1024.matches && SERVICES_TITLE) {
    });
 }
 
-
 // partners_m, анимация текста блюр
-
 const PARTNERS_TEXT = document.querySelector('.partners__text');
 if (MIN1024.matches && PARTNERS_TEXT) {
    wrapLetters(PARTNERS_TEXT);
@@ -866,23 +874,6 @@ if (MIN1024.matches && PARTNERS_TEXT) {
 }
 
 
-// прокрутка по якорям
-// document.body.addEventListener('click', (event) => {
-//    if (event.target.closest('[href^="#"]')) {
-//       event.preventDefault();
-//       let getName = event.target.closest('[href^="#"]').getAttribute('href');
-//       closeHeaderMenu();
-//       gsap.to(window, { scrollTo: getName, ease: "power2" })
-//    }
-// })
-
-// markers: {
-//    startColor: "green",
-//    endColor: "red",
-//    fontSize: "40px",
-//    fontWeight: "bold",
-//    indent: 20
-// },
 // map
 const mapContainer = document.querySelectorAll('.contacts__map');
 const data = {
@@ -952,6 +943,10 @@ js-modal-stop-close - атрибут указывает на поле, при к
 т.е. контейнер контента, при этом внешний родительский контейнет помечается атрибутом js-modal-close.
 допускается дополнительно кнопка закрытия внутри js-modal-stop-close.
 */
+
+const eventModalOpen = new CustomEvent('modal:open', { bubbles: true });
+const eventModalClose = new CustomEvent('modal:close', { bubbles: true });
+
 document.addEventListener('click', (event) => {
    if (event.target.closest('.js-modal-open')) { openModal(event) }
    if (event.target.closest('.js-modal-close')) { testModalStopClose(event) }
@@ -983,14 +978,17 @@ function initCloseModal(id) {
 function initOpenModal(id) {
    if (document.querySelector(`#${id}`)) {
       document.querySelector(`#${id}`).classList.add('js-modal-visible');
-      document.body.classList.add('body-overflow')
+      document.body.classList.add('modal-opened')
+      document.dispatchEvent(eventModalOpen);
    }
 }
 function activeScrollCloseModal() {
    if (!document.querySelector('.js-modal-visible')) {
-      document.body.classList.remove('body-overflow');
+      document.body.classList.remove('modal-opened');
+      document.dispatchEvent(eventModalClose);
    }
 }
+
 
 
 //  ========== features ============
@@ -1027,7 +1025,6 @@ function addFeaturesSwiper(element, id) {
             TEXT_BUTTON_NEXT.forEach((e, i) => e.classList.toggle('active', swiper.activeIndex == i));
          },
          transitionEnd: function (swiper) {
-            console.log('transitionEnd');
             if (SWIPERS[id].progress <= 0) {
                progress[id].start = true;
                return;
@@ -1143,7 +1140,6 @@ if (PROJECTS_R) {
    addEventsProjects(PROJECTS_R, 'projects_r')
 }
 
-
 // =========== stages, process ===========
 function addSwiperFade(element, id) {
    const title = element.querySelector('.process__title');
@@ -1188,9 +1184,6 @@ function addSwiperFade(element, id) {
                }, TRANSITION_TIME)
             }
          },
-         // touchMove: function (swiper, event) {
-         //    // console.log(event);
-         // }
       }
    });
 }
@@ -1204,3 +1197,5 @@ function addEvensProcess(element, swiper) {
 if (MIN1024.matches && STAGES_R) addSwiperFade(STAGES_R, 'stages_r');
 if (MIN1024.matches && PROCESS_R) addSwiperFade(PROCESS_R, 'process_r');
 if (MIN1024.matches && PROCESS_R) addEvensProcess(PROCESS_R, SWIPERS.process_r.swiper)
+
+

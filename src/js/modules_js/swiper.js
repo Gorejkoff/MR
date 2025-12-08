@@ -33,7 +33,6 @@ function addFeaturesSwiper(element, id) {
             TEXT_BUTTON_NEXT.forEach((e, i) => e.classList.toggle('active', swiper.activeIndex == i));
          },
          transitionEnd: function (swiper) {
-            console.log('transitionEnd');
             if (SWIPERS[id].progress <= 0) {
                progress[id].start = true;
                return;
@@ -149,7 +148,6 @@ if (PROJECTS_R) {
    addEventsProjects(PROJECTS_R, 'projects_r')
 }
 
-
 // =========== stages, process ===========
 function addSwiperFade(element, id) {
    const title = element.querySelector('.process__title');
@@ -194,9 +192,6 @@ function addSwiperFade(element, id) {
                }, TRANSITION_TIME)
             }
          },
-         // touchMove: function (swiper, event) {
-         //    // console.log(event);
-         // }
       }
    });
 }
@@ -210,3 +205,5 @@ function addEvensProcess(element, swiper) {
 if (MIN1024.matches && STAGES_R) addSwiperFade(STAGES_R, 'stages_r');
 if (MIN1024.matches && PROCESS_R) addSwiperFade(PROCESS_R, 'process_r');
 if (MIN1024.matches && PROCESS_R) addEvensProcess(PROCESS_R, SWIPERS.process_r.swiper)
+
+

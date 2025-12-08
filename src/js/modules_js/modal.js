@@ -12,6 +12,10 @@ js-modal-stop-close - атрибут указывает на поле, при к
 т.е. контейнер контента, при этом внешний родительский контейнет помечается атрибутом js-modal-close.
 допускается дополнительно кнопка закрытия внутри js-modal-stop-close.
 */
+
+const eventModalOpen = new CustomEvent('modal:open', { bubbles: true });
+const eventModalClose = new CustomEvent('modal:close', { bubbles: true });
+
 document.addEventListener('click', (event) => {
    if (event.target.closest('.js-modal-open')) { openModal(event) }
    if (event.target.closest('.js-modal-close')) { testModalStopClose(event) }
@@ -43,11 +47,14 @@ function initCloseModal(id) {
 function initOpenModal(id) {
    if (document.querySelector(`#${id}`)) {
       document.querySelector(`#${id}`).classList.add('js-modal-visible');
-      document.body.classList.add('body-overflow')
+      document.body.classList.add('modal-opened')
+      document.dispatchEvent(eventModalOpen);
    }
 }
 function activeScrollCloseModal() {
    if (!document.querySelector('.js-modal-visible')) {
-      document.body.classList.remove('body-overflow');
+      document.body.classList.remove('modal-opened');
+      document.dispatchEvent(eventModalClose);
    }
 }
+

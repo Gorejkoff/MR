@@ -1,7 +1,4 @@
 "use strict"
-
-// window.addEventListener('load', (event) => {});
-
 // desktop or mobile (mouse or touchscreen)
 const isMobile = {
    Android: function () { return navigator.userAgent.match(/Android/i) },
@@ -19,7 +16,7 @@ if (isPC) { document.body.classList.add('_pc') } else { document.body.classList.
 // media queries
 const MIN1024 = window.matchMedia('(min-width: 1024px)');
 const DOC = document;
-const TRANSITION_TIME = 1500;
+const TRANSITION_TIME = 1000;
 let active_section;
 DOC.body.style.setProperty('--tr-time', TRANSITION_TIME / 1000 + 's')
 
@@ -46,7 +43,8 @@ const STAGES_R = DOC.getElementById('stages_r');
 const PROCESS_R = DOC.getElementById('process_r');
 const FORM_R = DOC.getElementById('form_r');
 const FORM_M = DOC.getElementById('form_m');
-
+let wheelDisabled = true;
+let touchMoveDisabled = false;
 let smoother = undefined;
 
 // слайдеры и их прогресс
@@ -128,7 +126,6 @@ const progress = {
    },
 }
 
-
 // ** ======================= CLICK ======================  ** //
 DOC.documentElement.addEventListener("click", (event) => {
    if (event.target.closest('.cookie__agree')) {
@@ -192,24 +189,31 @@ DOC.documentElement.addEventListener("click", (event) => {
    if (MIN1024.matches && event.target.closest('.to-stages-r')) { change_RL(STAGES_R) }
    if (MIN1024.matches && event.target.closest('.to-process-r')) { change_RL(PROCESS_R); }
 
-   // // отключить скролл слайдера
-   // if (event.target.closest('.projects__card')) {
-   //    console.log('projects swiper off');
-   //    SWIPERS.projects_m.swiper.mousewheel.disable();
-   //    SWIPERS.projects_r.swiper.mousewheel.disable();
-   // }
-   // // включить скролл слайдера
-   // if (event.target.closest('.modal--projects')) {
-   //    console.log('projects swiper on');
-   //    SWIPERS.projects_m.swiper.mousewheel.enable();
-   //    SWIPERS.projects_r.swiper.mousewheel.enable();
-   // }
-
    // переключение табов в контактах
    if (event.target.closest('.open-map')) { openMap(event) }
    if (event.target.closest('.open-form')) { closeMap(event) }
 })
 
+document.addEventListener('modal:open', () => {
+   // отключить скролл слайдера
+   if (isPC) {
+      console.log('projects swiper off');
+      SWIPERS.projects_m.swiper.mousewheel.disable();
+      SWIPERS.projects_r.swiper.mousewheel.disable();
+      return;
+   }
+   touchMoveDisabled = true;
+})
+document.addEventListener('modal:close', () => {
+   // включить скролл слайдера
+   if (isPC) {
+      console.log('projects swiper on');
+      SWIPERS.projects_m.swiper.mousewheel.enable();
+      SWIPERS.projects_r.swiper.mousewheel.enable();
+      return;
+   }
+   touchMoveDisabled = false;
+})
 
 function actionsNext() {
    if (active_section == 'about_m' && progress.about_m.end) {
@@ -280,7 +284,6 @@ function actionsPrev() {
    }
 }
 
-let wheelDisabled = true;
 // wheel для смены экранов
 if (isPC && MIN1024.matches) {
    console.log('wheel active');
@@ -300,10 +303,8 @@ let threshold = 20;   // минимальное расстояние для оп
 if (!isPC && MIN1024.matches) {
    console.log('touchMove active');
 
-
    DOC.addEventListener('touchstart', onTouchStart);
    DOC.addEventListener('touchend', onTouchEnd);
-
 
    function onTouchStart(event) {
       startX = event.touches[0].clientX;
@@ -320,6 +321,7 @@ if (!isPC && MIN1024.matches) {
       const diffX = endX - startX;
       const diffY = endY - startY;
 
+      if (touchMoveDisabled) return; // отключение действий
       // Определяем направление
       if (Math.abs(diffX) > Math.abs(diffY)) {
          if (Math.abs(diffX) > threshold) {
@@ -412,6 +414,11 @@ function disabledWheel() {
    wheelDisabled = true;
    setTimeout(() => { wheelDisabled = false }, TRANSITION_TIME * 1.2)
 }
+// пауза thouch move
+function disabledTouchMove() {
+   touchMoveDisabled = true;
+   setTimeout(() => { touchMoveDisabled = false }, TRANSITION_TIME * 1.2)
+}
 // переключение табов в контактах
 function openMap(event) {
    const contacts = event.target.closest('.contacts');
@@ -486,7 +493,7 @@ function changeGsap_LR(element, s, c) {
    setTimeout(() => {
       initScroll(s, c);
       gsapToEnd(element.id);
-   }, TRANSITION_TIME)
+   }, TRANSITION_TIME * 0)
    change_LR(element);
    setTimeout(() => { if (isPC && smoother) smoother.paused(false) }, TRANSITION_TIME)
 }
@@ -495,18 +502,20 @@ function changeGsap_RL(element, s, c) {
    setTimeout(() => {
       initScroll(s, c);
       gsapToStart(element.id);
-   }, TRANSITION_TIME)
+   }, TRANSITION_TIME * 0)
    change_RL(element);
    setTimeout(() => { if (isPC && smoother) smoother.paused(false) }, TRANSITION_TIME)
 }
 function change_LR(element) {
-   disabledWheel();
+   if (isPC && MIN1024.matches) disabledWheel();
+   if (!isPC && MIN1024.matches) disabledTouchMove();
    hideSections_R();
    swiperToEnd(element.id)
    showSection_LR(element);
 }
 function change_RL(element) {
-   disabledWheel();
+   if (isPC && MIN1024.matches) disabledWheel();
+   if (!isPC && MIN1024.matches) disabledTouchMove();
    hideSections_L()
    swiperToStart(element.id)
    showSection_RL(element);
@@ -629,3 +638,4 @@ inputsRequired.forEach((e) => {
 
    })
 })
+

@@ -81,7 +81,7 @@ const ABOUT_TEXT_R = document.querySelector('.about-text-r');
 if (ABOUT_TEXT_R) addAboutAnimation(ABOUT_TEXT_R, 'about_r', '.trigger-about-r', '#about_rs');
 
 
-// !!!! services_m
+// services_m
 const SERVICES_TITLE = document.querySelector('.services__title');
 const TRIGGER_LIST = document.querySelector('.trigger-services-list');
 if (MIN1024.matches && SERVICES_TITLE && TRIGGER_LIST) {
@@ -103,12 +103,13 @@ if (MIN1024.matches && SERVICES_TITLE && TRIGGER_LIST) {
          //    indent: 20
          // },
          onUpdate: (self) => {
+            // console.log(Number(self.progress.toFixed(5)));
             if (!MIN1024.matches) return;
             if (Number(self.progress.toFixed(5)) <= 0.01 && active_section === 'services_m') {
                progress.services_m.start = true;
                return;
             }
-            if (Number(self.progress.toFixed(5)) >= 0.99 && active_section === 'services_m') {
+            if (Number(self.progress.toFixed(5)) >= 0.98 && active_section === 'services_m') {
                progress.services_m.end = true;
                return;
             }
@@ -117,7 +118,6 @@ if (MIN1024.matches && SERVICES_TITLE && TRIGGER_LIST) {
          },
       },
    })
-
    if (!isPC && MIN1024.matches) tl_services.services_m.to(TRIGGER_LIST, { y: (TRIGGER_LIST.offsetHeight - SERVICES_TITLE.offsetHeight) * -1, ease: 'linear' })
 }
 
@@ -136,9 +136,7 @@ if (!MIN1024.matches && SERVICES_TITLE) {
    });
 }
 
-
 // partners_m, анимация текста блюр
-
 const PARTNERS_TEXT = document.querySelector('.partners__text');
 if (MIN1024.matches && PARTNERS_TEXT) {
    wrapLetters(PARTNERS_TEXT);
@@ -173,21 +171,3 @@ if (MIN1024.matches && PARTNERS_TEXT) {
    })
 }
 
-
-// прокрутка по якорям
-// document.body.addEventListener('click', (event) => {
-//    if (event.target.closest('[href^="#"]')) {
-//       event.preventDefault();
-//       let getName = event.target.closest('[href^="#"]').getAttribute('href');
-//       closeHeaderMenu();
-//       gsap.to(window, { scrollTo: getName, ease: "power2" })
-//    }
-// })
-
-// markers: {
-//    startColor: "green",
-//    endColor: "red",
-//    fontSize: "40px",
-//    fontWeight: "bold",
-//    indent: 20
-// },
