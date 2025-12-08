@@ -1139,7 +1139,7 @@ body.remont-branch {
 }
 
 .macos .start__content-r-title {
-  margin-top: -0.1em;
+  margin-bottom: -0.15em;
 }
 
 .start__content-m-title {
@@ -1155,7 +1155,7 @@ body.remont-branch {
 }
 
 .macos .start__content-m-title {
-  margin-top: -0.1em;
+  margin-top: 0em;
 }
 
 .start__content-r-text,
