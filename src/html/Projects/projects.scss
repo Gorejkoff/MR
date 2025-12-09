@@ -186,9 +186,16 @@
       line-height: 90%;
       text-transform: uppercase;
       // color: #ffffff;
-      color: #ffffff;
       transition: color 0.3s;
       text-align: left;
+
+      .remont--mod & {
+         color: #A9ABB5;
+      }
+
+      .mebel--mod & {
+         color: #ffffff;
+      }
 
       @media (min-width:1024px) {
          // left: 2.1vh;
