@@ -96,11 +96,11 @@ body {
 
 .section {
    position: relative;
+   z-index: 2;
 
    @media (min-width:1024px) {
       will-change: transform;
       transition: transform var(--tr-time) var(--easing);
-      z-index: 2;
       backface-visibility: hidden;
       // perspective: 1000px;
    }
