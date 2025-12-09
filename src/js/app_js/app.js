@@ -24,7 +24,7 @@ try {
 // media queries
 const MIN1024 = window.matchMedia('(min-width: 1024px)');
 const DOC = document;
-const TRANSITION_TIME = 1000;
+const TRANSITION_TIME = MIN1024.matches ? 1500 : 700;
 let active_section;
 DOC.body.style.setProperty('--tr-time', TRANSITION_TIME / 1000 + 's')
 
@@ -289,6 +289,12 @@ function actionsPrev() {
 
    if (active_section == 'process_r' && progress.process_r.start) {
       change_LR(PROJECTS_R)
+   }
+   if (active_section == 'contacts_r') {
+      change_LR(PROCESS_R);
+   }
+   if (active_section == 'contacts_m') {
+      changeGsap_LR(PARTNERS_M, '#partners_ms', '#partners_mc');
    }
 }
 

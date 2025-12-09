@@ -1,10 +1,8 @@
 .features {
    --padding: 0;
-
    height: 90vh;
    width: 100vw;
-   transition: transform var(--tr-time);
-   transform: translateX(0);
+   // transform: translateX(0);
    overflow: hidden;
 
    @media (min-width:1024px) {
@@ -373,8 +371,16 @@
       letter-spacing: -0.02em;
       text-transform: uppercase;
       filter: blur(5px);
-      color: #151519;
+
       transition: filter 0.3s, color 0.3s;
+
+      .mebel--mod & {
+         color: #151519;
+      }
+
+      .remont--mod & {
+         color: #A9ABB5;
+      }
 
       @media (min-width:1024px) {
          font-size: 3.8vh;

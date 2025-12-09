@@ -1,7 +1,6 @@
 .partners {
    width: 100%;
    background-color: #a9abb5;
-   transition: transform var(--tr-time);
 
    @media (min-width:1024px) {
       position: fixed;
@@ -73,15 +72,14 @@
    }
 
    &__logo {
-      @media (min-width:1024px) {
-         opacity: 0;
-         transition: opacity 0.5s calc(var(--tr-time) + var(--i) * 0.4s);
-      }
+      // @media (min-width:1024px) {
+      //    opacity: 0;
+      //    transition: opacity 0.5s calc(var(--tr-time) + var(--i) * 0.4s);
+      // }
 
-      .active & {
-         opacity: 1;
-      }
-
+      // .active & {
+      //    opacity: 1;
+      // }
       img,
       svg {
          height: 3.95vh;

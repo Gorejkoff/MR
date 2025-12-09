@@ -29,6 +29,7 @@
   --color-gray: #A9ABB5;
   --vh: 100vh;
   --tr-time: 1.5s;
+  --easing: cubic-bezier(.5, 0, .5, 1);
 }
 
 * {
@@ -183,20 +184,17 @@ body.remont-branch {
 }
 
 .offset-right.start {
-  -webkit-transform: translateX(100vw) !important;
-      -ms-transform: translateX(100vw) !important;
-          transform: translateX(100vw) !important;
+  -webkit-transform: translateX(100vw) translateZ(0) !important;
+          transform: translateX(100vw) translateZ(0) !important;
 }
 
 .offset-left.start {
-  -webkit-transform: translateX(-100vw) !important;
-      -ms-transform: translateX(-100vw) !important;
-          transform: translateX(-100vw) !important;
+  -webkit-transform: translateX(-100vw) translateZ(0) !important;
+          transform: translateX(-100vw) translateZ(0) !important;
 }
 
 .section {
-  will-change: transform;
-  z-index: 2;
+  position: relative;
 }
 
 .section.offset-left,
@@ -259,8 +257,8 @@ body.remont-branch {
 .button.button-light::before {
   background: -webkit-gradient(linear, left top, left bottom, color-stop(40%, #151519), color-stop(150%, #a9abb5));
   background: linear-gradient(180deg, #151519 40%, #a9abb5 150%);
-  -webkit-box-shadow: inset 0 -2px 9px 0 rgba(255, 255, 255, 0.25), 0 22px 42px 0 rgba(255, 255, 255, 0.25);
-          box-shadow: inset 0 -2px 9px 0 rgba(255, 255, 255, 0.25), 0 22px 42px 0 rgba(255, 255, 255, 0.25);
+  -webkit-box-shadow: inset 0 -2px 9px 0 rgba(255, 255, 255, 0.25), 0 10px 20px 0 rgba(255, 255, 255, 0.25);
+          box-shadow: inset 0 -2px 9px 0 rgba(255, 255, 255, 0.25), 0 10px 20px 0 rgba(255, 255, 255, 0.25);
 }
 
 .button.button-dark::before {
@@ -725,18 +723,23 @@ body.remont-branch {
 }
 
 .modal {
+  will-change: transform;
   --height-modal: 100vh;
   position: fixed;
   top: var(--header-h);
-  left: -100vw;
+  left: 0;
   z-index: 25;
   width: 100vw;
   height: var(--height-modal);
   backdrop-filter: blur(31.3px);
   overflow-y: auto;
   overflow-x: hidden;
-  -webkit-transition: left var(--tr-time);
-  transition: left var(--tr-time);
+  -webkit-transition: -webkit-transform var(--tr-time) var(--easing);
+  transition: -webkit-transform var(--tr-time) var(--easing);
+  transition: transform var(--tr-time) var(--easing);
+  transition: transform var(--tr-time) var(--easing), -webkit-transform var(--tr-time) var(--easing);
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
 }
 
 .modal.mebel--mod {
@@ -754,11 +757,13 @@ body.remont-branch {
 }
 
 .js-modal-hidden {
-  left: -100vw;
+  -webkit-transform: translateX(-100%) translateZ(0);
+          transform: translateX(-100%) translateZ(0);
 }
 
 .js-modal-hidden.js-modal-visible {
-  left: 0;
+  -webkit-transform: translateX(0) translateZ(0);
+          transform: translateX(0) translateZ(0);
 }
 
 .body-overflow {
@@ -770,13 +775,6 @@ body.remont-branch {
   width: 100vw;
   height: var(--vh);
   overflow: hidden;
-  -webkit-transform: translateX(0);
-      -ms-transform: translateX(0);
-          transform: translateX(0);
-  -webkit-transition: -webkit-transform var(--tr-time);
-  transition: -webkit-transform var(--tr-time);
-  transition: transform var(--tr-time);
-  transition: transform var(--tr-time), -webkit-transform var(--tr-time);
   z-index: -1;
 }
 
@@ -1368,10 +1366,6 @@ body.remont-branch {
 .about {
   width: 100%;
   min-height: var(--vh);
-  -webkit-transition: -webkit-transform var(--tr-time);
-  transition: -webkit-transform var(--tr-time);
-  transition: transform var(--tr-time);
-  transition: transform var(--tr-time), -webkit-transform var(--tr-time);
 }
 
 .about.remont--mod {
@@ -1445,13 +1439,6 @@ body.remont-branch {
   --padding: 0;
   height: 90vh;
   width: 100vw;
-  -webkit-transition: -webkit-transform var(--tr-time);
-  transition: -webkit-transform var(--tr-time);
-  transition: transform var(--tr-time);
-  transition: transform var(--tr-time), -webkit-transform var(--tr-time);
-  -webkit-transform: translateX(0);
-      -ms-transform: translateX(0);
-          transform: translateX(0);
   overflow: hidden;
 }
 
@@ -1706,11 +1693,18 @@ body.remont-branch {
   text-transform: uppercase;
   -webkit-filter: blur(5px);
           filter: blur(5px);
-  color: #151519;
   -webkit-transition: color 0.3s, -webkit-filter 0.3s;
   transition: color 0.3s, -webkit-filter 0.3s;
   transition: filter 0.3s, color 0.3s;
   transition: filter 0.3s, color 0.3s, -webkit-filter 0.3s;
+}
+
+.mebel--mod .features__button {
+  color: #151519;
+}
+
+.remont--mod .features__button {
+  color: #A9ABB5;
 }
 
 .features__button.swiper-button-disabled {
@@ -1749,10 +1743,6 @@ body.remont-branch {
   padding-top: 150px;
   padding-bottom: 150px;
   width: 100%;
-  -webkit-transition: -webkit-transform var(--tr-time);
-  transition: -webkit-transform var(--tr-time);
-  transition: transform var(--tr-time);
-  transition: transform var(--tr-time), -webkit-transform var(--tr-time);
   background-color: #a9abb5;
   overflow: hidden;
 }
@@ -2054,10 +2044,6 @@ body.remont-branch {
 .partners {
   width: 100%;
   background-color: #a9abb5;
-  -webkit-transition: -webkit-transform var(--tr-time);
-  transition: -webkit-transform var(--tr-time);
-  transition: transform var(--tr-time);
-  transition: transform var(--tr-time), -webkit-transform var(--tr-time);
 }
 
 .partners__body {
@@ -2121,10 +2107,6 @@ body.remont-branch {
   max-width: 90%;
 }
 
-.active .partners__logo {
-  opacity: 1;
-}
-
 .partners__logo img,
 .partners__logo svg {
   height: 3.95vh;
@@ -2133,10 +2115,6 @@ body.remont-branch {
 .contacts {
   width: 100%;
   background-color: #a9abb5;
-  -webkit-transition: -webkit-transform var(--tr-time);
-  transition: -webkit-transform var(--tr-time);
-  transition: transform var(--tr-time);
-  transition: transform var(--tr-time), -webkit-transform var(--tr-time);
   color: #ffffff;
 }
 
@@ -3200,13 +3178,6 @@ body.remont-branch {
   padding-top: 50px;
   padding-bottom: 50px;
   width: 100vw;
-  -webkit-transition: -webkit-transform var(--tr-time);
-  transition: -webkit-transform var(--tr-time);
-  transition: transform var(--tr-time);
-  transition: transform var(--tr-time), -webkit-transform var(--tr-time);
-  -webkit-transform: translateX(0);
-      -ms-transform: translateX(0);
-          transform: translateX(0);
   overflow: hidden;
   background-color: #151519;
 }
@@ -3436,9 +3407,6 @@ body.remont-branch {
   padding-bottom: 50px;
   background-color: #151519;
   width: 100vw;
-  -webkit-transform: translateX(0);
-      -ms-transform: translateX(0);
-          transform: translateX(0);
   overflow: hidden;
 }
 
@@ -3725,19 +3693,28 @@ body.remont-branch {
   }
 
   .offset-right {
-    -webkit-transform: translateX(100vw) !important;
-        -ms-transform: translateX(100vw) !important;
-            transform: translateX(100vw) !important;
+    -webkit-transform: translateX(100vw) translateZ(0) !important;
+            transform: translateX(100vw) translateZ(0) !important;
   }
 
   .offset-left {
-    -webkit-transform: translateX(-100vw) !important;
-        -ms-transform: translateX(-100vw) !important;
-            transform: translateX(-100vw) !important;
+    -webkit-transform: translateX(-100vw) translateZ(0) !important;
+            transform: translateX(-100vw) translateZ(0) !important;
   }
 
   .hide-min1024 {
     display: none !important;
+  }
+
+  .section {
+    will-change: transform;
+    -webkit-transition: -webkit-transform var(--tr-time) var(--easing);
+    transition: -webkit-transform var(--tr-time) var(--easing);
+    transition: transform var(--tr-time) var(--easing);
+    transition: transform var(--tr-time) var(--easing), -webkit-transform var(--tr-time) var(--easing);
+    z-index: 2;
+    -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
   }
 
   .button {
@@ -3888,6 +3865,13 @@ body.remont-branch {
     position: fixed;
     top: 0;
     left: 0;
+    -webkit-transform: translateX(0);
+        -ms-transform: translateX(0);
+            transform: translateX(0);
+    -webkit-transition: -webkit-transform var(--tr-time) var(--easing);
+    transition: -webkit-transform var(--tr-time) var(--easing);
+    transition: transform var(--tr-time) var(--easing);
+    transition: transform var(--tr-time) var(--easing), -webkit-transform var(--tr-time) var(--easing);
   }
 
   .first__mask {
@@ -4365,10 +4349,6 @@ body.remont-branch {
         -ms-flex-align: center;
             align-items: center;
     height: var(--vh);
-    -webkit-transition: -webkit-transform var(--tr-time);
-    transition: -webkit-transform var(--tr-time);
-    transition: transform var(--tr-time);
-    transition: transform var(--tr-time), -webkit-transform var(--tr-time);
   }
 
   .projects__label {
@@ -4442,12 +4422,6 @@ body.remont-branch {
     -webkit-box-direction: normal;
         -ms-flex-direction: row;
             flex-direction: row;
-  }
-
-  .partners__logo {
-    opacity: 0;
-    -webkit-transition: opacity 0.5s calc(var(--tr-time) + var(--i) * 0.4s);
-    transition: opacity 0.5s calc(var(--tr-time) + var(--i) * 0.4s);
   }
 
   .contacts {
@@ -4822,10 +4796,6 @@ body.remont-branch {
     position: fixed;
     top: 0;
     left: 0;
-    -webkit-transition: -webkit-transform var(--tr-time);
-    transition: -webkit-transform var(--tr-time);
-    transition: transform var(--tr-time);
-    transition: transform var(--tr-time), -webkit-transform var(--tr-time);
   }
 
   .process__label {

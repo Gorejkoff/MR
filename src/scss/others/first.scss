@@ -3,14 +3,14 @@
    width: 100vw;
    height: var(--vh);
    overflow: hidden;
-   transform: translateX(0);
-   transition: transform var(--tr-time);
    z-index: -1;
 
    @media (min-width:1024px) {
       position: fixed;
       top: 0;
       left: 0;
+      transform: translateX(0);
+      transition: transform var(--tr-time) var(--easing);
    }
 
    &.active {
