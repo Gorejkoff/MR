@@ -9,7 +9,10 @@ function wrapLetters(element) {
       return element;
    }
    const nodelist = Array.from(element.childNodes)
+   let span = document.createElement('span');
+   span.classList.add('letter');
    let accumulator = document.createElement('div');
+   accumulator.append(span);
    nodelist.forEach((node) => {
       if (node.nodeType === Node.TEXT_NODE) {
          let span = document.createElement('span')

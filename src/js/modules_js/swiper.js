@@ -77,6 +77,15 @@ function initSwiperProject(element, id) {
                offsetLabel(element, 0.5);
                progress[id].start = true;
                progress[id].end = true;
+               return;
+            }
+            progress[id].start = false;
+            progress[id].end = false;
+            if (SWIPERS[id].progress == 0) {
+               progress[id].start = true;
+            }
+            if (SWIPERS[id].progress == 1) {
+               progress[id].end = true;
             }
          },
          progress: function (swiper, progress) {
@@ -86,6 +95,7 @@ function initSwiperProject(element, id) {
          },
          transitionEnd: function (swiper) {
             if (!MIN1024.matches) return;
+
             if (SWIPERS[id].progress == 0) {
                progress[id].start = true;
             }

@@ -399,20 +399,36 @@ function gsapToEnd(id) {
    }
 }
 function swiperToStart(id) {
-   if (SWIPERS[id]) SWIPERS[id].swiper.slideTo(0, 0);
+   if (SWIPERS[id]) {
+      SWIPERS[id].swiper.slideTo(0, 0);
+   }
    if (progress[id]) {
       progress[id].start = true;
       progress[id].end = false;
    }
+   checkingSliderLength(id)
 }
 function swiperToEnd(id) {
-   if (SWIPERS[id]) SWIPERS[id].swiper.slideTo(SWIPERS[id].swiper.slides.length - 1, 0);
+   if (SWIPERS[id]) {
+      SWIPERS[id].swiper.slideTo(SWIPERS[id].swiper.slides.length - 1, 0);
+   }
    if (progress[id]) {
       progress[id].start = false;
       progress[id].end = true;
    }
+   checkingSliderLength(id)
 }
-
+function checkingSliderLength(id) {
+   if (!SWIPERS[id]) return;
+   if ((SWIPERS[id].swiper.isBeginning == true && SWIPERS[id].swiper.isEnd == true) == true) {
+      const section = SWIPERS[id].swiper.el.closest(`#${id}`)
+      offsetLabel(section, 0.5);
+      setTimeout(() => {
+         progress[id].start = true;
+         progress[id].end = true;
+      }, TRANSITION_TIME * 1.2)
+   }
+}
 // управление
 function openMenu() {
    DOC.body.classList.add('menu-open');
@@ -725,7 +741,10 @@ function wrapLetters(element) {
       return element;
    }
    const nodelist = Array.from(element.childNodes)
+   let span = document.createElement('span');
+   span.classList.add('letter');
    let accumulator = document.createElement('div');
+   accumulator.append(span);
    nodelist.forEach((node) => {
       if (node.nodeType === Node.TEXT_NODE) {
          let span = document.createElement('span')
@@ -1083,6 +1102,15 @@ function initSwiperProject(element, id) {
                offsetLabel(element, 0.5);
                progress[id].start = true;
                progress[id].end = true;
+               return;
+            }
+            progress[id].start = false;
+            progress[id].end = false;
+            if (SWIPERS[id].progress == 0) {
+               progress[id].start = true;
+            }
+            if (SWIPERS[id].progress == 1) {
+               progress[id].end = true;
             }
          },
          progress: function (swiper, progress) {
@@ -1092,6 +1120,7 @@ function initSwiperProject(element, id) {
          },
          transitionEnd: function (swiper) {
             if (!MIN1024.matches) return;
+
             if (SWIPERS[id].progress == 0) {
                progress[id].start = true;
             }
