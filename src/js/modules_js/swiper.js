@@ -58,9 +58,10 @@ function initSwiperProject(element, id) {
    const projectsSwiper = element.querySelector('.swiper');
    SWIPERS[id].swiper = new Swiper(projectsSwiper, {
       spaceBetween: MIN1024.matches ? 50 : 20,
-      speed: 700,
+      speed: 400,
       slidesPerView: MIN1024.matches ? 2.5 : 1.1,
       grabCursor: true,
+
       mousewheel: {
          enabled: true,
          eventsTarget: '#' + id,
