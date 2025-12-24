@@ -2836,7 +2836,7 @@ body.remont-branch {
 .cookie-modal {
   position: fixed;
   top: 0;
-  left: -100vw;
+  left: 0;
   width: 100vw;
   height: var(--vh);
   z-index: 100;
@@ -2848,8 +2848,10 @@ body.remont-branch {
       -ms-flex-direction: column;
           flex-direction: column;
   background-color: #ffffff;
-  -webkit-transition: left var(--tr-time);
-  transition: left var(--tr-time);
+  -webkit-transition: -webkit-transform var(--tr-time);
+  transition: -webkit-transform var(--tr-time);
+  transition: transform var(--tr-time);
+  transition: transform var(--tr-time), -webkit-transform var(--tr-time);
 }
 
 .cookie-modal__header {

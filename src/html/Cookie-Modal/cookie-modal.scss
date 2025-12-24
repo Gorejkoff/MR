@@ -2,14 +2,14 @@
    // padding: 3.4vh 3.2vw;
    position: fixed;
    top: 0;
-   left: -100vw;
+   left: 0;
    width: 100vw;
    height: var(--vh);
    z-index: 100;
    display: flex;
    flex-direction: column;
    background-color: #ffffff;
-   transition: left var(--tr-time);
+   transition: transform var(--tr-time);
 
    &__header {
       position: absolute;
