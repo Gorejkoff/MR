@@ -3,7 +3,19 @@ const mapContainer = document.querySelectorAll('.contacts__map');
 const data = {
    coordinates: '37.541027, 55.807390 ',
 }
+
+function loadYMapsAPI() {
+   return new Promise((resolve, reject) => {
+      if (window.ymaps3) {
+         resolve();
+         // console.log(" API Яндекс Карт загружен");
+         return;
+      }
+   });
+}
+
 async function initMap() {
+   await loadYMapsAPI();
    await ymaps3.ready;
    const { YMap, YMapMarker, YMapDefaultSchemeLayer, YMapDefaultFeaturesLayer } = ymaps3;
 

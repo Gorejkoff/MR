@@ -205,7 +205,7 @@ DOC.documentElement.addEventListener("click", (event) => {
 document.addEventListener('modal:open', () => {
    // отключить скролл слайдера
    if (isPC) {
-      console.log('projects swiper off');
+      // console.log('projects swiper off');
       SWIPERS.projects_m.swiper.mousewheel.disable();
       SWIPERS.projects_r.swiper.mousewheel.disable();
       return;
@@ -215,7 +215,7 @@ document.addEventListener('modal:open', () => {
 document.addEventListener('modal:close', () => {
    // включить скролл слайдера
    if (isPC) {
-      console.log('projects swiper on');
+      // console.log('projects swiper on');
       SWIPERS.projects_m.swiper.mousewheel.enable();
       SWIPERS.projects_r.swiper.mousewheel.enable();
       return;
@@ -300,7 +300,7 @@ function actionsPrev() {
 
 // wheel для смены экранов
 if (isPC && MIN1024.matches) {
-   console.log('wheel active');
+   // console.log('wheel active');
    window.addEventListener('wheel', function (event) {
       if (wheelDisabled) {
          event.preventDefault();
@@ -315,7 +315,7 @@ let startX = 0;
 let startY = 0;
 let threshold = 20;   // минимальное расстояние для определения жеста
 if (!isPC && MIN1024.matches) {
-   console.log('touchMove active');
+   // console.log('touchMove active');
 
    DOC.addEventListener('touchstart', onTouchStart);
    DOC.addEventListener('touchend', onTouchEnd);
@@ -601,7 +601,7 @@ function showSection_LR(item) {
       item.classList.remove('offset-left');
       item.classList.add('active');
       checkingActiveSection();
-      console.log(active_section);
+      // console.log(active_section);
    })
 }
 function checkingActiveSection() {
@@ -912,7 +912,19 @@ const mapContainer = document.querySelectorAll('.contacts__map');
 const data = {
    coordinates: '37.541027, 55.807390 ',
 }
+
+function loadYMapsAPI() {
+   return new Promise((resolve, reject) => {
+      if (window.ymaps3) {
+         resolve();
+         // console.log(" API Яндекс Карт загружен");
+         return;
+      }
+   });
+}
+
 async function initMap() {
+   await loadYMapsAPI();
    await ymaps3.ready;
    const { YMap, YMapMarker, YMapDefaultSchemeLayer, YMapDefaultFeaturesLayer } = ymaps3;
 
