@@ -1,4 +1,4 @@
-
+// swiper
 //  ========== features ============
 function addFeaturesSwiper(element, id) {
    const SWIPER = element.querySelector('.swiper');

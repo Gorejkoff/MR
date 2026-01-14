@@ -373,8 +373,6 @@ if (!isPC && MIN1024.matches) {
    }
 }
 
-
-
 // управление прогрессом секциц
 function gsapToStart(id) {
    if (smoother) {
@@ -587,7 +585,6 @@ function showSection_RL(item) {
       item.classList.remove('offset-right');
       item.classList.add('active');
       checkingActiveSection();
-      console.log(active_section);
    })
 }
 // показать секуию с анимацией слева направо
@@ -601,7 +598,6 @@ function showSection_LR(item) {
       item.classList.remove('offset-left');
       item.classList.add('active');
       checkingActiveSection();
-      // console.log(active_section);
    })
 }
 function checkingActiveSection() {
@@ -650,8 +646,8 @@ function checkingFormFilling(formItem) {
    })
 }
 
-checkingFormFilling(FORM_M)
-checkingFormFilling(FORM_R)
+if (FORM_M) checkingFormFilling(FORM_M)
+if (FORM_R) checkingFormFilling(FORM_R)
 
 const inputsRequired = DOC.querySelectorAll('.required');
 inputsRequired.forEach((e) => {

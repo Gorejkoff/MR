@@ -63,4 +63,5 @@ async function initMap() {
    );
    map_m.addChild(marker_m);
 }
-initMap();
+
+if (mapContainer.length > 0) initMap();

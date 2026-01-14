@@ -373,8 +373,6 @@ if (!isPC && MIN1024.matches) {
    }
 }
 
-
-
 // управление прогрессом секциц
 function gsapToStart(id) {
    if (smoother) {
@@ -587,7 +585,6 @@ function showSection_RL(item) {
       item.classList.remove('offset-right');
       item.classList.add('active');
       checkingActiveSection();
-      console.log(active_section);
    })
 }
 // показать секуию с анимацией слева направо
@@ -601,7 +598,6 @@ function showSection_LR(item) {
       item.classList.remove('offset-left');
       item.classList.add('active');
       checkingActiveSection();
-      // console.log(active_section);
    })
 }
 function checkingActiveSection() {
@@ -650,8 +646,8 @@ function checkingFormFilling(formItem) {
    })
 }
 
-checkingFormFilling(FORM_M)
-checkingFormFilling(FORM_R)
+if (FORM_M) checkingFormFilling(FORM_M)
+if (FORM_R) checkingFormFilling(FORM_R)
 
 const inputsRequired = DOC.querySelectorAll('.required');
 inputsRequired.forEach((e) => {
@@ -730,8 +726,7 @@ function moving(e, order, addressMove) {
 
 
 
-
-
+// gsap
 function wrapLetters(element) {
    function wrapper(element) {
       const words = element.innerHTML.trim().split(' ');
@@ -759,14 +754,17 @@ function wrapLetters(element) {
 }
 
 gsap.registerPlugin(ScrollTrigger, ScrollSmoother, ScrollToPlugin);
-
+gsap.config({ force3D: false });
 function initScroll(s, c) {
+   if (smoother && smoother.vars.wrapper == s) return;
    smoother = ScrollSmoother.create({
       wrapper: s,
       content: c,
       smooth: isPC ? 1 : 0,
       normalizeScroll: isPC ? true : false,
    })
+   // console.log('smoother init');
+
    if (isPC && smoother) smoother.paused(true);
 }
 
@@ -1000,7 +998,8 @@ async function initMap() {
    );
    map_m.addChild(marker_m);
 }
-initMap();
+
+if (mapContainer.length > 0) initMap();
 
 /* открывает, закрывает модальные окна. */
 /*
@@ -1063,7 +1062,7 @@ function activeScrollCloseModal() {
 }
 
 
-
+// swiper
 //  ========== features ============
 function addFeaturesSwiper(element, id) {
    const SWIPER = element.querySelector('.swiper');

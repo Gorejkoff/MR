@@ -97,12 +97,13 @@ body {
 .section {
    position: relative;
    z-index: 2;
+   transform: translateZ(0);
 
    @media (min-width:1024px) {
-      will-change: transform;
-      transition: transform var(--tr-time) var(--easing);
-      backface-visibility: hidden;
+      // will-change: transform;
+      // backface-visibility: hidden;
       // perspective: 1000px;
+      transition: transform var(--tr-time) var(--easing);
    }
 
    &.offset-left,

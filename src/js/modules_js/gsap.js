@@ -1,5 +1,4 @@
-
-
+// gsap
 function wrapLetters(element) {
    function wrapper(element) {
       const words = element.innerHTML.trim().split(' ');
@@ -27,14 +26,17 @@ function wrapLetters(element) {
 }
 
 gsap.registerPlugin(ScrollTrigger, ScrollSmoother, ScrollToPlugin);
-
+gsap.config({ force3D: false });
 function initScroll(s, c) {
+   if (smoother && smoother.vars.wrapper == s) return;
    smoother = ScrollSmoother.create({
       wrapper: s,
       content: c,
       smooth: isPC ? 1 : 0,
       normalizeScroll: isPC ? true : false,
    })
+   // console.log('smoother init');
+
    if (isPC && smoother) smoother.paused(true);
 }
 

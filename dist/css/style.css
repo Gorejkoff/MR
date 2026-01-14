@@ -196,6 +196,8 @@ body.remont-branch {
 .section {
   position: relative;
   z-index: 2;
+  -webkit-transform: translateZ(0);
+          transform: translateZ(0);
 }
 
 .section.offset-left,
@@ -2437,10 +2439,20 @@ body.remont-branch {
   width: 100%;
 }
 
+.contacts__map iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
 .contacts__map ymaps {
   position: absolute;
   top: 0;
   left: 0;
+  z-index: 1;
   width: 100%;
   height: 100%;
   -webkit-filter: grayscale(80%);
@@ -3729,13 +3741,10 @@ body.remont-branch {
   }
 
   .section {
-    will-change: transform;
     -webkit-transition: -webkit-transform var(--tr-time) var(--easing);
     transition: -webkit-transform var(--tr-time) var(--easing);
     transition: transform var(--tr-time) var(--easing);
     transition: transform var(--tr-time) var(--easing), -webkit-transform var(--tr-time) var(--easing);
-    -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
   }
 
   .button {

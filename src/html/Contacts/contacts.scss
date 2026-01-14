@@ -327,10 +327,20 @@
 
       }
 
+      iframe {
+         position: absolute;
+         top: 0;
+         left: 0;
+         width: 100%;
+         height: 100%;
+         z-index: -1;
+      }
+
       ymaps {
          position: absolute;
          top: 0;
          left: 0;
+         z-index: 1;
          width: 100%;
          height: 100%;
          filter: grayscale(80%);
