@@ -184,20 +184,18 @@ body.remont-branch {
 }
 
 .offset-right.start {
-  -webkit-transform: translateX(100vw) translateZ(0) !important;
-          transform: translateX(100vw) translateZ(0) !important;
+  -webkit-transform: translateX(100%) translateZ(0) !important;
+          transform: translateX(100%) translateZ(0) !important;
 }
 
 .offset-left.start {
-  -webkit-transform: translateX(-100vw) translateZ(0) !important;
-          transform: translateX(-100vw) translateZ(0) !important;
+  -webkit-transform: translateX(-100%) translateZ(0) !important;
+          transform: translateX(-100%) translateZ(0) !important;
 }
 
 .section {
   position: relative;
   z-index: 2;
-  -webkit-transform: translateZ(0);
-          transform: translateZ(0);
 }
 
 .section.offset-left,
@@ -3727,13 +3725,13 @@ body.remont-branch {
   }
 
   .offset-right {
-    -webkit-transform: translateX(100vw) translateZ(0) !important;
-            transform: translateX(100vw) translateZ(0) !important;
+    -webkit-transform: translateX(100%) translateZ(0) !important;
+            transform: translateX(100%) translateZ(0) !important;
   }
 
   .offset-left {
-    -webkit-transform: translateX(-100vw) translateZ(0) !important;
-            transform: translateX(-100vw) translateZ(0) !important;
+    -webkit-transform: translateX(-100%) translateZ(0) !important;
+            transform: translateX(-100%) translateZ(0) !important;
   }
 
   .hide-min1024 {
@@ -3741,6 +3739,7 @@ body.remont-branch {
   }
 
   .section {
+    will-change: transform;
     -webkit-transition: -webkit-transform var(--tr-time) var(--easing);
     transition: -webkit-transform var(--tr-time) var(--easing);
     transition: transform var(--tr-time) var(--easing);

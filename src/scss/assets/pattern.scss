@@ -64,21 +64,21 @@ body {
 
 .offset-right {
    @media (min-width:1024px) {
-      transform: translateX(100vw) translateZ(0) !important;
+      transform: translateX(100%) translateZ(0) !important;
    }
 
    &.start {
-      transform: translateX(100vw) translateZ(0) !important;
+      transform: translateX(100%) translateZ(0) !important;
    }
 }
 
 .offset-left {
    @media (min-width:1024px) {
-      transform: translateX(-100vw) translateZ(0) !important;
+      transform: translateX(-100%) translateZ(0) !important;
    }
 
    &.start {
-      transform: translateX(-100vw) translateZ(0) !important;
+      transform: translateX(-100%) translateZ(0) !important;
    }
 }
 
@@ -97,10 +97,10 @@ body {
 .section {
    position: relative;
    z-index: 2;
-   transform: translateZ(0);
+   // transform: translateZ(0);
 
    @media (min-width:1024px) {
-      // will-change: transform;
+      will-change: transform;
       // backface-visibility: hidden;
       // perspective: 1000px;
       transition: transform var(--tr-time) var(--easing);
