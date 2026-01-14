@@ -306,6 +306,12 @@ body.remont-branch {
   border-radius: 5px;
   background-color: #5D606E;
   color: #ffffff;
+  -webkit-transition: background-color 0.3s;
+  transition: background-color 0.3s;
+}
+
+.button-simple:hover {
+  background-color: #A9ABB5;
 }
 
 .scroll::-webkit-scrollbar {
@@ -2293,6 +2299,10 @@ body.remont-branch {
   font-style: normal;
 }
 
+.remont--mod .contacts__mail {
+  text-decoration-color: #A9ABB5;
+}
+
 .contacts__mail span {
   color: #151519;
 }
@@ -2390,11 +2400,13 @@ body.remont-branch {
   color: #151519;
 }
 
+.contacts__bottom button,
 .contacts__bottom a {
   -webkit-transition: color 0.3s;
   transition: color 0.3s;
 }
 
+.contacts__bottom button:hover,
 .contacts__bottom a:hover {
   color: #A9ABB5;
 }

@@ -871,6 +871,34 @@ if (!MIN1024.matches && SERVICES_TITLE) {
    });
 }
 
+if (!MIN1024.matches && DOC.querySelector('.stages__media')) {
+   gsap.utils.toArray(".stages__media").forEach((item, index) => {
+      gsap.from(item, {
+         x: index % 2 === 0 ? '100vw' : '-100vw',
+         duration: 0.8,
+         ease: "power2.out",
+         scrollTrigger: {
+            trigger: item,
+            start: "top 80%",
+            toggleActions: "play none none reverse"
+         }
+      });
+   });
+}
+if (!MIN1024.matches && DOC.querySelector('.process__media')) {
+   gsap.utils.toArray(".process__media").forEach((item, index) => {
+      gsap.from(item, {
+         x: index % 2 === 0 ? '100vw' : '-100vw',
+         duration: 0.8,
+         ease: "power2.out",
+         scrollTrigger: {
+            trigger: item,
+            start: "top 80%",
+            toggleActions: "play none none reverse"
+         }
+      });
+   });
+}
 // partners_m, анимация текста блюр
 const PARTNERS_TEXT = document.querySelector('.partners__text');
 if (MIN1024.matches && PARTNERS_TEXT) {

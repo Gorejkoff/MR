@@ -207,6 +207,11 @@ body {
    border-radius: 5px;
    background-color: #5D606E;
    color: #ffffff;
+   transition: background-color 0.3s;
+
+   &:hover {
+      background-color: #A9ABB5;
+   }
 
    @media (min-width:1024px) {
       min-width: 29vh;

@@ -181,6 +181,10 @@
       text-decoration-color: #151519;
       font-style: normal;
 
+      .remont--mod & {
+         text-decoration-color: #A9ABB5;
+      }
+
       @media (min-width:1024px) {
          order: 5;
          font-size: 2.1vh;
@@ -277,6 +281,7 @@
          color: #151519;
       }
 
+      button,
       a {
          transition: color 0.3s;
 
