@@ -6,4 +6,10 @@
    --vh: 100vh;
    --tr-time: 1.5s;
    --easing: cubic-bezier(.5, 0, .5, 1);
+
+   --vh: 100vh;
+
+   @supports (height: 100dvh) {
+      --vh: 100dvh;
+   }
 }
