@@ -1081,8 +1081,8 @@ body.remont-branch {
   -webkit-transform: translate(-50%, calc(-50% - 50vh));
       -ms-transform: translate(-50%, calc(-50% - 50vh));
           transform: translate(-50%, calc(-50% - 50vh));
-  -webkit-animation: start-r 2s forwards;
-          animation: start-r 2s forwards;
+  -webkit-animation: start-r 2s 1s forwards;
+          animation: start-r 2s 1s forwards;
 }
 
 .start__m-icon {
@@ -1093,8 +1093,8 @@ body.remont-branch {
   -webkit-transform: translate(-50%, calc(-50% + 50vh));
       -ms-transform: translate(-50%, calc(-50% + 50vh));
           transform: translate(-50%, calc(-50% + 50vh));
-  -webkit-animation: start-m 2s forwards;
-          animation: start-m 2s forwards;
+  -webkit-animation: start-m 2s 1s forwards;
+          animation: start-m 2s 1s forwards;
 }
 
 .start__content-m,
@@ -1143,8 +1143,8 @@ body.remont-branch {
       -ms-transform: translateX(-100vw);
           transform: translateX(-100vw);
   text-align: center;
-  -webkit-animation: start-title-r 1s 1.5s forwards;
-          animation: start-title-r 1s 1.5s forwards;
+  -webkit-animation: start-title-r 1s 2.5s forwards;
+          animation: start-title-r 1s 2.5s forwards;
 }
 
 .start__content-m-title {
@@ -1154,8 +1154,8 @@ body.remont-branch {
   -webkit-transform: translateX(100vw);
       -ms-transform: translateX(100vw);
           transform: translateX(100vw);
-  -webkit-animation: start-title-m 1s 1.5s forwards;
-          animation: start-title-m 1s 1.5s forwards;
+  -webkit-animation: start-title-m 1s 2.5s forwards;
+          animation: start-title-m 1s 2.5s forwards;
   color: #A9ABB5;
 }
 
