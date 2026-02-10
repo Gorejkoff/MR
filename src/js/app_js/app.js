@@ -134,6 +134,33 @@ const progress = {
    },
 }
 
+function nextRemont() {
+   if (MIN1024.matches) {
+      hideSections_L();
+      showSectionNotAnimated(FIRST_R);
+      hide_L(FIRST_M)
+      hiddenStartScreen();
+      activeRemontBranch();
+      checkingActiveSection();
+      return;
+   }
+   activeRemontBranch();
+   hiddenStartScreen('remont')
+}
+function nextMebel() {
+   if (MIN1024.matches) {
+      hideSections_L();
+      showSectionNotAnimated(FIRST_M);
+      hide_L(FIRST_R);
+      hiddenStartScreen();
+      activeMebelBranch();
+      checkingActiveSection();
+      return;
+   }
+   activeMebelBranch();
+   hiddenStartScreen('mebel')
+}
+
 // ** ======================= CLICK ======================  ** //
 DOC.documentElement.addEventListener("click", (event) => {
    if (event.target.closest('.cookie__agree')) {
@@ -143,32 +170,8 @@ DOC.documentElement.addEventListener("click", (event) => {
    if (event.target.closest('.header__button')) { toggleMenu() }
    if (!event.target.closest('.header__button') && !event.target.closest('.header__nav-list')) { closeMenu() }
    // навигация
-   if (event.target.closest('.next-mebel')) {
-      if (MIN1024.matches) {
-         hideSections_L();
-         showSectionNotAnimated(FIRST_M);
-         hide_L(FIRST_R);
-         hiddenStartScreen();
-         activeMebelBranch();
-         checkingActiveSection();
-         return;
-      }
-      activeMebelBranch();
-      hiddenStartScreen('mebel')
-   }
-   if (event.target.closest('.next-remont')) {
-      if (MIN1024.matches) {
-         hideSections_L();
-         showSectionNotAnimated(FIRST_R);
-         hide_L(FIRST_M)
-         hiddenStartScreen();
-         activeRemontBranch();
-         checkingActiveSection();
-         return;
-      }
-      activeRemontBranch();
-      hiddenStartScreen('remont')
-   }
+   if (event.target.closest('.next-mebel')) { nextMebel() }
+   if (event.target.closest('.next-remont')) { nextRemont() }
    if (event.target.closest('.next-mebel-about')) { changeGsap_RL(ABOUT_M, '#about_ms', '#about_mc') }
    if (event.target.closest('.next-remont-about')) { changeGsap_RL(ABOUT_R, '#about_rs', '#about_rc') }
    // меню
@@ -664,4 +667,16 @@ inputsRequired.forEach((e) => {
 
    })
 })
+
+
+const params = new URLSearchParams(window.location.search);
+const nav = params.get('section');
+
+if (nav == 'remont') {
+   // START.style.transition = 'all 0s';
+   nextRemont()
+}
+if (nav == 'mebel') {
+   nextMebel()
+}
 
