@@ -787,7 +787,7 @@ body.remont-branch {
 .first {
   min-width: 100vw;
   width: 100vw;
-  height: var(--vh);
+  height: 100vh;
   overflow: hidden;
   z-index: -1;
 }
@@ -1379,7 +1379,7 @@ body.remont-branch {
 
 .about {
   width: 100%;
-  min-height: var(--vh);
+  min-height: 100vh;
 }
 
 .about.remont--mod {
@@ -3895,6 +3895,7 @@ body.remont-branch {
   }
 
   .first {
+    height: var(--vh);
     position: fixed;
     top: 0;
     left: 0;
