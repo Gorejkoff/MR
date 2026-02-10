@@ -39,10 +39,10 @@ function initScroll(s, c) {
    smoother = ScrollSmoother.create({
       wrapper: s,
       content: c,
-      smooth: isPC ? 1 : 0,
-      normalizeScroll: isPC ? true : false,
-      smoothTouch: 0.1, // Уменьшить для мобильных
-      ignoreMobileResize: true,
+      smooth: 1,
+      // normalizeScroll: isPC ? true : false,
+      // smoothTouch: 0.1, // Уменьшить для мобильных
+      // ignoreMobileResize: true,
    })
    // console.log('smoother init');
 
