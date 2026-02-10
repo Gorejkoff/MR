@@ -519,7 +519,7 @@ function prevFirst(element) {
 function changeGsap_LR(element, s, c) {
    disabledWheel();
    setTimeout(() => {
-      if (isPC) initScroll(s, c);
+      initScroll(s, c);
       gsapToEnd(element.id);
    }, TRANSITION_TIME * 0)
    change_LR(element);
@@ -528,7 +528,7 @@ function changeGsap_LR(element, s, c) {
 function changeGsap_RL(element, s, c) {
    disabledWheel();
    setTimeout(() => {
-      if (isPC) initScroll(s, c);
+      initScroll(s, c);
       gsapToStart(element.id);
    }, TRANSITION_TIME * 0)
    change_RL(element);
