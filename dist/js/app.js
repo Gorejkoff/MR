@@ -769,6 +769,8 @@ function initScroll(s, c) {
       content: c,
       smooth: isPC ? 1 : 0,
       normalizeScroll: isPC ? true : false,
+      smoothTouch: 0.1, // Уменьшить для мобильных
+      ignoreMobileResize: true,
    })
    // console.log('smoother init');
 
