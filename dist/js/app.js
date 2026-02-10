@@ -668,17 +668,25 @@ inputsRequired.forEach((e) => {
    })
 })
 
-
-const params = new URLSearchParams(window.location.search);
-const nav = params.get('section');
-
-if (nav == 'remont') {
-   // START.style.transition = 'all 0s';
+const hash = window.location.hash;
+if (hash == '#remont') {
    nextRemont()
 }
-if (nav == 'mebel') {
+if (hash == '#mebel') {
    nextMebel()
 }
+
+
+// const params = new URLSearchParams(window.location.search);
+// const nav = params.get('section');
+// if (nav == 'remont') {
+//    // START.style.transition = 'all 0s';
+//    nextRemont()
+// }
+// if (nav == 'mebel') {
+//    nextMebel()
+// }
+
 
 
 // перемещение блоков при адаптиве
