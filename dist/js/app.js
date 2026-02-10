@@ -755,6 +755,13 @@ function wrapLetters(element) {
 
 gsap.registerPlugin(ScrollTrigger, ScrollSmoother, ScrollToPlugin);
 gsap.config({ force3D: false });
+if (!isPC) {
+   ScrollTrigger.config({
+      autoRefreshEvents: "DOMContentLoaded,load", // Только эти события обновляют
+      ignoreMobileResize: true, // Игнорировать ресайз на мобильных
+   });
+}
+
 function initScroll(s, c) {
    if (smoother && smoother.vars.wrapper == s) return;
    smoother = ScrollSmoother.create({
@@ -780,6 +787,7 @@ function addAboutAnimation(element, id, trigger, scroller) {
          pin: true,
          scrub: true,
          pinType: isPC ? "transform" : "fixed",
+         ignoreMobileResize: true,
          onUpdate: (self) => {
             if (!MIN1024.matches) return;
             if (Number(self.progress.toFixed(4)) == 0 && active_section === id) {
