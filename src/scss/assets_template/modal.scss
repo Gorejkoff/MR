@@ -1,6 +1,6 @@
 .modal {
    will-change: transform;
-   --height-modal: 100vh;
+   --height-modal: var(--vh);
    position: fixed;
    top: var(--header-h);
    left: 0;
@@ -28,11 +28,7 @@
 
    @media (min-width:768px) {
       top: 0;
-      --height-modal: 100vh;
-
-      @supports(height: 100dvh) {
-         --height-modal: 100dvh
-      }
+      --height-modal: var(--vh);
    }
 
    // &__container {

@@ -687,4 +687,17 @@ if (hash == '#mebel') {
 //    nextMebel()
 // }
 
-
+let lastWidth = window.innerWidth;
+function setVH() {
+   const h = document.body.offsetHeight;
+   MEBEL.style.setProperty('--vh', h + 'px');
+   REMONT.style.setProperty('--vh', h + 'px');
+}
+setVH();
+window.addEventListener('resize', () => {
+   const currentWidth = window.innerWidth;
+   if (!MIN1024.matches && currentWidth !== lastWidth) {
+      setVH()
+   }
+   lastWidth = window.innerWidth;
+})

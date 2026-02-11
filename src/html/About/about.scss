@@ -1,6 +1,6 @@
 .about {
    width: 100%;
-   min-height: 100vh;
+   min-height: var(--vh);
 
    @media (min-width:1024px) {
       position: fixed;
@@ -21,13 +21,9 @@
       position: relative;
       display: flex;
       align-items: center;
-      height: 100vh;
+      height: var(--vh);
       width: 100vw;
       min-width: 100vw;
-
-      @media (min-width:1024px) {
-         height: var(--vh);
-      }
    }
 
    &__shell {
