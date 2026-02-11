@@ -693,7 +693,9 @@ function setVH() {
    MEBEL.style.setProperty('--vh', h + 'px');
    REMONT.style.setProperty('--vh', h + 'px');
 }
-setVH();
+if (!MIN1024.matches) {
+   setVH();
+}
 window.addEventListener('resize', () => {
    const currentWidth = window.innerWidth;
    if (!MIN1024.matches && currentWidth !== lastWidth) {
