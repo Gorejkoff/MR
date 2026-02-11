@@ -849,7 +849,7 @@ body.remont-branch {
 }
 
 .first__content {
-  padding-top: calc(100px + 8vh);
+  padding-top: calc(100px + var(--vh) * 0.08);
   position: relative;
   z-index: 3;
   display: -webkit-box;
@@ -923,7 +923,7 @@ body.remont-branch {
   display: none;
   margin-bottom: 5vh;
   max-width: 12.5em;
-  font-size: 3.82vh;
+  font-size: calc(var(--vh) * 0.0382);
   line-height: 100%;
   letter-spacing: -0.02em;
   text-align: right;
@@ -942,7 +942,7 @@ body.remont-branch {
 }
 
 .first__subtext {
-  margin-bottom: 15vh;
+  margin-bottom: calc(var(--vh) * 0.15);
   max-width: 80%;
   font-size: 20px;
   text-align: center;
@@ -962,7 +962,7 @@ body.remont-branch {
 }
 
 .first__down {
-  padding-bottom: 7vh;
+  padding-bottom: calc(var(--vh) * 0.07);
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1499,13 +1499,13 @@ body.remont-branch {
 
 .features__content-limit {
   pointer-events: none;
-  padding-bottom: 8vh;
+  padding-bottom: 60px;
   padding-left: var(--padding-container);
   padding-right: var(--padding-container);
   position: absolute;
   top: var(--padding);
   left: 0;
-  height: 90vh;
+  height: calc(var(--vh) * 0.9);
   z-index: 1;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -1573,7 +1573,7 @@ body.remont-branch {
 .features__image-body {
   margin-right: calc(-10vw + var(--padding));
   position: relative;
-  height: 55vh;
+  height: calc(var(--vh) * 0.55);
   overflow: hidden;
   border-radius: 10px;
 }
@@ -3224,7 +3224,7 @@ body.remont-branch {
   -webkit-transform: translate(-50%, 0);
       -ms-transform: translate(-50%, 0);
           transform: translate(-50%, 0);
-  max-height: 25vh;
+  max-height: calc(var(--vh) * 0.25);
   height: auto;
   width: auto;
   max-width: 80%;
@@ -3247,7 +3247,7 @@ body.remont-branch {
 }
 
 .stages__title {
-  margin-bottom: 3.4vh;
+  margin-bottom: calc(var(--vh) * 0.034);
   font-size: 32px;
   line-height: 100%;
   letter-spacing: -0.02em;
@@ -3952,11 +3952,11 @@ body.remont-branch {
   }
 
   .remont--mod .first__left {
-    padding-top: 23vh;
+    padding-top: calc(var(--vh) * 0.23);
   }
 
   .first__title {
-    font-size: 9.4vh;
+    font-size: calc(var(--vh) * 0.094);
     text-align: left;
   }
 
@@ -3997,7 +3997,7 @@ body.remont-branch {
   }
 
   .first__subtext {
-    font-size: 2.5vh;
+    font-size: calc(var(--vh) * 0.025);
     max-width: 18em;
     text-align: right;
   }
@@ -4129,8 +4129,8 @@ body.remont-branch {
   }
 
   .about__text {
-    gap: 5.5vh;
-    font-size: 7vh;
+    gap: calc(var(--vh) * 0.055);
+    font-size: calc(var(--vh) * 0.07);
   }
 
   .features {
@@ -4175,15 +4175,15 @@ body.remont-branch {
   }
 
   .features__title {
-    font-size: 4.2vh;
+    font-size: calc(var(--vh) * 0.042);
   }
 
   .features__text {
-    font-size: 2.9vh;
+    font-size: calc(var(--vh) * 0.029);
   }
 
   .features__subtext {
-    font-size: 1.9vh;
+    font-size: calc(var(--vh) * 0.019);
   }
 
   .features__image {
@@ -4199,7 +4199,7 @@ body.remont-branch {
   }
 
   .features__image-small {
-    height: 29vh;
+    height: calc(var(--vh) * 0.29);
   }
 
   .features__image-small.animate-1 {
@@ -4393,13 +4393,13 @@ body.remont-branch {
   }
 
   .projects__buttons {
-    margin-bottom: 6vh;
+    margin-bottom: calc(var(--vh) * 0.06);
     gap: 40px;
   }
 
   .projects__button {
-    padding: 0.7vh 1.4vh;
-    font-size: 2.6vh;
+    padding: calc(var(--vh) * 0.007) calc(var(--vh) * 0.014);
+    font-size: calc(var(--vh) * 0.026);
   }
 
   .projects__swiper {
@@ -4411,10 +4411,10 @@ body.remont-branch {
   }
 
   .projects__topic {
-    top: 2.1vh;
-    left: 2.1vh;
-    padding: 0.7vh 1.4vh;
-    font-size: 1.67vh;
+    top: calc(var(--vh) * 0.021);
+    left: calc(var(--vh) * 0.021);
+    padding: calc(var(--vh) * 0.007) calc(var(--vh) * 0.014);
+    font-size: calc(var(--vh) * 0.0167);
   }
 
   .projects__text {
@@ -4712,7 +4712,7 @@ body.remont-branch {
 
   .stages__header {
     position: absolute;
-    top: 14vh;
+    top: calc(var(--vh) * 0.14);
     left: 50%;
     -webkit-transform: translateX(-50%);
         -ms-transform: translateX(-50%);

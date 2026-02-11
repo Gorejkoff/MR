@@ -99,7 +99,7 @@
    }
 
    &__content {
-      padding-top: calc(100px + 8vh);
+      padding-top: calc(100px + calc(var(--vh) * 0.08));
       position: relative;
       z-index: 3;
       display: flex;
@@ -137,7 +137,7 @@
 
       .remont--mod & {
          @media (min-width:1024px) {
-            padding-top: 23vh;
+            padding-top: calc(var(--vh) * 0.23);
          }
       }
    }
@@ -154,7 +154,7 @@
       transition: opacity 0.3s var(--tr-time);
 
       @media (min-width:1024px) {
-         font-size: 9.4vh;
+         font-size: calc(var(--vh) * 0.094);
          text-align: left;
       }
 
@@ -209,7 +209,7 @@
       display: none;
       margin-bottom: 5vh;
       max-width: 12.5em;
-      font-size: 3.82vh;
+      font-size: calc(var(--vh) * 0.0382);
       line-height: 100%;
       letter-spacing: -0.02em;
       text-align: right;
@@ -232,7 +232,7 @@
    }
 
    &__subtext {
-      margin-bottom: 15vh;
+      margin-bottom: calc(var(--vh) * 0.15);
       max-width: 80%;
       font-size: 20px;
       text-align: center;
@@ -246,7 +246,7 @@
       }
 
       @media (min-width:1024px) {
-         font-size: 2.5vh;
+         font-size: calc(var(--vh) * 0.025);
          max-width: 18em;
          text-align: right;
       }
@@ -265,7 +265,7 @@
    }
 
    &__down {
-      padding-bottom: 7vh;
+      padding-bottom: calc(var(--vh) * 0.07);
       display: flex;
       justify-content: center;
    }

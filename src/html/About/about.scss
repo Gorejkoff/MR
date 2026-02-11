@@ -65,8 +65,8 @@
       transform: translateZ(0);
 
       @media (min-width:1024px) {
-         gap: 5.5vh;
-         font-size: 7vh;
+         gap: calc(var(--vh) * 0.055);
+         font-size: calc(var(--vh) * 0.07);
       }
 
 
