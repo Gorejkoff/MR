@@ -52,6 +52,7 @@ const PROCESS_R = DOC.getElementById('process_r');
 const FORM_R = DOC.getElementById('form_r');
 const FORM_M = DOC.getElementById('form_m');
 let wheelDisabled = true;
+let modalIsOpen = false;
 let touchMoveDisabled = false;
 let smoother = undefined;
 
@@ -209,6 +210,7 @@ document.addEventListener('modal:open', () => {
    // отключить скролл слайдера
    if (isPC) {
       // console.log('projects swiper off');
+      modalIsOpen = true;
       SWIPERS.projects_m.swiper.mousewheel.disable();
       SWIPERS.projects_r.swiper.mousewheel.disable();
       return;
@@ -219,6 +221,7 @@ document.addEventListener('modal:close', () => {
    // включить скролл слайдера
    if (isPC) {
       // console.log('projects swiper on');
+      modalIsOpen = false;
       SWIPERS.projects_m.swiper.mousewheel.enable();
       SWIPERS.projects_r.swiper.mousewheel.enable();
       return;
@@ -309,8 +312,8 @@ if (isPC && MIN1024.matches) {
          event.preventDefault();
          return;
       }
-      if (event.deltaY < 0) { actionsPrev() }
-      if (event.deltaY > 0) { actionsNext() }
+      if (!modalIsOpen && event.deltaY < 0) { actionsPrev() }
+      if (!modalIsOpen && event.deltaY > 0) { actionsNext() }
    }, { passive: false });
 }
 

@@ -68,7 +68,7 @@ function addAboutAnimation(element, id, trigger, scroller) {
                progress[id].start = true;
                return;
             }
-            if (Number(self.progress.toFixed(4)) == 1 && active_section === id) {
+            if (Number(self.progress.toFixed(4)) > 0.999 && active_section === id) {
                progress[id].end = true;
                return;
             }
