@@ -51,17 +51,22 @@ function initScroll(s, c) {
 
 // about, анимация текста блюр
 function addAboutAnimation(element, id, trigger, scroller) {
+
+   const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+   console.log('is safari - ', isSafari);
+
    wrapLetters(element);
    tl_about[id] = gsap.timeline({
       scrollTrigger: {
          trigger: trigger,
-         scroller: MIN1024.matches ? scroller : document.body,
+         scroller: MIN1024.matches ? scroller : (isSafari ? window : document.body),
          start: "top top",
          end: `bottom top`,
          pin: true,
          scrub: true,
-         pinType: isPC ? "transform" : "fixed",
+         pinType: isSafari ? "fixed" : (isPC ? "transform" : "fixed"),
          ignoreMobileResize: true,
+         invalidateOnRefresh: true,
          onUpdate: (self) => {
             if (!MIN1024.matches) return;
             if (Number(self.progress.toFixed(4)) == 0 && active_section === id) {
@@ -72,7 +77,7 @@ function addAboutAnimation(element, id, trigger, scroller) {
                progress[id].end = true;
                return;
             }
-            console.log(self.progress.toFixed(4));
+            // console.log(self.progress.toFixed(4));
             progress[id].start = false;
             progress[id].end = false;
          },
@@ -88,7 +93,12 @@ function addAboutAnimation(element, id, trigger, scroller) {
    const ABOUT_LETTERS = element.querySelectorAll(`.letter`);
    ABOUT_LETTERS && ABOUT_LETTERS.forEach((e) => {
       tl_about[id].to(e, { color: '#ffffff', filter: 'blur(0)' })
-   })
+   });
+   if (isSafari) {
+      setTimeout(() => {
+         ScrollTrigger.refresh();
+      }, 100);
+   }
 }
 
 const ABOUT_TEXT_M = document.querySelector('.about-text-m');
