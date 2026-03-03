@@ -19,6 +19,8 @@
    }
 
    &__text {
+      display: inline-block;
+      will-change: filter, color;
       --color: #ffffff;
       font-size: 26px;
       line-height: 100%;

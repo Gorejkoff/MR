@@ -71,7 +71,8 @@
 
 
       .letter {
-         will-change: color;
+         display: inline-block;
+         will-change: filter, color;
          transform: translateZ(0);
          color: #5D606E;
          filter: blur(3px);
