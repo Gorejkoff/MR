@@ -1,4 +1,8 @@
 // gsap
+
+const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+console.log('is safari - ', isSafari);
+
 function wrapLetters(element) {
    function wrapper(element) {
       const words = element.innerHTML.trim().split(' ');
@@ -36,6 +40,8 @@ if (!isPC) {
 
 function initScroll(s, c) {
    if (smoother && smoother.vars.wrapper == s) return;
+   console.log('init smoother');
+
    smoother = ScrollSmoother.create({
       wrapper: s,
       content: c,
@@ -52,8 +58,6 @@ function initScroll(s, c) {
 // about, анимация текста блюр
 function addAboutAnimation(element, id, trigger, scroller) {
 
-   // const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-   // console.log('is safari - ', isSafari);
 
    wrapLetters(element);
    tl_about[id] = gsap.timeline({
@@ -67,6 +71,7 @@ function addAboutAnimation(element, id, trigger, scroller) {
          // pinType: isPC ? "transform" : "fixed",
          ignoreMobileResize: true,
          onUpdate: (self) => {
+            console.log(self.progress.toFixed(4));
             if (!MIN1024.matches) return;
             if (Number(self.progress.toFixed(4)) == 0 && active_section === id) {
                progress[id].start = true;
@@ -76,7 +81,6 @@ function addAboutAnimation(element, id, trigger, scroller) {
                progress[id].end = true;
                return;
             }
-            // console.log(self.progress.toFixed(4));
             progress[id].start = false;
             progress[id].end = false;
          },
