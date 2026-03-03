@@ -69,7 +69,7 @@ function addAboutAnimation(element, id, trigger, scroller) {
          pin: true,
          scrub: true,
          // pinType: isPC ? "transform" : "fixed",
-         pinType: "transform",
+         // pinType: "transform",
          ignoreMobileResize: true,
          onUpdate: (self) => {
             console.log(self.progress.toFixed(4));
@@ -85,31 +85,19 @@ function addAboutAnimation(element, id, trigger, scroller) {
             progress[id].start = false;
             progress[id].end = false;
          },
-         // markers: {
-         //    startColor: "green",
-         //    endColor: "red",
-         //    fontSize: "40px",
-         //    fontWeight: "bold",
-         //    indent: 20
-         // },
+         markers: {
+            startColor: "green",
+            endColor: "red",
+            fontSize: "40px",
+            fontWeight: "bold",
+            indent: 20
+         },
       },
    })
    const ABOUT_LETTERS = element.querySelectorAll(`.letter`);
-   if (!isSafari) {
-      ABOUT_LETTERS && ABOUT_LETTERS.forEach((e) => {
-         tl_about[id].to(e, { color: '#ffffff', filter: 'blur(0)' })
-      })
-   } else {
-      if (ABOUT_LETTERS.length > 0) {
-         tl_about[id].to(ABOUT_LETTERS, {
-            color: '#ffffff',
-            filter: 'blur(0px)', // Safari требует px
-            webkitFilter: 'blur(0px)',
-            force3D: true,
-            stagger: 0.05 // Небольшая задержка даст плавность и спасет Safari от зависания
-         });
-      }
-   }
+   ABOUT_LETTERS && ABOUT_LETTERS.forEach((e) => {
+      tl_about[id].to(e, { color: '#ffffff', filter: 'blur(0)' })
+   })
 }
 
 const ABOUT_TEXT_M = document.querySelector('.about-text-m');
@@ -231,21 +219,8 @@ if (MIN1024.matches && PARTNERS_TEXT) {
    })
 
    const PARTNERS_LETTERS = PARTNERS_TEXT.querySelectorAll(`.letter`);
-   if (!isSafari) {
-      PARTNERS_LETTERS && PARTNERS_LETTERS.forEach((e) => {
-         tl_mpt.to(e, { color: 'var(--color)', filter: 'blur(0)' })
-      })
-   } else {
-      if (PARTNERS_LETTERS.length > 0) {
-         tl_mpt.to(PARTNERS_LETTERS, {
-            color: 'var(--color)',
-            filter: 'blur(0px)',
-            webkitFilter: 'blur(0px)',
-            force3D: true,
-            stagger: 0.05
-         });
-      }
-   }
-
+   PARTNERS_LETTERS && PARTNERS_LETTERS.forEach((e) => {
+      tl_mpt.to(e, { color: 'var(--color)', filter: 'blur(0)' })
+   })
 }
 
