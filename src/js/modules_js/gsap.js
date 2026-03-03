@@ -1,8 +1,5 @@
 // gsap
 
-const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-console.log('is safari - ', isSafari);
-
 function wrapLetters(element) {
    function wrapper(element) {
       const words = element.innerHTML.trim().split(' ');
@@ -46,7 +43,7 @@ function initScroll(s, c) {
       wrapper: s,
       content: c,
       smooth: 1,
-      // normalizeScroll: isPC ? true : false,
+      normalizeScroll: isPC ? true : false,
       // smoothTouch: 0.1, // Уменьшить для мобильных
       // ignoreMobileResize: true,
    })
@@ -85,13 +82,13 @@ function addAboutAnimation(element, id, trigger, scroller) {
             progress[id].start = false;
             progress[id].end = false;
          },
-         markers: {
-            startColor: "green",
-            endColor: "red",
-            fontSize: "40px",
-            fontWeight: "bold",
-            indent: 20
-         },
+         // markers: {
+         //    startColor: "green",
+         //    endColor: "red",
+         //    fontSize: "40px",
+         //    fontWeight: "bold",
+         //    indent: 20
+         // },
       },
    })
    const ABOUT_LETTERS = element.querySelectorAll(`.letter`);

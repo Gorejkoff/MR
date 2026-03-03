@@ -29,6 +29,9 @@ let active_section;
 DOC.body.style.setProperty('--tr-time', TRANSITION_TIME / 1000 + 's')
 
 // variables
+
+// const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+// console.log('is safari - ', isSafari);
 const SECTIONS = DOC.querySelectorAll('.section');
 const COOKIE = DOC.querySelector('.cookie');
 const HEADER = DOC.getElementById('header');
@@ -307,7 +310,7 @@ function actionsPrev() {
 // wheel для смены экранов
 if (isPC && MIN1024.matches) {
    // console.log('wheel active');
-   window.addEventListener('wheel', function (event) {
+   document.addEventListener('wheel', function (event) {
       if (wheelDisabled) {
          event.preventDefault();
          return;
@@ -769,9 +772,6 @@ function moving(e, order, addressMove) {
 
 // gsap
 
-const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-console.log('is safari - ', isSafari);
-
 function wrapLetters(element) {
    function wrapper(element) {
       const words = element.innerHTML.trim().split(' ');
@@ -815,7 +815,7 @@ function initScroll(s, c) {
       wrapper: s,
       content: c,
       smooth: 1,
-      // normalizeScroll: isPC ? true : false,
+      normalizeScroll: isPC ? true : false,
       // smoothTouch: 0.1, // Уменьшить для мобильных
       // ignoreMobileResize: true,
    })
@@ -854,13 +854,13 @@ function addAboutAnimation(element, id, trigger, scroller) {
             progress[id].start = false;
             progress[id].end = false;
          },
-         markers: {
-            startColor: "green",
-            endColor: "red",
-            fontSize: "40px",
-            fontWeight: "bold",
-            indent: 20
-         },
+         // markers: {
+         //    startColor: "green",
+         //    endColor: "red",
+         //    fontSize: "40px",
+         //    fontWeight: "bold",
+         //    indent: 20
+         // },
       },
    })
    const ABOUT_LETTERS = element.querySelectorAll(`.letter`);
