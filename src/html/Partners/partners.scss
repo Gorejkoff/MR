@@ -9,6 +9,8 @@
       height: var(--vh);
    }
 
+   &__container {}
+
    &__body {
       display: flex;
       flex-direction: column;
@@ -17,8 +19,6 @@
    }
 
    &__text {
-      display: inline-block;
-      will-change: filter, color;
       --color: #ffffff;
       font-size: 26px;
       line-height: 100%;

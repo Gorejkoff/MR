@@ -1440,8 +1440,7 @@ body.remont-branch {
 }
 
 .about__text .letter {
-  display: inline-block;
-  will-change: filter, color;
+  will-change: color;
   -webkit-transform: translateZ(0);
           transform: translateZ(0);
   color: #5D606E;
@@ -2091,8 +2090,6 @@ body.remont-branch {
 }
 
 .partners__text {
-  display: inline-block;
-  will-change: filter, color;
   --color: #ffffff;
   font-size: 26px;
   line-height: 100%;

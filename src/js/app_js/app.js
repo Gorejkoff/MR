@@ -30,8 +30,8 @@ DOC.body.style.setProperty('--tr-time', TRANSITION_TIME / 1000 + 's')
 
 // variables
 
-// const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-// console.log('is safari - ', isSafari);
+const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+console.log('is safari - ', isSafari);
 const SECTIONS = DOC.querySelectorAll('.section');
 const COOKIE = DOC.querySelector('.cookie');
 const HEADER = DOC.getElementById('header');

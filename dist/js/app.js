@@ -30,8 +30,8 @@ DOC.body.style.setProperty('--tr-time', TRANSITION_TIME / 1000 + 's')
 
 // variables
 
-// const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-// console.log('is safari - ', isSafari);
+const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+console.log('is safari - ', isSafari);
 const SECTIONS = DOC.querySelectorAll('.section');
 const COOKIE = DOC.querySelector('.cookie');
 const HEADER = DOC.getElementById('header');
@@ -815,7 +815,7 @@ function initScroll(s, c) {
       wrapper: s,
       content: c,
       smooth: 1,
-      normalizeScroll: isPC ? true : false,
+      normalizeScroll: isSafari ? true : false,
       // smoothTouch: 0.1, // Уменьшить для мобильных
       // ignoreMobileResize: true,
    })
@@ -841,7 +841,7 @@ function addAboutAnimation(element, id, trigger, scroller) {
          // pinType: "transform",
          ignoreMobileResize: true,
          onUpdate: (self) => {
-            console.log(self.progress.toFixed(4));
+            // console.log(self.progress.toFixed(4));
             if (!MIN1024.matches) return;
             if (Number(self.progress.toFixed(4)) == 0 && active_section === id) {
                progress[id].start = true;
