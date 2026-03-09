@@ -326,9 +326,14 @@ const delta = (() => {
    if (isMac) return 80;           // Другие браузеры на Mac
    return 100;                     // Windows / остальные
 })();
-console.log(delta);
 
-// wheel для смены экранов  // !!!!!!!
+function disableSwiper() {
+   if (!SWIPERS[active_section]) return;
+   SWIPERS[active_section].swiper.mousewheel.disable();
+   setTimeout(() => { SWIPERS[active_section].swiper.mousewheel.enable() }, 1000)
+};
+
+// wheel для смены экранов  // !!!!!!!1111111111111111111111
 if (isPC && MIN1024.matches) {
    document.addEventListener('wheel', function (event) {
       console.log(event.deltaY);
@@ -338,10 +343,12 @@ if (isPC && MIN1024.matches) {
          return;
       }
       if (Math.abs(event.deltaY) < delta) {
+         disableSwiper();
          event.preventDefault();
          return
       }; // игнорируем инерцию (затухание дэльты)
       disabledWheel();
+      disableSwiper();
       if (!modalIsOpen && event.deltaY < 0) { actionsPrev() }
       if (!modalIsOpen && event.deltaY > 0) { actionsNext() }
    }, { passive: false });
