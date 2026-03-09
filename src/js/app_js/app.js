@@ -244,7 +244,7 @@ function actionsNext() {
       change_RL(FEATURES_R)
    }
    if (active_section == 'features_m' && progress.features_m.end) {
-      changeGsap_RL(SERVICES_M, '#services_ms', '#services_mc');
+      change_RL(SERVICES_M);
    }
    if (active_section == 'features_r' && progress.features_r.end) {
       change_RL(STAGES_R)

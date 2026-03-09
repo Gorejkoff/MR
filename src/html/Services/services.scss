@@ -167,4 +167,10 @@
          height: 48vh;
       }
    }
+
+   .swiper-wrapper {
+      @media (max-width:1023.98px) {
+         flex-direction: column;
+      }
+   }
 }

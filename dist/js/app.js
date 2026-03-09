@@ -244,7 +244,7 @@ function actionsNext() {
       change_RL(FEATURES_R)
    }
    if (active_section == 'features_m' && progress.features_m.end) {
-      changeGsap_RL(SERVICES_M, '#services_ms', '#services_mc');
+      change_RL(SERVICES_M);
    }
    if (active_section == 'features_r' && progress.features_r.end) {
       change_RL(STAGES_R)
@@ -921,7 +921,7 @@ if (ABOUT_TEXT_R) addAboutAnimation(ABOUT_TEXT_R, 'about_r', '.trigger-about-r',
 //    if (!isPC && MIN1024.matches) tl_services.services_m.to(TRIGGER_LIST, { y: (TRIGGER_LIST.offsetHeight - SERVICES_TITLE.offsetHeight) * -1, ease: 'linear' })
 // }
 
-if (!MIN1024.matches && SERVICES_TITLE) {
+if (!MIN1024.matches) {
    gsap.utils.toArray(".services__card").forEach((item, index) => {
       gsap.from(item, {
          x: index % 2 === 0 ? '100vw' : '-100vw',
