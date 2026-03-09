@@ -819,7 +819,9 @@ function initScroll(s, c) {
       wrapper: s,
       content: c,
       smooth: 1,
-      normalizeScroll: isSafari ? true : false,
+      smoothTouch: 0.1,
+      touchSpeed: 0.5,
+      normalizeScroll: isPC ? true : false,
       // smoothTouch: 0.1, // Уменьшить для мобильных
       // ignoreMobileResize: true,
    })
