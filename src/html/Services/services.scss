@@ -161,4 +161,10 @@
          max-width: 60%;
       }
    }
+
+   .swiper {
+      @media (min-width:1024px) {
+         height: 48vh;
+      }
+   }
 }

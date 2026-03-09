@@ -104,44 +104,44 @@ if (ABOUT_TEXT_R) addAboutAnimation(ABOUT_TEXT_R, 'about_r', '.trigger-about-r',
 
 
 // services_m
-const SERVICES_TITLE = document.querySelector('.services__title');
-const TRIGGER_LIST = document.querySelector('.trigger-services-list');
-if (MIN1024.matches && SERVICES_TITLE && TRIGGER_LIST) {
-   tl_services.services_m = gsap.timeline({
-      scrollTrigger: {
-         trigger: '.services-trigger',
-         scroller: "#services_ms",
-         start: "0% 0%",
-         end: isPC ? '100% 100%' : '100% 99%',
-         pin: '.services__title',
-         pinType: isPC ? "transform" : "fixed",
-         pinSpacing: false,
-         scrub: true,
-         // markers: {
-         //    startColor: "green",
-         //    endColor: "red",
-         //    fontSize: "40px",
-         //    fontWeight: "bold",
-         //    indent: 20
-         // },
-         onUpdate: (self) => {
-            // console.log(Number(self.progress.toFixed(5)));
-            if (!MIN1024.matches) return;
-            if (Number(self.progress.toFixed(5)) <= 0.01 && active_section === 'services_m') {
-               progress.services_m.start = true;
-               return;
-            }
-            if (Number(self.progress.toFixed(5)) >= 0.98 && active_section === 'services_m') {
-               progress.services_m.end = true;
-               return;
-            }
-            progress.services_m.start = false;
-            progress.services_m.end = false;
-         },
-      },
-   })
-   if (!isPC && MIN1024.matches) tl_services.services_m.to(TRIGGER_LIST, { y: (TRIGGER_LIST.offsetHeight - SERVICES_TITLE.offsetHeight) * -1, ease: 'linear' })
-}
+// const SERVICES_TITLE = document.querySelector('.services__title');
+// const TRIGGER_LIST = document.querySelector('.trigger-services-list');
+// if (MIN1024.matches && SERVICES_TITLE && TRIGGER_LIST) {
+//    tl_services.services_m = gsap.timeline({
+//       scrollTrigger: {
+//          trigger: '.services-trigger',
+//          scroller: "#services_ms",
+//          start: "0% 0%",
+//          end: isPC ? '100% 100%' : '100% 99%',
+//          pin: '.services__title',
+//          pinType: isPC ? "transform" : "fixed",
+//          pinSpacing: false,
+//          scrub: true,
+//          // markers: {
+//          //    startColor: "green",
+//          //    endColor: "red",
+//          //    fontSize: "40px",
+//          //    fontWeight: "bold",
+//          //    indent: 20
+//          // },
+//          onUpdate: (self) => {
+//             // console.log(Number(self.progress.toFixed(5)));
+//             if (!MIN1024.matches) return;
+//             if (Number(self.progress.toFixed(5)) <= 0.01 && active_section === 'services_m') {
+//                progress.services_m.start = true;
+//                return;
+//             }
+//             if (Number(self.progress.toFixed(5)) >= 0.98 && active_section === 'services_m') {
+//                progress.services_m.end = true;
+//                return;
+//             }
+//             progress.services_m.start = false;
+//             progress.services_m.end = false;
+//          },
+//       },
+//    })
+//    if (!isPC && MIN1024.matches) tl_services.services_m.to(TRIGGER_LIST, { y: (TRIGGER_LIST.offsetHeight - SERVICES_TITLE.offsetHeight) * -1, ease: 'linear' })
+// }
 
 if (!MIN1024.matches && SERVICES_TITLE) {
    gsap.utils.toArray(".services__card").forEach((item, index) => {

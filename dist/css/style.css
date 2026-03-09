@@ -4365,6 +4365,10 @@ body.remont-branch {
     max-width: 60%;
   }
 
+  .services .swiper {
+    height: 48vh;
+  }
+
   .projects {
     position: fixed;
     top: 0;

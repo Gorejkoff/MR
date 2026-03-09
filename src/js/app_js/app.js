@@ -84,6 +84,10 @@ const SWIPERS = {
    stages_r: {
       swiper: {},
       progress: 0
+   },
+   services_m: {
+      swiper: {},
+      progress: 0
    }
 }
 // time line gsap
@@ -91,9 +95,9 @@ const tl_about = {
    about_m: {},
    about_r: {}
 }
-const tl_services = {
-   services_m: {}
-}
+// const tl_services = {
+//    services_m: {}
+// }
 // для глобального отслеживания состояния начальной и конечной позиции прогресса
 const progress = {
    about_m: {
@@ -195,7 +199,7 @@ DOC.documentElement.addEventListener("click", (event) => {
    if (MIN1024.matches && event.target.closest('.to-about-r')) { changeGsap_RL(ABOUT_R, '#about_rs', '#about_rc') }
    if (MIN1024.matches && event.target.closest('.to-features-m')) { change_RL(FEATURES_M) }
    if (MIN1024.matches && event.target.closest('.to-features-r')) { change_RL(FEATURES_R) }
-   if (MIN1024.matches && event.target.closest('.to-services-m')) { changeGsap_RL(SERVICES_M, '#services_ms', '#services_mc') }
+   if (MIN1024.matches && event.target.closest('.to-services-m')) { change_RL(SERVICES_M) }
    if (MIN1024.matches && event.target.closest('.to-projects-m')) { change_RL(PROJECTS_M) }
    if (MIN1024.matches && event.target.closest('.to-projects-r')) { change_RL(PROJECTS_R) }
    if (MIN1024.matches && event.target.closest('.to-partners-m')) { changeGsap_RL(PARTNERS_M, '#partners_ms', '#partners_mc') }

@@ -84,6 +84,10 @@ const SWIPERS = {
    stages_r: {
       swiper: {},
       progress: 0
+   },
+   services_m: {
+      swiper: {},
+      progress: 0
    }
 }
 // time line gsap
@@ -91,9 +95,9 @@ const tl_about = {
    about_m: {},
    about_r: {}
 }
-const tl_services = {
-   services_m: {}
-}
+// const tl_services = {
+//    services_m: {}
+// }
 // для глобального отслеживания состояния начальной и конечной позиции прогресса
 const progress = {
    about_m: {
@@ -195,7 +199,7 @@ DOC.documentElement.addEventListener("click", (event) => {
    if (MIN1024.matches && event.target.closest('.to-about-r')) { changeGsap_RL(ABOUT_R, '#about_rs', '#about_rc') }
    if (MIN1024.matches && event.target.closest('.to-features-m')) { change_RL(FEATURES_M) }
    if (MIN1024.matches && event.target.closest('.to-features-r')) { change_RL(FEATURES_R) }
-   if (MIN1024.matches && event.target.closest('.to-services-m')) { changeGsap_RL(SERVICES_M, '#services_ms', '#services_mc') }
+   if (MIN1024.matches && event.target.closest('.to-services-m')) { change_RL(SERVICES_M) }
    if (MIN1024.matches && event.target.closest('.to-projects-m')) { change_RL(PROJECTS_M) }
    if (MIN1024.matches && event.target.closest('.to-projects-r')) { change_RL(PROJECTS_R) }
    if (MIN1024.matches && event.target.closest('.to-partners-m')) { changeGsap_RL(PARTNERS_M, '#partners_ms', '#partners_mc') }
@@ -876,44 +880,44 @@ if (ABOUT_TEXT_R) addAboutAnimation(ABOUT_TEXT_R, 'about_r', '.trigger-about-r',
 
 
 // services_m
-const SERVICES_TITLE = document.querySelector('.services__title');
-const TRIGGER_LIST = document.querySelector('.trigger-services-list');
-if (MIN1024.matches && SERVICES_TITLE && TRIGGER_LIST) {
-   tl_services.services_m = gsap.timeline({
-      scrollTrigger: {
-         trigger: '.services-trigger',
-         scroller: "#services_ms",
-         start: "0% 0%",
-         end: isPC ? '100% 100%' : '100% 99%',
-         pin: '.services__title',
-         pinType: isPC ? "transform" : "fixed",
-         pinSpacing: false,
-         scrub: true,
-         // markers: {
-         //    startColor: "green",
-         //    endColor: "red",
-         //    fontSize: "40px",
-         //    fontWeight: "bold",
-         //    indent: 20
-         // },
-         onUpdate: (self) => {
-            // console.log(Number(self.progress.toFixed(5)));
-            if (!MIN1024.matches) return;
-            if (Number(self.progress.toFixed(5)) <= 0.01 && active_section === 'services_m') {
-               progress.services_m.start = true;
-               return;
-            }
-            if (Number(self.progress.toFixed(5)) >= 0.98 && active_section === 'services_m') {
-               progress.services_m.end = true;
-               return;
-            }
-            progress.services_m.start = false;
-            progress.services_m.end = false;
-         },
-      },
-   })
-   if (!isPC && MIN1024.matches) tl_services.services_m.to(TRIGGER_LIST, { y: (TRIGGER_LIST.offsetHeight - SERVICES_TITLE.offsetHeight) * -1, ease: 'linear' })
-}
+// const SERVICES_TITLE = document.querySelector('.services__title');
+// const TRIGGER_LIST = document.querySelector('.trigger-services-list');
+// if (MIN1024.matches && SERVICES_TITLE && TRIGGER_LIST) {
+//    tl_services.services_m = gsap.timeline({
+//       scrollTrigger: {
+//          trigger: '.services-trigger',
+//          scroller: "#services_ms",
+//          start: "0% 0%",
+//          end: isPC ? '100% 100%' : '100% 99%',
+//          pin: '.services__title',
+//          pinType: isPC ? "transform" : "fixed",
+//          pinSpacing: false,
+//          scrub: true,
+//          // markers: {
+//          //    startColor: "green",
+//          //    endColor: "red",
+//          //    fontSize: "40px",
+//          //    fontWeight: "bold",
+//          //    indent: 20
+//          // },
+//          onUpdate: (self) => {
+//             // console.log(Number(self.progress.toFixed(5)));
+//             if (!MIN1024.matches) return;
+//             if (Number(self.progress.toFixed(5)) <= 0.01 && active_section === 'services_m') {
+//                progress.services_m.start = true;
+//                return;
+//             }
+//             if (Number(self.progress.toFixed(5)) >= 0.98 && active_section === 'services_m') {
+//                progress.services_m.end = true;
+//                return;
+//             }
+//             progress.services_m.start = false;
+//             progress.services_m.end = false;
+//          },
+//       },
+//    })
+//    if (!isPC && MIN1024.matches) tl_services.services_m.to(TRIGGER_LIST, { y: (TRIGGER_LIST.offsetHeight - SERVICES_TITLE.offsetHeight) * -1, ease: 'linear' })
+// }
 
 if (!MIN1024.matches && SERVICES_TITLE) {
    gsap.utils.toArray(".services__card").forEach((item, index) => {
@@ -1340,6 +1344,77 @@ function addEvensProcess(element, swiper) {
 }
 if (MIN1024.matches && STAGES_R) addSwiperFade(STAGES_R, 'stages_r');
 if (MIN1024.matches && PROCESS_R) addSwiperFade(PROCESS_R, 'process_r');
-if (MIN1024.matches && PROCESS_R) addEvensProcess(PROCESS_R, SWIPERS.process_r.swiper)
+if (MIN1024.matches && PROCESS_R) addEvensProcess(PROCESS_R, SWIPERS.process_r.swiper);
 
 
+// =========== services ===========
+function verticalSwiper(element, id) {
+   let swiperState;
+   let swiper;
+   changeStateSlider();
+   window.addEventListener('resize', () => {
+      changeStateSlider();
+   })
+   function initswiper() {
+      SWIPERS[id].swiper = new Swiper(element.querySelector('.swiper'), {
+         speed: 300,
+         slidesPerView: 1,
+         spaceBetween: 0,
+         direction: "vertical",
+         mousewheel: {
+            enabled: isPC ? true : false,
+         },
+         on: {
+            init: function () {
+               if (!MIN1024.matches) return;
+               if ((this.isBeginning == true && this.isEnd == true) == true) {
+                  progress[id].start = true;
+                  progress[id].end = true;
+                  return;
+               }
+               progress[id].start = false;
+               progress[id].end = false;
+               if (SWIPERS[id].progress == 0) {
+                  progress[id].start = true;
+               }
+               if (SWIPERS[id].progress == 1) {
+                  progress[id].end = true;
+               }
+            },
+            progress: function (swiper, progress) {
+               if (!MIN1024.matches) return;
+               SWIPERS[id].progress = progress;
+            },
+            transitionEnd: function (swiper) {
+               if (!MIN1024.matches) return;
+
+               if (SWIPERS[id].progress == 0) {
+                  progress[id].start = true;
+               }
+               if (SWIPERS[id].progress == 1) {
+                  progress[id].end = true;
+               }
+               if (SWIPERS[id].progress > 0 && SWIPERS[id].progress < 1) {
+                  progress[id].start = false;
+                  progress[id].end = false;
+               }
+            },
+         }
+      });
+   }
+   function changeStateSlider() {
+      if (MIN1024.matches) {
+         if (!swiperState) {
+            swiperState = true;
+            initswiper();
+         }
+      } else {
+         if (swiperState) {
+            swiperState = false;
+            swiper.destroy(true, true);
+         }
+      }
+   }
+}
+
+if (SERVICES_M) { verticalSwiper(SERVICES_M, 'services_m') }

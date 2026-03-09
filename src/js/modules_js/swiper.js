@@ -215,6 +215,77 @@ function addEvensProcess(element, swiper) {
 }
 if (MIN1024.matches && STAGES_R) addSwiperFade(STAGES_R, 'stages_r');
 if (MIN1024.matches && PROCESS_R) addSwiperFade(PROCESS_R, 'process_r');
-if (MIN1024.matches && PROCESS_R) addEvensProcess(PROCESS_R, SWIPERS.process_r.swiper)
+if (MIN1024.matches && PROCESS_R) addEvensProcess(PROCESS_R, SWIPERS.process_r.swiper);
 
 
+// =========== services ===========
+function verticalSwiper(element, id) {
+   let swiperState;
+   let swiper;
+   changeStateSlider();
+   window.addEventListener('resize', () => {
+      changeStateSlider();
+   })
+   function initswiper() {
+      SWIPERS[id].swiper = new Swiper(element.querySelector('.swiper'), {
+         speed: 300,
+         slidesPerView: 1,
+         spaceBetween: 0,
+         direction: "vertical",
+         mousewheel: {
+            enabled: isPC ? true : false,
+         },
+         on: {
+            init: function () {
+               if (!MIN1024.matches) return;
+               if ((this.isBeginning == true && this.isEnd == true) == true) {
+                  progress[id].start = true;
+                  progress[id].end = true;
+                  return;
+               }
+               progress[id].start = false;
+               progress[id].end = false;
+               if (SWIPERS[id].progress == 0) {
+                  progress[id].start = true;
+               }
+               if (SWIPERS[id].progress == 1) {
+                  progress[id].end = true;
+               }
+            },
+            progress: function (swiper, progress) {
+               if (!MIN1024.matches) return;
+               SWIPERS[id].progress = progress;
+            },
+            transitionEnd: function (swiper) {
+               if (!MIN1024.matches) return;
+
+               if (SWIPERS[id].progress == 0) {
+                  progress[id].start = true;
+               }
+               if (SWIPERS[id].progress == 1) {
+                  progress[id].end = true;
+               }
+               if (SWIPERS[id].progress > 0 && SWIPERS[id].progress < 1) {
+                  progress[id].start = false;
+                  progress[id].end = false;
+               }
+            },
+         }
+      });
+   }
+   function changeStateSlider() {
+      if (MIN1024.matches) {
+         if (!swiperState) {
+            swiperState = true;
+            initswiper();
+         }
+      } else {
+         if (swiperState) {
+            swiperState = false;
+            swiper.destroy(true, true);
+         }
+      }
+   }
+}
+
+if (SERVICES_M) { verticalSwiper(SERVICES_M, 'services_m') }
