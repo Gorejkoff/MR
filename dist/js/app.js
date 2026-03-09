@@ -236,6 +236,22 @@ document.addEventListener('modal:close', () => {
    touchMoveDisabled = false;
 })
 
+let lastScrollTime = 0;
+const throttleDelay = 1000; // ограничение скролла
+
+window.addEventListener('wheel', function (e) {
+   const now = Date.now();
+   if (now - lastScrollTime < throttleDelay) {
+      e.preventDefault();
+      console.log('stop');
+
+      return;
+   }
+   lastScrollTime = now;
+   console.log('scroll');
+
+}, { passive: false });
+
 function actionsNext() {
    if (active_section == 'about_m' && progress.about_m.end) {
       change_RL(FEATURES_M)
