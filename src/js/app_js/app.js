@@ -314,15 +314,30 @@ function actionsPrev() {
    }
 }
 
+const delta = (() => {
+   // Определяем браузер и ОС
+   const ua = navigator.userAgent;
+   const isFirefox = ua.includes('Firefox');
+   const isSafari = ua.includes('Safari') && !ua.includes('Chrome');
+   const isMac = /Mac|iP(hone|od|ad)/.test(navigator.platform);
+
+   if (isFirefox) return 40;      // Firefox маленькие значения
+   if (isSafari && isMac) return 20; // Safari на Mac
+   if (isMac) return 80;           // Другие браузеры на Mac
+   return 100;                     // Windows / остальные
+})();
+console.log(delta);
+
 // wheel для смены экранов  // !!!!!!!
 if (isPC && MIN1024.matches) {
    document.addEventListener('wheel', function (event) {
+      console.log(event.deltaY);
       if (wheelDisabled) {
          console.log('stop');
          event.preventDefault();
          return;
       }
-      if (Math.abs(event.deltaY) < 120) {
+      if (Math.abs(event.deltaY) < delta) {
          event.preventDefault();
          return
       }; // игнорируем инерцию (затухание дэльты)
