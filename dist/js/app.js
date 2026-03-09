@@ -322,7 +322,10 @@ if (isPC && MIN1024.matches) {
          event.preventDefault();
          return;
       }
-      if (Math.abs(event.deltaY) < 120) return; // игнорируем инерцию и слабые события
+      if (Math.abs(event.deltaY) < 120) {
+         event.preventDefault();
+         return
+      }; // игнорируем инерцию (затухание дэльты)
       disabledWheel();
       if (!modalIsOpen && event.deltaY < 0) { actionsPrev() }
       if (!modalIsOpen && event.deltaY > 0) { actionsNext() }
