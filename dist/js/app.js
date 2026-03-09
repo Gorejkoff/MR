@@ -326,30 +326,37 @@ const delta = (() => {
    if (isMac) return 80;           // Другие браузеры на Mac
    return 100;                     // Windows / остальные
 })();
+console.log('delta - ', delta);
+
 
 let swiperTimer = null;
-function disableSwiper() {
+function disableSwiper(time) {
    if (!SWIPERS[active_section]) return;
    SWIPERS[active_section].swiper.mousewheel.disable();
-   swiperTimer = setTimeout(() => { SWIPERS[active_section].swiper.mousewheel.enable() }, 100)
+   clearTimeout(swiperTimer);
+   swiperTimer = setTimeout(() => { SWIPERS[active_section].swiper.mousewheel.enable() }, time)
 };
 
 // wheel для смены экранов  // !!!!!!!1111111111111111111111
 if (isPC && MIN1024.matches) {
    document.addEventListener('wheel', function (event) {
       console.log(event.deltaY);
+      console.log(swiperTimer);
+
       if (wheelDisabled) {
          console.log('stop');
          event.preventDefault();
          return;
       }
       if (Math.abs(event.deltaY) < delta) {
-         disableSwiper();
+         if (swiperTimer < 100) {
+            disableSwiper(100);
+         }
          event.preventDefault();
          return
       }; // игнорируем инерцию (затухание дэльты)
       disabledWheel();
-      disableSwiper();
+      disableSwiper(1000);
       if (!modalIsOpen && event.deltaY < 0) { actionsPrev() }
       if (!modalIsOpen && event.deltaY > 0) { actionsNext() }
    }, { passive: false });
