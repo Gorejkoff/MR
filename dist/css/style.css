@@ -1762,6 +1762,7 @@ body.remont-branch {
 }
 
 .services {
+  position: relative;
   padding-top: 150px;
   padding-bottom: 150px;
   width: 100%;
@@ -1876,6 +1877,15 @@ body.remont-branch {
   z-index: 1;
   color: #ffffff;
   font-size: 20px;
+}
+
+.services .swiper-wrapper::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
 
 .projects {

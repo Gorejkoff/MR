@@ -241,6 +241,9 @@ const throttleDelay = 1000; // ограничение скролла
 
 window.addEventListener('wheel', function (e) {
    const now = Date.now();
+   const delta = e.deltaY;
+   console.log(delta);
+
    if (now - lastScrollTime < throttleDelay) {
       e.preventDefault();
       console.log('stop');
@@ -857,7 +860,7 @@ function addAboutAnimation(element, id, trigger, scroller) {
          end: `bottom top`,
          pin: true,
          scrub: true,
-         // pinType: isPC ? "transform" : "fixed",
+         pinType: isPC ? "transform" : "fixed",
          // pinType: "transform",
          ignoreMobileResize: true,
          onUpdate: (self) => {
@@ -1206,7 +1209,6 @@ function initSwiperProject(element, id) {
       speed: 400,
       slidesPerView: MIN1024.matches ? 2.5 : 1.1,
       grabCursor: true,
-
       mousewheel: {
          enabled: true,
          eventsTarget: '#' + id,

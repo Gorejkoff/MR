@@ -241,6 +241,9 @@ const throttleDelay = 1000; // ограничение скролла
 
 window.addEventListener('wheel', function (e) {
    const now = Date.now();
+   const delta = e.deltaY;
+   console.log(delta);
+
    if (now - lastScrollTime < throttleDelay) {
       e.preventDefault();
       console.log('stop');

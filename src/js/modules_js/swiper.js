@@ -61,7 +61,6 @@ function initSwiperProject(element, id) {
       speed: 400,
       slidesPerView: MIN1024.matches ? 2.5 : 1.1,
       grabCursor: true,
-
       mousewheel: {
          enabled: true,
          eventsTarget: '#' + id,

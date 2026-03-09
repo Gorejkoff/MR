@@ -65,7 +65,7 @@ function addAboutAnimation(element, id, trigger, scroller) {
          end: `bottom top`,
          pin: true,
          scrub: true,
-         // pinType: isPC ? "transform" : "fixed",
+         pinType: isPC ? "transform" : "fixed",
          // pinType: "transform",
          ignoreMobileResize: true,
          onUpdate: (self) => {
