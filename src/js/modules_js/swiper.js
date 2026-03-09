@@ -282,7 +282,7 @@ function verticalSwiper(element, id) {
       } else {
          if (swiperState) {
             swiperState = false;
-            swiper.destroy(true, true);
+            SWIPERS[id].swiper.destroy(true, true);
          }
       }
    }

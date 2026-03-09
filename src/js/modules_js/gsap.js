@@ -42,9 +42,7 @@ function initScroll(s, c) {
    smoother = ScrollSmoother.create({
       wrapper: s,
       content: c,
-      smooth: 1,
-      smoothTouch: 0.1,
-      touchSpeed: 0.5,
+      smooth: isPC ? 1 : 0,
       normalizeScroll: isPC ? true : false,
       // smoothTouch: 0.1, // Уменьшить для мобильных
       // ignoreMobileResize: true,
