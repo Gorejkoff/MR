@@ -327,10 +327,11 @@ const delta = (() => {
    return 100;                     // Windows / остальные
 })();
 
+let swiperTimer = null;
 function disableSwiper() {
    if (!SWIPERS[active_section]) return;
    SWIPERS[active_section].swiper.mousewheel.disable();
-   setTimeout(() => { SWIPERS[active_section].swiper.mousewheel.enable() }, 1000)
+   swiperTimer = setTimeout(() => { SWIPERS[active_section].swiper.mousewheel.enable() }, 100)
 };
 
 // wheel для смены экранов  // !!!!!!!1111111111111111111111
