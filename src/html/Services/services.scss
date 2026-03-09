@@ -44,6 +44,7 @@
       z-index: 2;
       // backdrop-filter: blur(5px);
       background: linear-gradient(#a9abb5 60%, transparent 90%);
+      pointer-events: none;
 
       @media (min-width:1024px) {
          margin-bottom: 0;
@@ -168,10 +169,6 @@
          height: 48vh;
       }
 
-
-   }
-
-   .swiper-wrapper {
       &::after {
          content: '';
          position: absolute;
@@ -180,6 +177,11 @@
          width: 100%;
          height: 100%;
       }
+
+   }
+
+   .swiper-wrapper {
+
 
       @media (max-width:1023.98px) {
          flex-direction: column;

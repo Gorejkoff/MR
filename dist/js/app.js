@@ -54,7 +54,7 @@ const STAGES_R = DOC.getElementById('stages_r');
 const PROCESS_R = DOC.getElementById('process_r');
 const FORM_R = DOC.getElementById('form_r');
 const FORM_M = DOC.getElementById('form_m');
-let wheelDisabled = true;
+let wheelDisabled = false;
 let modalIsOpen = false;
 let touchMoveDisabled = false;
 let smoother = undefined;
@@ -239,22 +239,6 @@ document.addEventListener('modal:close', () => {
 let lastScrollTime = 0;
 const throttleDelay = 1000; // ограничение скролла
 
-window.addEventListener('wheel', function (e) {
-   const now = Date.now();
-   const delta = e.deltaY;
-   console.log(delta);
-
-   if (now - lastScrollTime < throttleDelay) {
-      e.preventDefault();
-      console.log('stop');
-
-      return;
-   }
-   lastScrollTime = now;
-   console.log('scroll');
-
-}, { passive: false });
-
 function actionsNext() {
    if (active_section == 'about_m' && progress.about_m.end) {
       change_RL(FEATURES_M)
@@ -330,14 +314,16 @@ function actionsPrev() {
    }
 }
 
-// wheel для смены экранов
+// wheel для смены экранов  // !!!!!!!
 if (isPC && MIN1024.matches) {
-   // console.log('wheel active');
    document.addEventListener('wheel', function (event) {
       if (wheelDisabled) {
+         console.log('stop');
          event.preventDefault();
          return;
       }
+      if (Math.abs(event.deltaY) < 120) return; // игнорируем инерцию и слабые события
+      disabledWheel();
       if (!modalIsOpen && event.deltaY < 0) { actionsPrev() }
       if (!modalIsOpen && event.deltaY > 0) { actionsNext() }
    }, { passive: false });
@@ -471,11 +457,13 @@ function toggleMenu() {
 }
 // пауза whill
 function disabledWheel() {
+   if (wheelDisabled) return;
    wheelDisabled = true;
    setTimeout(() => { wheelDisabled = false }, TRANSITION_TIME * 1.2)
 }
 // пауза thouch move
 function disabledTouchMove() {
+   if (touchMoveDisabled) return;
    touchMoveDisabled = true;
    setTimeout(() => { touchMoveDisabled = false }, TRANSITION_TIME * 1.2)
 }

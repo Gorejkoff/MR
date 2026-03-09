@@ -1801,6 +1801,7 @@ body.remont-branch {
   z-index: 2;
   background: -webkit-gradient(linear, left top, left bottom, color-stop(60%, #a9abb5), color-stop(90%, transparent));
   background: linear-gradient(#a9abb5 60%, transparent 90%);
+  pointer-events: none;
 }
 
 .services__title span {
@@ -1879,7 +1880,7 @@ body.remont-branch {
   font-size: 20px;
 }
 
-.services .swiper-wrapper::after {
+.services .swiper::after {
   content: "";
   position: absolute;
   top: 0;
