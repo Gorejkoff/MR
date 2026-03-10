@@ -356,7 +356,7 @@ if (isPC && MIN1024.matches) {
          return
       }; // игнорируем инерцию (затухание дэльты)
       disabledWheel();
-      disableSwiper(1000);
+      disableSwiper(700);
       if (!modalIsOpen && event.deltaY < 0) { actionsPrev() }
       if (!modalIsOpen && event.deltaY > 0) { actionsNext() }
    }, { passive: false });
