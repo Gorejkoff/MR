@@ -354,26 +354,29 @@ let maxDelta = 0;
 let lastDelta = 0;
 let isTracking = false;
 let isTrackingShort = false;
-function offWeel() {
-   console.log('disabled');
-}
+let wheelDisabledDelta = false;
 
 function runWeel() {
-   console.log('active');
+   swiperIteration(true);
+   isTrackingShort = false;
+   maxDelta = 0;
+   console.log('on');
+   mainTrackingTime = null;
 }
 
-let wheelDisabledDelta = false;
-const timeDelta = 700;
-
-function stopWeel() {
-   wheelDisabledDelta = true;
-}
 
 let trackingOff = null;
 let trackingShortTime = null;
-
+let mainTrackingTime = null;
 if (isPC && MIN1024.matches) {
    document.addEventListener('wheel', function (event) {
+
+      if (!wheelDisabled && !modalIsOpen && !isTracking && !isTrackingShort) {
+         if (event.deltaY < 0) { actionsPrev() }
+         if (event.deltaY > 0) { actionsNext() }
+      }
+
+
 
       if (!isTracking && !isTrackingShort) {
          isTracking = true;
@@ -384,12 +387,11 @@ if (isPC && MIN1024.matches) {
             console.log('tracking off');
             isTracking = false;
             isTrackingShort = true;
-            trackingShortTime = setTimeout(() => {
-               swiperIteration(true);
-               isTrackingShort = false;
-               console.log('tracking on');
-            }, 200)
-         }, 500)
+            trackingShortTime = setTimeout(() => { runWeel() }, 200)
+         }, 500);
+         mainTrackingTime = setTimeout(() => {
+            runWeel();
+         }, 2500)
       }
 
 
@@ -397,39 +399,18 @@ if (isPC && MIN1024.matches) {
          console.log(Math.abs(event.deltaY), ' --- ', maxDelta);
          if (Math.abs(event.deltaY) < maxDelta) {
             clearTimeout(trackingShortTime);
-            trackingShortTime = setTimeout(() => {
-               swiperIteration(true);
-               isTrackingShort = false;
-               maxDelta = 0;
-               console.log('tracking on');
-            }, 200)
+            trackingShortTime = setTimeout(() => { runWeel() }, 200)
             console.log("stop delta < maxDelta");
          } else {
             isTrackingShort = false;
             clearTimeout(trackingShortTime);
-            swiperIteration(true);
-            maxDelta = 0;
-            console.log('tracking on');
+            runWeel()
          }
       }
-
-
-      if (!wheelDisabled && !modalIsOpen && event.deltaY < 0) { actionsPrev() }
-      if (!wheelDisabled && !modalIsOpen && event.deltaY > 0) { actionsNext() }
-
-
-      //!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-
-
 
       if (isTracking) {
          maxDelta = Math.max(Math.abs(event.deltaY), maxDelta, 10);
       }
-
-
-      //!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
 
    }, { passive: false });
 }
