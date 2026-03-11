@@ -64,6 +64,7 @@ let lastDelta = 0;
 let isTracking = false;
 let isTrackingShort = false;
 let wheelDisabledDelta = false;
+let stateChange = true;
 
 // слайдеры и их прогресс
 const SWIPERS = {
@@ -244,8 +245,9 @@ document.addEventListener('modal:close', () => {
 
 let lastScrollTime = 0;
 const throttleDelay = 1000; // ограничение скролла
+let stopSwipe = false;
 
-function actionsNext() {
+function actionsNext(props) {
    if (active_section == 'about_m' && progress.about_m.end) {
       change_RL(FEATURES_M)
    }
@@ -273,14 +275,19 @@ function actionsNext() {
    if (active_section == 'partners_m' && progress.partners_m.end) {
       change_RL(CONTACTS_M)
    }
-
    if (active_section == 'process_r' && progress.process_r.end) {
-      change_RL(CONTACTS_R)
+      change_RL(CONTACTS_R);
+   }
+   if (active_section == 'process_r' && stateChange && props === 'v') {
+      SWIPERS.process_r.swiper.slideNext()
+   }
+   if (active_section == 'stages_r' && stateChange && props === 'v') {
+      SWIPERS.stages_r.swiper.slideNext();
    }
 }
 
 
-function actionsPrev() {
+function actionsPrev(props) {
    if (active_section == 'about_m' && progress.about_m.start) {
       prevFirst(FIRST_M)
    }
@@ -296,6 +303,7 @@ function actionsPrev() {
    if (active_section == 'stages_r' && progress.stages_r.start) {
       change_LR(FEATURES_R)
    }
+
    if (active_section == 'projects_m' && progress.projects_m.start) {
       changeGsap_LR(SERVICES_M, '#services_ms', '#services_mc')
    }
@@ -308,15 +316,20 @@ function actionsPrev() {
    if (active_section == 'partners_m' && progress.partners_m.start) {
       change_LR(PROJECTS_M)
    }
-
    if (active_section == 'process_r' && progress.process_r.start) {
-      change_LR(PROJECTS_R)
+      change_LR(PROJECTS_R);
    }
    if (active_section == 'contacts_r') {
       change_LR(PROCESS_R);
    }
    if (active_section == 'contacts_m') {
       changeGsap_LR(PARTNERS_M, '#partners_ms', '#partners_mc');
+   }
+   if (active_section == 'stages_r' && stateChange && props === 'v') {
+      SWIPERS.stages_r.swiper.slidePrev()
+   }
+   if (active_section == 'process_r' && stateChange && props === 'v') {
+      SWIPERS.process_r.swiper.slidePrev()
    }
 }
 
@@ -354,7 +367,6 @@ function disabledTouchMove() {
 
 
 // wheel для смены экранов
-
 
 function runWeel() {
    swiperIteration(true);
@@ -476,11 +488,11 @@ if (!isPC && MIN1024.matches) {
    }
 
    function onSwipeUp() {
-      actionsNext()
+      actionsNext('v')
    }
 
    function onSwipeDown() {
-      actionsPrev()
+      actionsPrev('v')
    }
 }
 
@@ -619,6 +631,8 @@ function prevFirst(element) {
 }
 
 function changeGsap_LR(element, s, c) {
+   stateChange = false;
+   setTimeout(() => { stateChange = true }, 1600)
    disabledWheel();
    setTimeout(() => {
       initScroll(s, c);
@@ -628,6 +642,8 @@ function changeGsap_LR(element, s, c) {
    setTimeout(() => { if (isPC && smoother) smoother.paused(false) }, TRANSITION_TIME)
 }
 function changeGsap_RL(element, s, c) {
+   stateChange = false;
+   setTimeout(() => { stateChange = true }, 1600)
    disabledWheel();
    setTimeout(() => {
       initScroll(s, c);
@@ -637,6 +653,8 @@ function changeGsap_RL(element, s, c) {
    setTimeout(() => { if (isPC && smoother) smoother.paused(false) }, TRANSITION_TIME)
 }
 function change_LR(element) {
+   stateChange = false;
+   setTimeout(() => { stateChange = true }, 1600)
    if (isPC && MIN1024.matches) disabledWheel();
    if (!isPC && MIN1024.matches) disabledTouchMove();
    hideSections_R();
@@ -644,6 +662,8 @@ function change_LR(element) {
    showSection_LR(element);
 }
 function change_RL(element) {
+   stateChange = false;
+   setTimeout(() => { stateChange = true }, 1600)
    if (isPC && MIN1024.matches) disabledWheel();
    if (!isPC && MIN1024.matches) disabledTouchMove();
    hideSections_L()

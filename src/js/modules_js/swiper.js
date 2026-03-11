@@ -171,7 +171,6 @@ function addSwiperFade(element, id) {
       // direction: "vertical", // глючит
       mousewheel: {
          enabled: isPC ? true : false,
-         eventsTarget: '#' + id,
       },
       on: {
          init: function () {
@@ -221,7 +220,6 @@ if (MIN1024.matches && PROCESS_R) addEvensProcess(PROCESS_R, SWIPERS.process_r.s
 // =========== services ===========
 function verticalSwiper(element, id) {
    let swiperState;
-   let swiper;
    changeStateSlider();
    window.addEventListener('resize', () => {
       changeStateSlider();
