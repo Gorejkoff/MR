@@ -406,7 +406,7 @@ if (isPC && MIN1024.matches) {
 
       if (isTrackingShort) {
          console.log(Math.abs(event.deltaY), ' --- ', maxDelta);
-         if (Math.abs(event.deltaY) < 7) { maxDelta = 7 }
+         if (Math.abs(event.deltaY) < 7) { maxDelta = 10 }
          if (Math.abs(event.deltaY) < maxDelta) {
             clearTimeout(trackingShortTime);
             trackingShortTime = setTimeout(() => { runWeel() }, 1000)
