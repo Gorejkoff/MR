@@ -363,6 +363,7 @@ function runWeel() {
    maxDelta = 0;
    console.log('on');
    clearTimeout(mainTrackingTime);
+   clearTimeout(trackingShortTime);
 }
 
 
@@ -412,7 +413,6 @@ if (isPC && MIN1024.matches) {
             trackingShortTime = setTimeout(() => { runWeel() }, 1000)
             console.log("stop delta < maxDelta");
          } else {
-            clearTimeout(trackingShortTime);
             runWeel()
          }
       }
