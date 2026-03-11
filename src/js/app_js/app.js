@@ -359,9 +359,10 @@ let wheelDisabledDelta = false;
 function runWeel() {
    swiperIteration(true);
    isTrackingShort = false;
+   isTracking = false;
    maxDelta = 0;
    console.log('on');
-   mainTrackingTime = null;
+   clearTimeout(mainTrackingTime);
 }
 
 
@@ -374,6 +375,8 @@ if (isPC && MIN1024.matches) {
       if (!wheelDisabled && !modalIsOpen && !isTracking && !isTrackingShort) {
          if (event.deltaY < 0) { actionsPrev() }
          if (event.deltaY > 0) { actionsNext() }
+      } else {
+         event.preventDefault();
       }
 
 
@@ -385,13 +388,13 @@ if (isPC && MIN1024.matches) {
 
          setTimeout(() => {
             console.log('tracking off');
-            isTracking = false;
             isTrackingShort = true;
+            isTracking = false;
             trackingShortTime = setTimeout(() => { runWeel() }, 200)
          }, 500);
          mainTrackingTime = setTimeout(() => {
             runWeel();
-         }, 2500)
+         }, 3000)
       }
 
 
@@ -402,7 +405,6 @@ if (isPC && MIN1024.matches) {
             trackingShortTime = setTimeout(() => { runWeel() }, 200)
             console.log("stop delta < maxDelta");
          } else {
-            isTrackingShort = false;
             clearTimeout(trackingShortTime);
             runWeel()
          }
