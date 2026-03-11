@@ -373,7 +373,7 @@ function runWeel() {
    isTrackingShort = false;
    isTracking = false;
    maxDelta = 0;
-   console.log('on');
+   // console.log('on');
    clearTimeout(mainTrackingTime);
    clearTimeout(trackingShortTime);
 }
@@ -399,10 +399,10 @@ if (isPC && MIN1024.matches) {
       if (!isTracking && !isTrackingShort) {
          isTracking = true;
          swiperIteration(false);
-         console.log('tracking');
+         // console.log('tracking');
 
          setTimeout(() => {
-            console.log('tracking off');
+            // console.log('tracking off');
             isTrackingShort = true;
             isTracking = false;
             trackingShortTime = setTimeout(() => { runWeel() }, 1000)
@@ -414,7 +414,7 @@ if (isPC && MIN1024.matches) {
 
 
       if (isTrackingShort) {
-         console.log(Math.abs(event.deltaY), ' --- ', maxDelta);
+         // console.log(Math.abs(event.deltaY), ' --- ', maxDelta);
          if (Math.abs(event.deltaY) < 7) { maxDelta = 10 }
          if (Math.abs(event.deltaY) < maxDelta) {
             clearTimeout(trackingShortTime);
