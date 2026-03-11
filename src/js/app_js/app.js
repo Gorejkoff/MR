@@ -372,14 +372,20 @@ let mainTrackingTime = null;
 if (isPC && MIN1024.matches) {
    document.addEventListener('wheel', function (event) {
 
-      if (!wheelDisabled && !modalIsOpen && !isTracking && !isTrackingShort) {
+
+
+      if (
+         !wheelDisabled &&
+         !modalIsOpen &&
+         !isTracking &&
+         !isTrackingShort &&
+         Math.abs(event.deltaY) > 5
+      ) {
          if (event.deltaY < 0) { actionsPrev() }
          if (event.deltaY > 0) { actionsNext() }
       } else {
          event.preventDefault();
       }
-
-
 
       if (!isTracking && !isTrackingShort) {
          isTracking = true;
@@ -390,8 +396,8 @@ if (isPC && MIN1024.matches) {
             console.log('tracking off');
             isTrackingShort = true;
             isTracking = false;
-            trackingShortTime = setTimeout(() => { runWeel() }, 200)
-         }, 500);
+            trackingShortTime = setTimeout(() => { runWeel() }, 1000)
+         }, 600);
          mainTrackingTime = setTimeout(() => {
             runWeel();
          }, 3000)
@@ -400,9 +406,10 @@ if (isPC && MIN1024.matches) {
 
       if (isTrackingShort) {
          console.log(Math.abs(event.deltaY), ' --- ', maxDelta);
+         if (Math.abs(event.deltaY) < 7) { maxDelta = 7 }
          if (Math.abs(event.deltaY) < maxDelta) {
             clearTimeout(trackingShortTime);
-            trackingShortTime = setTimeout(() => { runWeel() }, 200)
+            trackingShortTime = setTimeout(() => { runWeel() }, 1000)
             console.log("stop delta < maxDelta");
          } else {
             clearTimeout(trackingShortTime);
