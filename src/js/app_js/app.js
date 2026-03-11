@@ -387,6 +387,7 @@ if (isPC && MIN1024.matches) {
             trackingShortTime = setTimeout(() => {
                swiperIteration(true);
                isTrackingShort = false;
+               console.log('tracking on');
             }, 100)
          }, 700)
       }
@@ -399,12 +400,16 @@ if (isPC && MIN1024.matches) {
             trackingShortTime = setTimeout(() => {
                swiperIteration(true);
                isTrackingShort = false;
+               maxDelta = 0;
+               console.log('tracking on');
             }, 100)
             console.log("stop delta < maxDelta");
          } else {
             isTrackingShort = false;
             clearTimeout(trackingShortTime);
             swiperIteration(true);
+            maxDelta = 0;
+            console.log('tracking on');
          }
       }
 
