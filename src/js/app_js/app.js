@@ -384,8 +384,6 @@ if (isPC && MIN1024.matches) {
       ) {
          if (event.deltaY < 0) { actionsPrev() }
          if (event.deltaY > 0) { actionsNext() }
-      } else {
-         event.preventDefault();
       }
 
       if (!isTracking && !isTrackingShort) {
