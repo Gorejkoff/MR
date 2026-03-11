@@ -388,8 +388,8 @@ if (isPC && MIN1024.matches) {
                swiperIteration(true);
                isTrackingShort = false;
                console.log('tracking on');
-            }, 100)
-         }, 700)
+            }, 200)
+         }, 500)
       }
 
 
@@ -402,7 +402,7 @@ if (isPC && MIN1024.matches) {
                isTrackingShort = false;
                maxDelta = 0;
                console.log('tracking on');
-            }, 100)
+            }, 200)
             console.log("stop delta < maxDelta");
          } else {
             isTrackingShort = false;
