@@ -58,6 +58,12 @@ let wheelDisabled = false;
 let modalIsOpen = false;
 let touchMoveDisabled = false;
 let smoother = undefined;
+// переменные для логики weel
+let maxDelta = 0;
+let lastDelta = 0;
+let isTracking = false;
+let isTrackingShort = false;
+let wheelDisabledDelta = false;
 
 // слайдеры и их прогресс
 const SWIPERS = {
@@ -328,7 +334,7 @@ let swiperTimer = null;
 function disableSwiper(time) {
    swiperIteration(false)
    clearTimeout(swiperTimer);
-   setTimeout(() => { swiperIteration(true) }, time)
+   setTimeout(() => { if (!isTrackingShort && !isTracking) swiperIteration(true) }, time)
 };
 
 // пауза whill
@@ -350,12 +356,6 @@ function disabledTouchMove() {
 // wheel для смены экранов
 
 
-let maxDelta = 0;
-let lastDelta = 0;
-let isTracking = false;
-let isTrackingShort = false;
-let wheelDisabledDelta = false;
-
 function runWeel() {
    swiperIteration(true);
    isTrackingShort = false;
@@ -372,8 +372,6 @@ let trackingShortTime = null;
 let mainTrackingTime = null;
 if (isPC && MIN1024.matches) {
    document.addEventListener('wheel', function (event) {
-
-
 
       if (
          !wheelDisabled &&
