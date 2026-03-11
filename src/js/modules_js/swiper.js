@@ -9,6 +9,7 @@ function addFeaturesSwiper(element, id) {
       direction: MIN1024.matches ? "vertical" : "horizontal",
       spaceBetween: 20,
       speed: 700,
+      // passive: false,
       slidesPerView: MIN1024.matches ? 1.1 : 1,
       mousewheel: {
          enabled: true,

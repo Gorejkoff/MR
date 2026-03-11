@@ -169,7 +169,7 @@
          height: 48vh;
       }
 
-      &::after {
+      ._pc &::after {
          content: '';
          position: absolute;
          top: 0;

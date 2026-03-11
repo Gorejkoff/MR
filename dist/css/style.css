@@ -1880,7 +1880,7 @@ body.remont-branch {
   font-size: 20px;
 }
 
-.services .swiper::after {
+._pc .services .swiper::after {
   content: "";
   position: absolute;
   top: 0;

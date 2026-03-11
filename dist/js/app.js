@@ -314,53 +314,122 @@ function actionsPrev() {
    }
 }
 
-const delta = (() => {
-   // Определяем браузер и ОС
-   const ua = navigator.userAgent;
-   const isFirefox = ua.includes('Firefox');
-   const isSafari = ua.includes('Safari') && !ua.includes('Chrome');
-   const isMac = /Mac|iP(hone|od|ad)/.test(navigator.platform);
+function swiperIteration(state) {
+   for (let key in SWIPERS) {
+      if (SWIPERS[key].swiper.mousewheel) {
+         state && SWIPERS[key].swiper.mousewheel.enable();
+         !state && SWIPERS[key].swiper.mousewheel.disable();
+      }
+   }
+}
 
-   if (isFirefox) return 40;      // Firefox маленькие значения
-   if (isSafari && isMac) return 20; // Safari на Mac
-   if (isMac) return 80;           // Другие браузеры на Mac
-   return 100;                     // Windows / остальные
-})();
-console.log('delta - ', delta);
-
-
+// пауза для слайдеров
 let swiperTimer = null;
 function disableSwiper(time) {
-   if (!SWIPERS[active_section]) return;
-   SWIPERS[active_section].swiper.mousewheel.disable();
+   swiperIteration(false)
    clearTimeout(swiperTimer);
-   swiperTimer = setTimeout(() => { SWIPERS[active_section].swiper.mousewheel.enable() }, time)
+   setTimeout(() => { swiperIteration(true) }, time)
 };
 
-// wheel для смены экранов  // !!!!!!!1111111111111111111111
+// пауза whill
+function disabledWheel() {
+   if (wheelDisabled) return;
+   wheelDisabled = true;
+   disableSwiper(1600);
+   setTimeout(() => { wheelDisabled = false }, TRANSITION_TIME * 1.6)
+}
+// пауза thouch move
+function disabledTouchMove() {
+   if (touchMoveDisabled) return;
+   touchMoveDisabled = true;
+   setTimeout(() => { touchMoveDisabled = false }, TRANSITION_TIME * 1.6)
+}
+
+
+
+// wheel для смены экранов
+
+
+let maxDelta = 0;
+let lastDelta = 0;
+let isTracking = false;
+let isTrackingShort = false;
+function offWeel() {
+   console.log('disabled');
+}
+
+function runWeel() {
+   console.log('active');
+}
+
+let wheelDisabledDelta = false;
+const timeDelta = 700;
+
+function stopWeel() {
+   wheelDisabledDelta = true;
+}
+
+let trackingOff = null;
+let trackingShortTime = null;
+
 if (isPC && MIN1024.matches) {
    document.addEventListener('wheel', function (event) {
-      console.log(event.deltaY);
-      console.log(swiperTimer);
 
-      if (wheelDisabled) {
-         console.log('stop');
-         event.preventDefault();
-         return;
+      if (!isTracking && !isTrackingShort) {
+         isTracking = true;
+         swiperIteration(false);
+         console.log('tracking');
+
+         setTimeout(() => {
+            console.log('tracking off');
+            isTracking = false;
+            isTrackingShort = true;
+            trackingShortTime = setTimeout(() => {
+               swiperIteration(true);
+               isTrackingShort = false;
+            }, 100)
+         }, 700)
       }
-      if (Math.abs(event.deltaY) < delta) {
-         if (swiperTimer < 100) {
-            disableSwiper(100);
+
+
+      if (isTrackingShort) {
+         console.log(Math.abs(event.deltaY), ' --- ', maxDelta);
+         if (Math.abs(event.deltaY) < maxDelta) {
+            clearTimeout(trackingShortTime);
+            trackingShortTime = setTimeout(() => {
+               swiperIteration(true);
+               isTrackingShort = false;
+            }, 100)
+            console.log("stop delta < maxDelta");
+         } else {
+            isTrackingShort = false;
+            clearTimeout(trackingShortTime);
+            swiperIteration(true);
          }
-         event.preventDefault();
-         return
-      }; // игнорируем инерцию (затухание дэльты)
-      disabledWheel();
-      disableSwiper(700);
-      if (!modalIsOpen && event.deltaY < 0) { actionsPrev() }
-      if (!modalIsOpen && event.deltaY > 0) { actionsNext() }
+      }
+
+
+      if (!wheelDisabled && !modalIsOpen && event.deltaY < 0) { actionsPrev() }
+      if (!wheelDisabled && !modalIsOpen && event.deltaY > 0) { actionsNext() }
+
+
+      //!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+
+
+      if (isTracking) {
+         maxDelta = Math.max(Math.abs(event.deltaY), maxDelta, 10);
+      }
+
+
+      //!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
    }, { passive: false });
 }
+
+
 
 let startX = 0;
 let startY = 0;
@@ -475,7 +544,7 @@ function checkingSliderLength(id) {
       setTimeout(() => {
          progress[id].start = true;
          progress[id].end = true;
-      }, TRANSITION_TIME * 1.2)
+      }, TRANSITION_TIME * 1.6)
    }
 }
 // управление
@@ -488,18 +557,7 @@ function closeMenu() {
 function toggleMenu() {
    DOC.body.classList.toggle('menu-open');
 }
-// пауза whill
-function disabledWheel() {
-   if (wheelDisabled) return;
-   wheelDisabled = true;
-   setTimeout(() => { wheelDisabled = false }, TRANSITION_TIME * 1.2)
-}
-// пауза thouch move
-function disabledTouchMove() {
-   if (touchMoveDisabled) return;
-   touchMoveDisabled = true;
-   setTimeout(() => { touchMoveDisabled = false }, TRANSITION_TIME * 1.2)
-}
+
 // переключение табов в контактах
 function openMap(event) {
    const contacts = event.target.closest('.contacts');
@@ -1178,6 +1236,7 @@ function addFeaturesSwiper(element, id) {
       direction: MIN1024.matches ? "vertical" : "horizontal",
       spaceBetween: 20,
       speed: 700,
+      // passive: false,
       slidesPerView: MIN1024.matches ? 1.1 : 1,
       mousewheel: {
          enabled: true,
