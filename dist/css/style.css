@@ -81,7 +81,6 @@ body {
   -ms-text-size-adjust: 100%;
   -moz-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
-  scroll-behavior: smooth;
 }
 
 input,
@@ -747,6 +746,7 @@ body.remont-branch {
   backdrop-filter: blur(31.3px);
   overflow-y: auto;
   overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
   -webkit-transition: -webkit-transform var(--tr-time) var(--easing);
   transition: -webkit-transform var(--tr-time) var(--easing);
   transition: transform var(--tr-time) var(--easing);

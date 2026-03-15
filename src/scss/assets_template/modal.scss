@@ -10,6 +10,7 @@
    backdrop-filter: blur(31.3px);
    overflow-y: auto;
    overflow-x: hidden;
+   -webkit-overflow-scrolling: touch;
    transition: transform var(--tr-time) var(--easing);
    backface-visibility: hidden;
    // perspective: 1000px;

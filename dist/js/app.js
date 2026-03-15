@@ -303,7 +303,6 @@ function actionsPrev(props) {
    if (active_section == 'stages_r' && progress.stages_r.start) {
       change_LR(FEATURES_R)
    }
-
    if (active_section == 'projects_m' && progress.projects_m.start) {
       changeGsap_LR(SERVICES_M, '#services_ms', '#services_mc')
    }
@@ -440,8 +439,8 @@ let threshold = 20;   // минимальное расстояние для оп
 if (!isPC && MIN1024.matches) {
    // console.log('touchMove active');
 
-   DOC.addEventListener('touchstart', onTouchStart);
-   DOC.addEventListener('touchend', onTouchEnd);
+   DOC.addEventListener('touchstart', onTouchStart, { passive: true });
+   DOC.addEventListener('touchend', onTouchEnd, { passive: true });
 
    function onTouchStart(event) {
       startX = event.touches[0].clientX;
@@ -586,7 +585,11 @@ function activeMebelBranch() {
       tl_about.about_r.scrollTrigger.disable();
       tl_about.about_m.scrollTrigger.enable();
       tl_about.about_m.scrollTrigger.refresh();
-      window.scrollTo(0, 0);
+      if (smoother) {
+         smoother.scrollTo(0, false)
+      } else {
+         window.scrollTo(0, 0);
+      }
       // window.scrollTo({top: 0, behavior: 'instant'}); // без плавной прокрутки
    })
 }
@@ -597,7 +600,11 @@ function activeRemontBranch() {
       tl_about.about_m.scrollTrigger.disable();
       tl_about.about_r.scrollTrigger.enable();
       tl_about.about_r.scrollTrigger.refresh();
-      window.scrollTo(0, 0);
+      if (smoother) {
+         smoother.scrollTo(0, false)
+      } else {
+         window.scrollTo(0, 0);
+      }
       //  window.scrollTo({top: 0, behavior: 'instant'}); // без плавной прокрутки
    })
 }
@@ -616,7 +623,11 @@ function hiddenStartScreen(sectionName) {
       if (sectionName && sectionName === 'mebel') swowMebelMobile();
       if (sectionName && sectionName === 'remont') swowRemontMobile();
    }
-   window.scrollTo(0, 0);
+   if (smoother) {
+      smoother.scrollTo(0, false)
+   } else {
+      window.scrollTo(0, 0);
+   }
 }
 function showStartScreen() {
    change_RL(START)
