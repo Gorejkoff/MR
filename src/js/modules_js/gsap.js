@@ -37,8 +37,6 @@ if (!isPC) {
 
 function initScroll(s, c) {
    if (smoother && smoother.vars.wrapper == s) return;
-   console.log('init smoother');
-
    smoother = ScrollSmoother.create({
       wrapper: s,
       content: c,
@@ -47,7 +45,6 @@ function initScroll(s, c) {
       // smoothTouch: 0.1, // Уменьшить для мобильных
       // ignoreMobileResize: true,
    })
-   // console.log('smoother init');
 
    if (isPC && smoother) smoother.paused(true);
 }
@@ -69,7 +66,6 @@ function addAboutAnimation(element, id, trigger, scroller) {
          // pinType: "transform",
          ignoreMobileResize: true,
          onUpdate: (self) => {
-            // console.log(self.progress.toFixed(4));
             if (!MIN1024.matches) return;
             if (Number(self.progress.toFixed(4)) == 0 && active_section === id) {
                progress[id].start = true;
@@ -102,46 +98,6 @@ if (ABOUT_TEXT_M) addAboutAnimation(ABOUT_TEXT_M, 'about_m', '.trigger-about-m',
 const ABOUT_TEXT_R = document.querySelector('.about-text-r');
 if (ABOUT_TEXT_R) addAboutAnimation(ABOUT_TEXT_R, 'about_r', '.trigger-about-r', '#about_rs');
 
-
-// services_m
-// const SERVICES_TITLE = document.querySelector('.services__title');
-// const TRIGGER_LIST = document.querySelector('.trigger-services-list');
-// if (MIN1024.matches && SERVICES_TITLE && TRIGGER_LIST) {
-//    tl_services.services_m = gsap.timeline({
-//       scrollTrigger: {
-//          trigger: '.services-trigger',
-//          scroller: "#services_ms",
-//          start: "0% 0%",
-//          end: isPC ? '100% 100%' : '100% 99%',
-//          pin: '.services__title',
-//          pinType: isPC ? "transform" : "fixed",
-//          pinSpacing: false,
-//          scrub: true,
-//          // markers: {
-//          //    startColor: "green",
-//          //    endColor: "red",
-//          //    fontSize: "40px",
-//          //    fontWeight: "bold",
-//          //    indent: 20
-//          // },
-//          onUpdate: (self) => {
-//             // console.log(Number(self.progress.toFixed(5)));
-//             if (!MIN1024.matches) return;
-//             if (Number(self.progress.toFixed(5)) <= 0.01 && active_section === 'services_m') {
-//                progress.services_m.start = true;
-//                return;
-//             }
-//             if (Number(self.progress.toFixed(5)) >= 0.98 && active_section === 'services_m') {
-//                progress.services_m.end = true;
-//                return;
-//             }
-//             progress.services_m.start = false;
-//             progress.services_m.end = false;
-//          },
-//       },
-//    })
-//    if (!isPC && MIN1024.matches) tl_services.services_m.to(TRIGGER_LIST, { y: (TRIGGER_LIST.offsetHeight - SERVICES_TITLE.offsetHeight) * -1, ease: 'linear' })
-// }
 
 if (!MIN1024.matches) {
    gsap.utils.toArray(".services__card").forEach((item, index) => {

@@ -31,7 +31,7 @@ DOC.body.style.setProperty('--tr-time', TRANSITION_TIME / 1000 + 's')
 // variables
 
 const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-console.log('is safari - ', isSafari);
+// console.log('is safari - ', isSafari);
 const SECTIONS = DOC.querySelectorAll('.section');
 const COOKIE = DOC.querySelector('.cookie');
 const HEADER = DOC.getElementById('header');
@@ -102,9 +102,7 @@ const tl_about = {
    about_m: {},
    about_r: {}
 }
-// const tl_services = {
-//    services_m: {}
-// }
+
 // для глобального отслеживания состояния начальной и конечной позиции прогресса
 const progress = {
    about_m: {
@@ -223,7 +221,6 @@ DOC.documentElement.addEventListener("click", (event) => {
 document.addEventListener('modal:open', () => {
    // отключить скролл слайдера
    if (isPC) {
-      // console.log('projects swiper off');
       modalIsOpen = true;
       SWIPERS.projects_m.swiper.mousewheel.disable();
       SWIPERS.projects_r.swiper.mousewheel.disable();
@@ -234,7 +231,6 @@ document.addEventListener('modal:open', () => {
 document.addEventListener('modal:close', () => {
    // включить скролл слайдера
    if (isPC) {
-      // console.log('projects swiper on');
       modalIsOpen = false;
       SWIPERS.projects_m.swiper.mousewheel.enable();
       SWIPERS.projects_r.swiper.mousewheel.enable();
@@ -334,7 +330,7 @@ function actionsPrev(props) {
 
 function swiperIteration(state) {
    for (let key in SWIPERS) {
-      if (SWIPERS[key].swiper.mousewheel) {
+      if (SWIPERS[key].swiper.el && SWIPERS[key].swiper.mousewheel) {
          state && SWIPERS[key].swiper.mousewheel.enable();
          !state && SWIPERS[key].swiper.mousewheel.disable();
       }
@@ -372,7 +368,6 @@ function runWeel() {
    isTrackingShort = false;
    isTracking = false;
    maxDelta = 0;
-   // console.log('on');
    clearTimeout(mainTrackingTime);
    clearTimeout(trackingShortTime);
 }
@@ -933,8 +928,6 @@ if (!isPC) {
 
 function initScroll(s, c) {
    if (smoother && smoother.vars.wrapper == s) return;
-   console.log('init smoother');
-
    smoother = ScrollSmoother.create({
       wrapper: s,
       content: c,
@@ -943,7 +936,6 @@ function initScroll(s, c) {
       // smoothTouch: 0.1, // Уменьшить для мобильных
       // ignoreMobileResize: true,
    })
-   // console.log('smoother init');
 
    if (isPC && smoother) smoother.paused(true);
 }
@@ -965,7 +957,6 @@ function addAboutAnimation(element, id, trigger, scroller) {
          // pinType: "transform",
          ignoreMobileResize: true,
          onUpdate: (self) => {
-            // console.log(self.progress.toFixed(4));
             if (!MIN1024.matches) return;
             if (Number(self.progress.toFixed(4)) == 0 && active_section === id) {
                progress[id].start = true;
@@ -998,46 +989,6 @@ if (ABOUT_TEXT_M) addAboutAnimation(ABOUT_TEXT_M, 'about_m', '.trigger-about-m',
 const ABOUT_TEXT_R = document.querySelector('.about-text-r');
 if (ABOUT_TEXT_R) addAboutAnimation(ABOUT_TEXT_R, 'about_r', '.trigger-about-r', '#about_rs');
 
-
-// services_m
-// const SERVICES_TITLE = document.querySelector('.services__title');
-// const TRIGGER_LIST = document.querySelector('.trigger-services-list');
-// if (MIN1024.matches && SERVICES_TITLE && TRIGGER_LIST) {
-//    tl_services.services_m = gsap.timeline({
-//       scrollTrigger: {
-//          trigger: '.services-trigger',
-//          scroller: "#services_ms",
-//          start: "0% 0%",
-//          end: isPC ? '100% 100%' : '100% 99%',
-//          pin: '.services__title',
-//          pinType: isPC ? "transform" : "fixed",
-//          pinSpacing: false,
-//          scrub: true,
-//          // markers: {
-//          //    startColor: "green",
-//          //    endColor: "red",
-//          //    fontSize: "40px",
-//          //    fontWeight: "bold",
-//          //    indent: 20
-//          // },
-//          onUpdate: (self) => {
-//             // console.log(Number(self.progress.toFixed(5)));
-//             if (!MIN1024.matches) return;
-//             if (Number(self.progress.toFixed(5)) <= 0.01 && active_section === 'services_m') {
-//                progress.services_m.start = true;
-//                return;
-//             }
-//             if (Number(self.progress.toFixed(5)) >= 0.98 && active_section === 'services_m') {
-//                progress.services_m.end = true;
-//                return;
-//             }
-//             progress.services_m.start = false;
-//             progress.services_m.end = false;
-//          },
-//       },
-//    })
-//    if (!isPC && MIN1024.matches) tl_services.services_m.to(TRIGGER_LIST, { y: (TRIGGER_LIST.offsetHeight - SERVICES_TITLE.offsetHeight) * -1, ease: 'linear' })
-// }
 
 if (!MIN1024.matches) {
    gsap.utils.toArray(".services__card").forEach((item, index) => {
@@ -1534,5 +1485,4 @@ function verticalSwiper(element, id) {
       }
    }
 }
-
 if (SERVICES_M) { verticalSwiper(SERVICES_M, 'services_m') }

@@ -31,7 +31,7 @@ DOC.body.style.setProperty('--tr-time', TRANSITION_TIME / 1000 + 's')
 // variables
 
 const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-console.log('is safari - ', isSafari);
+// console.log('is safari - ', isSafari);
 const SECTIONS = DOC.querySelectorAll('.section');
 const COOKIE = DOC.querySelector('.cookie');
 const HEADER = DOC.getElementById('header');
@@ -102,9 +102,7 @@ const tl_about = {
    about_m: {},
    about_r: {}
 }
-// const tl_services = {
-//    services_m: {}
-// }
+
 // для глобального отслеживания состояния начальной и конечной позиции прогресса
 const progress = {
    about_m: {
@@ -223,7 +221,6 @@ DOC.documentElement.addEventListener("click", (event) => {
 document.addEventListener('modal:open', () => {
    // отключить скролл слайдера
    if (isPC) {
-      // console.log('projects swiper off');
       modalIsOpen = true;
       SWIPERS.projects_m.swiper.mousewheel.disable();
       SWIPERS.projects_r.swiper.mousewheel.disable();
@@ -234,7 +231,6 @@ document.addEventListener('modal:open', () => {
 document.addEventListener('modal:close', () => {
    // включить скролл слайдера
    if (isPC) {
-      // console.log('projects swiper on');
       modalIsOpen = false;
       SWIPERS.projects_m.swiper.mousewheel.enable();
       SWIPERS.projects_r.swiper.mousewheel.enable();
@@ -334,7 +330,7 @@ function actionsPrev(props) {
 
 function swiperIteration(state) {
    for (let key in SWIPERS) {
-      if (SWIPERS[key].swiper.mousewheel) {
+      if (SWIPERS[key].swiper.el && SWIPERS[key].swiper.mousewheel) {
          state && SWIPERS[key].swiper.mousewheel.enable();
          !state && SWIPERS[key].swiper.mousewheel.disable();
       }
@@ -372,7 +368,6 @@ function runWeel() {
    isTrackingShort = false;
    isTracking = false;
    maxDelta = 0;
-   // console.log('on');
    clearTimeout(mainTrackingTime);
    clearTimeout(trackingShortTime);
 }

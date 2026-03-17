@@ -285,5 +285,4 @@ function verticalSwiper(element, id) {
       }
    }
 }
-
 if (SERVICES_M) { verticalSwiper(SERVICES_M, 'services_m') }

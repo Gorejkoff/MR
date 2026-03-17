@@ -3933,8 +3933,8 @@ body.remont-branch {
     background: #a9abb5;
     -webkit-mask-position: left;
             mask-position: left;
-    -webkit-mask-image: url("../img/png/mask-r.png");
-            mask-image: url("../img/png/mask-r.png");
+    -webkit-mask-image: url("../img/png/mask-r-2.png");
+            mask-image: url("../img/png/mask-r-2.png");
   }
 
   .mebel--mod .first__mask {
