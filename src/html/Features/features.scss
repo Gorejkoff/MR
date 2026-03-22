@@ -208,6 +208,7 @@
       height: 160px;
       transition: transform 1s 0.3s;
       border-radius: 6px;
+      width: auto;
 
       @media (min-width:1024px) {
          height: calc(var(--vh) * 0.29);

@@ -1601,6 +1601,7 @@ body.remont-branch {
   transition: transform 1s 0.3s;
   transition: transform 1s 0.3s, -webkit-transform 1s 0.3s;
   border-radius: 6px;
+  width: auto;
 }
 
 .features__image-small.animate-1 {
