@@ -30,6 +30,14 @@ DOC.body.style.setProperty('--tr-time', TRANSITION_TIME / 1000 + 's')
 
 // variables
 const locationPath = window.location.pathname;
+// Получаем имя файла без расширения
+let pageName = locationPath.split('/').pop();
+// Убираем .html если есть
+if (pageName.endsWith('.html')) {
+   pageName = pageName.slice(0, -5);
+}
+console.log(pageName);
+
 const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 // console.log('is safari - ', isSafari);
 const SECTIONS = DOC.querySelectorAll('.section');
@@ -186,19 +194,19 @@ DOC.documentElement.addEventListener("click", (event) => {
    if (!event.target.closest('.header__button') && !event.target.closest('.header__nav-list')) { closeMenu() }
    // навигация
    if (event.target.closest('.next-mebel')) {
-      if (locationPath === '/remont.html') {
+      if (pageName === 'remont') {
          return;
       }
-      if (locationPath === '/mebel.html') {
+      if (pageName === 'mebel') {
          return;
       }
       nextMebel()
    }
    if (event.target.closest('.next-remont')) {
-      if (locationPath === '/remont.html') {
+      if (pageName === 'remont') {
          return;
       }
-      if (locationPath === '/mebel.html') {
+      if (pageName === 'mebel') {
          return;
       }
       nextRemont()
@@ -211,10 +219,10 @@ DOC.documentElement.addEventListener("click", (event) => {
       closeMenu();
    }
    if (event.target.closest('.to-start')) {
-      if (locationPath === '/remont.html') {
+      if (pageName === 'remont') {
          return;
       }
-      if (locationPath === '/mebel.html') {
+      if (pageName === 'mebel') {
          return;
       }
       if (MIN1024.matches) {
@@ -827,10 +835,10 @@ if (hash == '#mebel') {
    nextMebel()
 }
 
-if (locationPath === '/remont.html') {
+if (pageName === 'remont') {
    nextRemont()
 }
-if (locationPath === '/mebel.html') {
+if (pageName === 'mebel') {
    nextMebel()
 }
 
