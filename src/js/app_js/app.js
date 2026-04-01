@@ -36,6 +36,7 @@ let pageName = locationPath.split('/').pop();
 if (pageName.endsWith('.html')) {
    pageName = pageName.slice(0, -5);
 }
+console.log(locationPath);
 console.log(pageName);
 
 const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
