@@ -4955,6 +4955,11 @@ body.remont-branch {
 }
 
 @media (max-width: 1023.98px) {
+  html,
+  body {
+    scroll-behavior: smooth;
+  }
+
   #remont,
   #mebel {
     position: fixed;

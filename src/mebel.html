@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+   @@include('html/1_head.html',{"title":"RM - Mebel"})
+</head>
+
+
+<body>
+
+   <div class="wrapper">
+
+      @@include('html/2_header.html',{})
+
+      <div class="main">
+
+         <div id="smooth-wrapper">
+            <div id="smooth-content">
+               <div id="mebel">
+                  @@include('html/Mebel/Mebel.html',{})
+                  @@include('html/About/AboutM.html',{})
+                  @@include('html/Features/FeaturesM.html',{})
+                  @@include('html/Services/Services.html',{})
+                  @@include('html/Projects/ProjectsM.html',{})
+                  @@include('html/Partners/Partners.html',{})
+                  @@include('html/Contacts/ContactsM.html',{})
+               </div>
+            </div>
+         </div>
+      </div>
+      <template id="marker_m">
+         <div class="map-marker">
+            <svg width="36" height="29" viewBox="0 0 36 29" fill="none" xmlns="http://www.w3.org/2000/svg">
+               <path d="M36 0V28.5225H30.9893V8.20985L21.0835 28.5225H15.6488L5.01071 7.86296V28.5225H0V0H6.39829L18.3084 23.0878L29.5632 0H36Z" fill="url(#paint0_linear_1252_701)" />
+               <circle cx="17.9973" cy="3.17263" r="2.81667" fill="url(#paint1_linear_1252_701)" />
+               <defs>
+                  <linearGradient id="paint0_linear_1252_701" x1="18" y1="0" x2="18" y2="37.302" gradientUnits="userSpaceOnUse">
+                     <stop stop-color="#A9ABB5" />
+                     <stop offset="1" stop-color="#4A4B4F" />
+                  </linearGradient>
+                  <linearGradient id="paint1_linear_1252_701" x1="17.9973" y1="0.355957" x2="17.9973" y2="7.7233" gradientUnits="userSpaceOnUse">
+                     <stop stop-color="#A9ABB5" />
+                     <stop offset="1" stop-color="#4A4B4F" />
+                  </linearGradient>
+               </defs>
+            </svg>
+         </div>
+      </template>
+      @@include('html/Projects/Modals/Mebel-modal.html',{})
+      @@include('html/Projects/Modals/Remont-modal.html',{})
+      @@include('html/Cookie-Modal/Cookie-Modal.html',{})
+      @@include('html/Cookie/Cookie.html',{})
+
+   </div>
+
+   <script defer src="https://api-maps.yandex.ru/v3/?apikey=6f1ea5a8-bc6c-4023-a413-08b9577cdfcf&lang=ru_RU"></script>
+   @@include('html/3_scripts.html',{ })
+
+
+</body>
+
+</html>
