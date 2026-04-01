@@ -158,10 +158,10 @@ const progress = {
    },
 }
 
-function nextRemont() {
+function nextRemont(animate) {
    if (MIN1024.matches) {
       hideSections_L();
-      showSectionNotAnimated(FIRST_R);
+      animate ? change_LR(FIRST_R) : showSectionNotAnimated(FIRST_R);
       hide_L(FIRST_M)
       hiddenStartScreen();
       activeRemontBranch();
@@ -171,10 +171,10 @@ function nextRemont() {
    activeRemontBranch();
    hiddenStartScreen('remont')
 }
-function nextMebel() {
+function nextMebel(animate) {
    if (MIN1024.matches) {
       hideSections_L();
-      showSectionNotAnimated(FIRST_M);
+      animate ? change_LR(FIRST_M) : showSectionNotAnimated(FIRST_M);
       hide_L(FIRST_R);
       hiddenStartScreen();
       activeMebelBranch();
@@ -198,19 +198,18 @@ DOC.documentElement.addEventListener("click", (event) => {
       if (pageName === 'remont') {
          return;
       }
-      if (pageName === 'mebel') {
-         return;
-      }
+      // if (pageName === 'mebel') {
+      //    return;
+      // }
+      event.preventDefault();
       nextMebel()
    }
    if (event.target.closest('.next-remont')) {
-      if (pageName === 'remont') {
-         return;
-      }
       if (pageName === 'mebel') {
          return;
       }
-      nextRemont()
+      event.preventDefault();
+      nextRemont();
    }
    if (event.target.closest('.next-mebel-about')) { changeGsap_RL(ABOUT_M, '#about_ms', '#about_mc') }
    if (event.target.closest('.next-remont-about')) { changeGsap_RL(ABOUT_R, '#about_rs', '#about_rc') }
@@ -221,9 +220,11 @@ DOC.documentElement.addEventListener("click", (event) => {
    }
    if (event.target.closest('.to-start')) {
       if (pageName === 'remont') {
+         nextRemont(true)
          return;
       }
       if (pageName === 'mebel') {
+         nextMebel(true)
          return;
       }
       if (MIN1024.matches) {
@@ -828,13 +829,13 @@ inputsRequired.forEach((e) => {
    })
 })
 
-const hash = window.location.hash;
-if (hash == '#remont') {
-   nextRemont()
-}
-if (hash == '#mebel') {
-   nextMebel()
-}
+// const hash = window.location.hash;
+// if (hash == '#remont') {
+//    nextRemont()
+// }
+// if (hash == '#mebel') {
+//    nextMebel()
+// }
 
 if (pageName === 'remont') {
    nextRemont()
